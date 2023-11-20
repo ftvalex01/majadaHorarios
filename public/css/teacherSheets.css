@@ -1,0 +1,84 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #f4f4f4;
+}
+
+header, footer {
+    background-color: #1D2333;
+    color: white;
+    text-align: center;
+}
+
+header {
+    padding: 15px;
+}
+
+main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: calc(100vh - 38px - 67px);
+    margin: 20px 0;
+}
+
+table {
+    border: 2px solid #000;
+    width: 100%;
+}
+
+table td, table th {
+    border: 2px solid #000;
+    height: 29px;
+    padding: 5px;
+}
+
+footer {
+    padding: 10px;
+}
+
+textarea {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 30px;
+    padding: 10px;
+}
+
+#container {
+    background-color: white;
+    padding: 15px;
+    border-radius: 10px;
+    border: 1px solid black;
+    overflow-x: auto;
+}
+
+
+
+#department {
+    grid-area: department;
+}
+
+#specialization {
+    grid-area: specialization;
+}
+
+#teacher {
+    grid-area: teacher;
+}
+
+#schoolYear {
+    grid-area: schoolYear;
+}
+
+.blankCells {
+    border: none;
+}
+
+.totalCell {
+    text-align: start;
+}

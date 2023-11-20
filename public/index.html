@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="es-ES">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./css/index.css">
+    <title>Hojas de Profesores</title>
+</head>
+
+<body>
+    <header>
+        <h1>Formulario de Profesores</h1>
+    </header>
+
+    <main>
+        <div id="container">
+            <img src="./images/LogoMoodle1.jpg" alt="No Majada Marcial Image">
+
+            <form id="professorsForm" action="./views/teacherSheets.html" method="POST">
+                <input type="text" name="professorName" id="professorName" placeholder="Nombre">
+
+                <input type="text" name="profesorDNI" id="profesorDNI" placeholder="DNI">
+
+                <div id="submitBox">
+                    <input id="submitButton" type="submit" value="Verificar">
+                </div>
+            </form>
+        </div>
+    </main>
+
+    <footer>
+        <h4>Por: </h4>
+    </footer>
+
+    <script src="./js/main.js"></script>
+</body>
+
+</html>
