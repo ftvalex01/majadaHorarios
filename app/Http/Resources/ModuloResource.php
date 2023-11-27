@@ -23,10 +23,10 @@ class ModuloResource extends JsonResource
             'h_totales' => $this->h_totales,
             'aula' => $this->aula,
             'user_id' => $this->user_id,
-            'especialidad_id' => $this->especialidad_id,
+            'especialidad' => new EspecialidadResource($this->especialidad),
             'curso_id' => $this->curso_id,
-            'created_at' => $this->created_at,
-            'updated_at' => $this->updated_at,
+            //'created_at' => $this->created_at,
+            //'updated_at' => $this->updated_at,
         ];
     }
 }
