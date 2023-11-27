@@ -37,7 +37,7 @@ class Modulo extends Model
      */
     public function especialidad()
     {
-        return $this->belongsTo(Especialidad::class, 'especialidad_id');
+        return $this->belongsTo(Especialidad::class);
     }
 
     /**

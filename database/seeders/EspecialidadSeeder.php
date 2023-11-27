@@ -1,4 +1,3 @@
-
 <?php
 
 namespace Database\Seeders;
@@ -15,9 +14,14 @@ class EspecialidadSeeder extends Seeder
      */
     public function run()
     {
-        // Crear una especialidad de ejemplo
+        // Crear la especialidad "INFORMÁTICA"
         Especialidad::create([
-            'nombre' => 'Especialidad de Ejemplo',
+            'nombre' => 'INFORMÁTICA',
+        ]);
+
+        // Crear la especialidad "SISTEMAS Y APLICACIONES INFORMÁTICAS"
+        Especialidad::create([
+            'nombre' => 'SISTEMAS Y APLICACIONES INFORMÁTICAS',
         ]);
 
         // Puedes agregar más especialidades según sea necesario
