@@ -16,7 +16,6 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return response()->file(public_path('index.html'));
 });
-
 Route::get('/teacherSheets', function () {
     return response()->file(public_path('views/teacherSheets.html'));
 });
