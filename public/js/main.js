@@ -18,15 +18,11 @@ document.getElementById('professorsForm').addEventListener('submit', function (e
     })
     .then(response => response.json())
     .then(data => {
-        // Manejar la respuesta del servidor
         if (data.status === 'success') {
-            // Almacenar el token en el localStorage o en las cookies según tu aplicación
-            localStorage.setItem('token', data.data.token); // CAMBIAR A SESSION
-            
-            // Redirigir a otra página o realizar otras acciones después de iniciar sesión
-            window.location.href = 'teacherSheets'; // Cambia la URL según tu estructura de rutas
+            localStorage.setItem('token', data.data.token);
+            localStorage.setItem('user', JSON.stringify(data.data.user));
+            window.location.href = 'teacherSheets';
         } else {
-            // Mostrar mensaje de error u otras acciones en caso de fallo
             alert('Error: ' + data.message);
         }
     })
