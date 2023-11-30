@@ -17,10 +17,12 @@
         <div id="container">
             <img src="./images/LogoMoodle1.jpg" alt="No Majada Marcial Image">
 
-            <form id="professorsForm" action="./views/teacherSheets.html" method="POST">
-                <input type="text" name="professorName" id="professorName" placeholder="Nombre">
+            <form id="professorsForm" action="/api/login" method="POST">
+                <!-- Cambié el nombre del campo a "email" para reflejar el cambio -->
+                <input type="text" name="email" id="email" placeholder="Email">
 
-                <input type="text" name="profesorDNI" id="profesorDNI" placeholder="DNI">
+                <!-- Cambié el nombre del campo a "password" para reflejar el cambio -->
+                <input type="password" name="password" id="password" placeholder="Contraseña">
 
                 <div id="submitBox">
                     <input id="submitButton" type="submit" value="Verificar">
