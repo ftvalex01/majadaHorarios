@@ -24,7 +24,7 @@ document.getElementById('professorsForm').addEventListener('submit', function (e
             localStorage.setItem('token', data.data.token); // CAMBIAR A SESSION
             
             // Redirigir a otra página o realizar otras acciones después de iniciar sesión
-            window.location.href = 'teacherSheets.html'; // Cambia la URL según tu estructura de rutas
+            window.location.href = 'teacherSheets'; // Cambia la URL según tu estructura de rutas
         } else {
             // Mostrar mensaje de error u otras acciones en caso de fallo
             alert('Error: ' + data.message);
