@@ -1,5 +1,4 @@
 <?php
-
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -18,6 +17,8 @@ return new class extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();
+            $table->foreignId('especialidad_id')->nullable()->constrained('especialidads');
+            $table->enum('rol', ['profesor', 'jefe_departamento', 'jefe_estudios'])->default('profesor');
             $table->timestamps();
         });
     }
