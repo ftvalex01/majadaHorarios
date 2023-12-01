@@ -18,4 +18,4 @@ Route::get('/', function () {
 });
 Route::get('/teacherSheets', function () {
     return response()->file(public_path('views/teacherSheets.html'));
-});
+})->middleware('auth:sanctum');
