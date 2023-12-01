@@ -19,9 +19,12 @@ document.getElementById('professorsForm').addEventListener('submit', function (e
     .then(response => response.json())
     .then(data => {
         if (data.status === 'success') {
-            localStorage.setItem('token', data.data.token);
-            localStorage.setItem('user', JSON.stringify(data.data.user));
+            // Cambiado de localStorage a sessionStorage
+            sessionStorage.setItem('token', data.data.token);
+            sessionStorage.setItem('user', JSON.stringify(data.data.user));
+            
             window.location.href = 'teacherSheets';
+          
         } else {
             alert('Error: ' + data.message);
         }
