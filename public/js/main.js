@@ -20,6 +20,7 @@ document.getElementById('professorsForm').addEventListener('submit', function (e
     .then(data => {
         if (data.status === 'success') {
             // Cambiado de localStorage a sessionStorage
+           
             sessionStorage.setItem('token', data.data.token);
             sessionStorage.setItem('user', JSON.stringify(data.data.user));
             

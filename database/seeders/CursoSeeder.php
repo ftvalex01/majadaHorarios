@@ -14,9 +14,12 @@ class CursoSeeder extends Seeder
      */
     public function run()
     {
-        // Crear un curso de ejemplo
+        // ES ESTUDIO EN EL JSON
         Curso::create([
             'nombre' => 'Curso de Ejemplo',
+        ]);
+        Curso::create([
+            'nombre' => 'Curso de Ejemplo2',
         ]);
 
         // Puedes agregar más cursos según sea necesario

@@ -10,10 +10,11 @@ class Modulo extends Model
     use HasFactory;
 
     protected $fillable = [
-        'codigo',
+        'cod',
         'materia',
         'h_semanales',
         'h_totales',
+        'grupos',
         'aula',
         'user_id',
         'especialidad_id',
