@@ -72,7 +72,7 @@ class AuthController extends Controller
         }
 
         // Check email exist
-        $user = User::where('email', $request->email)->with('especialidad')->first();
+        $user = User::where('email', $request->email)->with('especialidad','departamento')->first();
 
 
         // Check password

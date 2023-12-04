@@ -1,11 +1,11 @@
+// En DepartamentoResource.php
 <?php
 
 namespace App\Http\Resources;
 
-
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class UserResource extends JsonResource
+class DepartamentoResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -17,10 +17,8 @@ class UserResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'name' => $this->name,
-            'email' => $this->email,
-            'especialidad' => new EspecialidadResource($this->especialidad),
-            'departamento' => new DepartamentoResource($this->departamento),
+            'nombre' => $this->nombre,
+            
         ];
     }
 }
