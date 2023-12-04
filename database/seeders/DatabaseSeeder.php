@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -16,5 +17,8 @@ class DatabaseSeeder extends Seeder
         // Otros seeders...
         $this->call(EspecialidadSeeder::class);
         $this->call(CursoSeeder::class);
+        $this->call(DepartamentoSeeder::class);
+        $this->call(UserSeeder::class);
+        $this->call(ModuloSeeder::class);
     }
 }

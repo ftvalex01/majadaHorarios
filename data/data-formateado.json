@@ -1,0 +1,192 @@
+[
+    {
+        "Cod.": "AIF",
+        "Materia": "Aplicaciones ofimáticas",
+        "Alumnos": 26,
+        "Grupos": 1,
+        "H.Sem.": 8,
+        "H.Tot.": 8,
+        "Estudio": "1º CFGM Informática y Comunicaciones - Sistemas Microinformáticos y Redes (LOE)",
+        "Especialidad": "SISTEMAS Y APLICACIONES INFORMÁTICAS"
+    },
+    {
+        "Cod.": "MJE",
+        "Materia": "Montaje y mantenimiento de equipo",
+        "Alumnos": 26,
+        "Grupos": 1,
+        "H.Sem.": 7,
+        "H.Tot.": 7,
+        "Estudio": "1º CFGM Informática y Comunicaciones - Sistemas Microinformáticos y Redes (LOE)",
+        "Especialidad": "SISTEMAS Y APLICACIONES INFORMÁTICAS"
+    },
+    {
+        "Cod.": "RDE",
+        "Materia": "Redes locales",
+        "Alumnos": 26,
+        "Grupos": 1,
+        "H.Sem.": 7,
+        "H.Tot.": 7,
+        "Estudio": "1º CFGM Informática y Comunicaciones - Sistemas Microinformáticos y Redes (LOE)",
+        "Especialidad": "INFORMÁTICA"
+    },
+    {
+        "Cod.": "SSV",
+        "Materia": "Sistemas operativos monopuesto",
+        "Alumnos": 26,
+        "Grupos": 1,
+        "H.Sem.": 5,
+        "H.Tot.": 5,
+        "Estudio": "1º CFGM Informática y Comunicaciones - Sistemas Microinformáticos y Redes (LOE)",
+        "Especialidad": "SISTEMAS Y APLICACIONES INFORMÁTICAS"
+    },
+    {
+        "Cod.": "TUO",
+        "Materia": "Tutoría",
+        "Alumnos": null,
+        "Grupos": 1,
+        "H.Sem.": 1,
+        "H.Tot.": 1,
+        "Estudio": "1º CFGM Informática y Comunicaciones - Sistemas Microinformáticos y Redes (LOE)",
+        "Especialidad": "SISTEMAS Y APLICACIONES INFORMÁTICAS"
+    },
+    {
+        "Cod.": "APW",
+        "Materia": "Aplicaciones web",
+        "Alumnos": 21,
+        "Grupos": 1,
+        "H.Sem.": 3,
+        "H.Tot.": 3,
+        "Estudio": "2º CFGM Informática y Comunicaciones - Sistemas Microinformáticos y Redes (LOE)",
+        "Especialidad": "INFORMÁTICA"
+    },
+    {
+        "Cod.": "FCT",
+        "Materia": "Formación en centros de trabajo",
+        "Alumnos": 21,
+        "Grupos": 1,
+        "H.Sem.": 5,
+        "H.Tot.": 5,
+        "Estudio": "2º CFGM Informática y Comunicaciones - Sistemas Microinformáticos y Redes (LOE)",
+        "Especialidad": "INFORMÁTICA"
+    },
+    {
+        "Cod.": "ITG",
+        "Materia": "Integración",
+        "Alumnos": 21,
+        "Grupos": 1,
+        "H.Sem.": 2,
+        "H.Tot.": 2,
+        "Estudio": "2º CFGM Informática y Comunicaciones - Sistemas Microinformáticos y Redes (LOE)",
+        "Especialidad": "INFORMÁTICA"
+    },
+    {
+        "Cod.": "SGF",
+        "Materia": "Seguridad informática",
+        "Alumnos": 21,
+        "Grupos": 1,
+        "H.Sem.": 4,
+        "H.Tot.": 4,
+        "Estudio": "2º CFGM Informática y Comunicaciones - Sistemas Microinformáticos y Redes (LOE)",
+        "Especialidad": "INFORMÁTICA"
+    },
+    {
+        "Cod.": "SRC",
+        "Materia": "Servicios en red",
+        "Alumnos": 21,
+        "Grupos": 1,
+        "H.Sem.": 5,
+        "H.Tot.": 5,
+        "Estudio": "2º CFGM Informática y Comunicaciones - Sistemas Microinformáticos y Redes (LOE)",
+        "Especialidad": "INFORMÁTICA"
+    },
+    {
+        "Cod.": "SSN",
+        "Materia": "Sistemas operativos en red",
+        "Alumnos": 21,
+        "Grupos": 1,
+        "H.Sem.": 5,
+        "H.Tot.": 5,
+        "Estudio": "2º CFGM Informática y Comunicaciones - Sistemas Microinformáticos y Redes (LOE)",
+        "Especialidad": "SISTEMAS Y APLICACIONES INFORMÁTICAS"
+    },
+    {
+        "Cod.": "FUW",
+        "Materia": "Fundamentos de hardware",
+        "Alumnos": 9,
+        "Grupos": 1,
+        "H.Sem.": 3,
+        "H.Tot.": 3,
+        "Estudio": "1º CFGS Informática y Comunicaciones - Administración de Sistemas Informáticos en Red (LOE)",
+        "Especialidad": "SISTEMAS Y APLICACIONES INFORMÁTICAS"
+    },
+    {
+        "Cod.": "GTB",
+        "Materia": "Gestión de bases de datos",
+        "Alumnos": 9,
+        "Grupos": 1,
+        "H.Sem.": 5,
+        "H.Tot.": 5,
+        "Estudio": "1º CFGS Informática y Comunicaciones - Administración de Sistemas Informáticos en Red (LOE)",
+        "Especialidad": "INFORMÁTICA"
+    },
+    {
+        "Cod.": "IDP",
+        "Materia": "Implantación de sistemas operativos",
+        "Alumnos": 9,
+        "Grupos": 1,
+        "H.Sem.": 5,
+        "H.Tot.": 5,
+        "Estudio": "1º CFGS Informática y Comunicaciones - Administración de Sistemas Informáticos en Red (LOE)",
+        "Especialidad": "SISTEMAS Y APLICACIONES INFORMÁTICAS"
+    },
+    {
+        "Cod.": "IRD",
+        "Materia": "Infraestructuras de redes de datos y sistemas de telefonía",
+        "Alumnos": 9,
+        "Grupos": 1,
+        "H.Sem.": 4,
+        "H.Tot.": 4,
+        "Estudio": "1º CFGS Informática y Comunicaciones - Administración de Sistemas Informáticos en Red (LOE)",
+        "Especialidad": "INFORMÁTICA"
+    },
+    {
+        "Cod.": "PRL",
+    "Materia": "Planificación y administración de redes",
+    "Alumnos": 9,
+    "Grupos": 1,
+    "H.Sem.": 3,
+    "H.Tot.": 3,
+    "Estudio": "1º CFGS Informática y Comunicaciones - Administración de Sistemas Informáticos en Red (LOE)",
+    "Especialidad": "SISTEMAS Y APLICACIONES INFORMÁTICAS"
+},
+{
+    "Cod.": "SGO",
+    "Materia": "Servicios de red e Internet",
+    "Alumnos": 9,
+    "Grupos": 1,
+    "H.Sem.": 5,
+    "H.Tot.": 5,
+    "Estudio": "1º CFGS Informática y Comunicaciones - Administración de Sistemas Informáticos en Red (LOE)",
+    "Especialidad": "SISTEMAS Y APLICACIONES INFORMÁTICAS"
+},
+{
+    "Cod.": "SRI",
+    "Materia": "Seguridad y alta disponibilidad",
+    "Alumnos": 9,
+    "Grupos": 1,
+    "H.Sem.": 5,
+    "H.Tot.": 5,
+    "Estudio": "1º CFGS Informática y Comunicaciones - Administración de Sistemas Informáticos en Red (LOE)",
+    "Especialidad": "INFORMÁTICA"
+},
+{
+    "Cod.": "SRI",
+    "Materia": "Seguridad y alta disponibilidad",
+    "Alumnos": 9,
+    "Grupos": 1,
+    "H.Sem.": 5,
+    "H.Tot.": 5,
+    "Estudio": "2º CFGS Informática y Comunicaciones - Administración de Sistemas Informáticos en Red (LOE)",
+    "Especialidad": "INFORMÁTICA"
+}
+]
