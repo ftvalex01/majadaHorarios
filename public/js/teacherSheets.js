@@ -62,11 +62,10 @@ document.addEventListener('DOMContentLoaded', function () {
                     // Llama a la función SelectSpecificModule y espera los datos
                     try {
                         const specificModuleData = await SelectSpecificModule(selectedOptionId);
-                        console.log('Datos del módulo específico:', specificModuleData.data.aula);
                         // Realiza las operaciones necesarias con los datos obtenidos
                         const row = event.target.closest('tr');
 
-                        row.cells[0].innerText = specificModuleData.data.aula;
+                        row.cells[0].innerText = specificModuleData.data.turno;
                         row.cells[3].innerText = specificModuleData.data.h_semanales;
 
                     } catch (error) {
