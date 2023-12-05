@@ -15,6 +15,7 @@ class UserSeeder extends Seeder
             'email' => 'profesor@example.com',
             'password' => Hash::make('contraseña'), // Hash de la contraseña
             'especialidad_id' => 1, // ID de la especialidad deseada para el profesor
+            'departamento_id' => 1, // ID del departamento
             'rol' => 'profesor',
         ]);
 
@@ -24,6 +25,7 @@ class UserSeeder extends Seeder
             'email' => 'jefe_estudios@example.com',
             'password' => Hash::make('contraseña'), // Hash de la contraseña
             'especialidad_id' => 2, // ID de la especialidad deseada para el jefe de estudios
+            'departamento_id' => 2, // ID del departamento
             'rol' => 'jefe_estudios',
         ]);
 
@@ -33,6 +35,7 @@ class UserSeeder extends Seeder
             'email' => 'jefe_departamento@example.com',
             'password' => Hash::make('contraseña'), // Hash de la contraseña
             'especialidad_id' => 1, // ID de la especialidad deseada para el jefe de departamento
+            'departamento_id' => 3, // ID del departamento
             'rol' => 'jefe_departamento',
         ]);
     }
