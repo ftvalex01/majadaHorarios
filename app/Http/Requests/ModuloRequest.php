@@ -14,11 +14,11 @@ class ModuloRequest extends FormRequest
     public function rules()
     {
         return [
-            'codigo' => 'required|unique:modulos' . ($this->isMethod('patch') ? ',codigo,' . $this->route('modulo')->id : ''),
+            'cod' => 'required|unique:modulos' . ($this->isMethod('patch') ? ',cod,' . $this->route('modulo')->id : ''),
             'materia' => 'required|string',
             'h_semanales' => 'required|integer',
             'h_totales' => 'required|integer',
-            'aula' => 'required|in:mañana,tarde',
+            'turno' => 'required|in:mañana,tarde',
             'user_id' => 'required|exists:users,id',
             'especialidad_id' => 'required|exists:especialidads,id',
             'curso_id' => 'required|exists:cursos,id',

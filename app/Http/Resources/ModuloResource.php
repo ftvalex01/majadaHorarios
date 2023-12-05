@@ -17,11 +17,11 @@ class ModuloResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'codigo' => $this->codigo,
+            'cod' => $this->cod,
             'materia' => $this->materia,
             'h_semanales' => $this->h_semanales,
             'h_totales' => $this->h_totales,
-            'aula' => $this->aula,
+            'turno' => $this->turno,
             'user_id' => $this->user_id,
             'especialidad' => new EspecialidadResource($this->especialidad),
             'curso_id' => $this->curso_id,

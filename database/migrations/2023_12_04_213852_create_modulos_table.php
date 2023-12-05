@@ -20,7 +20,7 @@ return new class extends Migration
             $table->unsignedInteger('h_semanales')->default(0);
             $table->unsignedInteger('h_totales')->default(0);
         
-            $table->enum('aula', ['mañana', 'tarde'])->comment('Solo puede tomar los valores "mañana" o "tarde"');
+            $table->enum('turno', ['mañana', 'tarde'])->comment('Solo puede tomar los valores "mañana" o "tarde"')->default('tarde');
 
             // Claves foráneas
             $table->foreignId('user_id')->nullable()->constrained()->comment('Clave foránea para user_id, referencia a la tabla users');
