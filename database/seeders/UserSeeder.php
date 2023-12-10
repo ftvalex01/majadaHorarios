@@ -15,7 +15,7 @@ class UserSeeder extends Seeder
             'email' => 'profesor@example.com',
             'password' => Hash::make('contraseña'), // Hash de la contraseña
             'especialidad_id' => 1, // ID de la especialidad deseada para el profesor
-            'departamento_id' => 1, // ID del departamento
+            'departamento_id' => 3, // ID del departamento
             'rol' => 'profesor',
         ]);
 
