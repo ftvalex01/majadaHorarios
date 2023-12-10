@@ -60,8 +60,10 @@ document.addEventListener('DOMContentLoaded', function () {
                         const specificModuleData = await SelectSpecificModule(selectedOptionId);
                         const row = event.target.closest('tr');
 
-                        row.cells[0].innerText = specificModuleData.data.turno;
+                     
+                        row.cells[0].innerText = capitalizeFirstLetter(specificModuleData.data.turno);
                         row.cells[3].innerText = specificModuleData.data.h_semanales;
+                        console.log(capitalizeFirstLetter('texto de prueba'));
 
                     } catch (error) {
                         console.error('Error al obtener datos del módulo específico:', error);
