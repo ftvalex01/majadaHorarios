@@ -1,5 +1,4 @@
 <?php
-
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
@@ -7,21 +6,20 @@ use App\Models\Curso;
 
 class CursoSeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     *
-     * @return void
-     */
     public function run()
     {
-        // ES ESTUDIO EN EL JSON
         Curso::create([
-            'nombre' => 'Curso de Ejemplo',
-        ]);
-        Curso::create([
-            'nombre' => 'Curso de Ejemplo2',
+            'nombre' => 'Curso de Ejemplo 1',
+            'año' => '1º', 
+            'turno' => 'mañana', 
         ]);
 
-        // Puedes agregar más cursos según sea necesario
+        Curso::create([
+            'nombre' => 'Curso de Ejemplo 2',
+            'año' => '2º', 
+            'turno' => 'tarde', 
+        ]);
+
+       
     }
 }

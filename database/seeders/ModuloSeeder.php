@@ -1,10 +1,8 @@
 <?php
-
 namespace Database\Seeders;
 
 use App\Models\Modulo;
 use Illuminate\Database\Seeder;
-
 
 class ModuloSeeder extends Seeder
 {
@@ -18,7 +16,7 @@ class ModuloSeeder extends Seeder
                 "Grupos" => 1,
                 "H.Sem." => 8,
                 "H.Tot." => 8,
-                "Estudio" => 1,
+                "Curso" => 1, 
                 "Especialidad" => 2,
             ],
             [
@@ -28,7 +26,7 @@ class ModuloSeeder extends Seeder
                 "Grupos" => 1,
                 "H.Sem." => 3,
                 "H.Tot." => 3,
-                "Estudio" => 2,
+                "Curso" => 2, 
                 "Especialidad" => 2,
             ],
             [
@@ -38,7 +36,7 @@ class ModuloSeeder extends Seeder
                 "Grupos" => 1,
                 "H.Sem." => 3,
                 "H.Tot." => 3,
-                "Estudio" => 1,
+                "Curso" => 1, 
                 "Especialidad" => 2,
             ],
             [
@@ -48,7 +46,7 @@ class ModuloSeeder extends Seeder
                 "Grupos" => 1,
                 "H.Sem." => 2,
                 "H.Tot." => 2,
-                "Estudio" => 2,
+                "Curso" => 2,
                 "Especialidad" => 1,
             ],
         ];
@@ -59,7 +57,7 @@ class ModuloSeeder extends Seeder
                 'materia' => $subjectData['Materia'],
                 'h_semanales' => $subjectData['H.Sem.'],
                 'h_totales' => $subjectData['H.Tot.'],
-                'curso_id' => $subjectData['Estudio'],
+                'curso_id' => $subjectData['Curso'], 
                 'especialidad_id' => $subjectData['Especialidad'],
             ]);
         }

@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Resources;
 
 use Illuminate\Http\Request;
@@ -24,7 +23,7 @@ class ModuloResource extends JsonResource
             'turno' => $this->turno,
             'user_id' => $this->user_id,
             'especialidad' => new EspecialidadResource($this->especialidad),
-            'curso_id' => $this->curso_id,
+            'curso' => new CursoResource($this->curso),
             //'created_at' => $this->created_at,
             //'updated_at' => $this->updated_at,
         ];

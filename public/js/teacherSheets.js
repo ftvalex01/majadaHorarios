@@ -65,8 +65,10 @@ document.addEventListener('DOMContentLoaded', function () {
                         const totalHoras = specificModuleData.data.h_semanales;
 
                         // Actualiza la columna "Horas" con las horas totales del módulo
+                        
+                        row.cells[0].innerText = capitalizeFirstLetter(specificModuleData.data.curso.turno);
+                        row.cells[1].innerText = `Curso: ${specificModuleData.data.curso.nombre} - Ciclo: ${specificModuleData.data.curso.año}`;
                         row.cells[3].innerText = totalHoras;
-                        row.cells[0].innerText = capitalizeFirstLetter(specificModuleData.data.turno);
 
                         // Llama a la función para generar las opciones de distribución
                         const opcionesDistribucion = generarOpcionesDistribucion(totalHoras);
