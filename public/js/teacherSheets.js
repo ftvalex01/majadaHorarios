@@ -65,8 +65,10 @@ document.addEventListener('DOMContentLoaded', function () {
                         // Realiza las operaciones necesarias con los datos obtenidos
                         const row = event.target.closest('tr');
 
-                        row.cells[0].innerText = specificModuleData.data.turno;
+                        row.cells[0].innerText = capitalizeFirstLetter(specificModuleData.data.turno);
                         row.cells[3].innerText = specificModuleData.data.h_semanales;
+                        console.log(capitalizeFirstLetter('texto de prueba'));
+
 
                     } catch (error) {
                         console.error('Error al obtener datos del módulo específico:', error);
@@ -97,6 +99,12 @@ document.addEventListener('DOMContentLoaded', function () {
             });
     }
 
+
+
     // Llama a la función para cargar las opciones al cargar la página
     cargarOpciones();
 });
+
+function capitalizeFirstLetter(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
+}
