@@ -57,22 +57,22 @@ document.addEventListener('DOMContentLoaded', function () {
             selectElements.forEach(selectElement => {
                 selectElement.addEventListener('change', async function (event) {
                     const selectedOptionId = event.target.value;  // Cambio aquí
-            
+
                     try {
                         const specificModuleData = await SelectSpecificModule(selectedOptionId);
                         const row = event.target.closest('tr');
                         const totalHoras = specificModuleData.data.h_semanales;
-            
+
                         // Actualiza la columna "Horas" con las horas totales del módulo
                         row.cells[3].innerText = totalHoras;
-            
+
                         // Llama a la función para generar las opciones de distribución
                         const opcionesDistribucion = generarOpcionesDistribucion(totalHoras);
-            
+
                         // Muestra las opciones en el elemento select con id "distribucionSemanal"
                         const distribucionSemanalSelect = row.cells[4].querySelector('select');
                         distribucionSemanalSelect.innerHTML = '';
-            
+
                         for (const opcion of opcionesDistribucion) {
                             const opcionElement = document.createElement('option');
                             opcionElement.value = opcion.join('+');
@@ -107,53 +107,53 @@ document.addEventListener('DOMContentLoaded', function () {
             });
     }
 
-// Función para generar opciones de distribución semanal
-// Función para generar opciones de distribución semanal
-function generarOpcionesDistribucion(totalHoras) {
-    const opciones = [];
-    generarOpciones([], totalHoras, 5, opciones);
-    return opciones;
-}
-
-// Función recursiva para generar todas las combinaciones posibles
-function generarOpciones(combActual, horasRestantes, diasRestantes, opciones) {
-    // Si hemos utilizado todas las horas y no excede los días restantes, agregamos la combinación actual a las opciones
-    if (horasRestantes === 0 && diasRestantes >= 0) {
-        opciones.push([...combActual]);
-        return;
+    // Función para generar opciones de distribución semanal
+    // Función para generar opciones de distribución semanal
+    function generarOpcionesDistribucion(totalHoras) {
+        const opciones = [];
+        generarOpciones([], totalHoras, 5, opciones);
+        return opciones;
     }
 
-    // Intentamos agregar 1, 2 o 3 horas a la combinación actual y llamamos recursivamente
-    for (let i = 1; i <= 3; i++) {
-        // Verificamos que no exceda las horas restantes
-        if (i <= horasRestantes) {
-            combActual.push(i);
-            // Si hemos usado menos de 5 días, continuamos llamando recursivamente
-            if (diasRestantes > 0) {
-                generarOpciones(combActual, horasRestantes - i, diasRestantes - 1, opciones);
-            }
-            combActual.pop();
+    // Función recursiva para generar todas las combinaciones posibles
+    function generarOpciones(combActual, horasRestantes, diasRestantes, opciones) {
+        // Si hemos utilizado todas las horas y no excede los días restantes, agregamos la combinación actual a las opciones
+        if (horasRestantes === 0 && diasRestantes >= 0) {
+            opciones.push([...combActual]);
+            return;
         }
-    }
-}
 
-// Función para verificar si una distribución tiene más de 3 horas seguidas
-function tieneMasDeTresHorasSeguidas(distribucion) {
-    let contador = 0;
-
-    for (const horasSeguidas of distribucion) {
-        if (horasSeguidas > 0) {
-            contador++;
-            if (contador > 3) {
-                return true;
+        // Intentamos agregar 1, 2 o 3 horas a la combinación actual y llamamos recursivamente
+        for (let i = 1; i <= 3; i++) {
+            // Verificamos que no exceda las horas restantes
+            if (i <= horasRestantes) {
+                combActual.push(i);
+                // Si hemos usado menos de 5 días, continuamos llamando recursivamente
+                if (diasRestantes > 0) {
+                    generarOpciones(combActual, horasRestantes - i, diasRestantes - 1, opciones);
+                }
+                combActual.pop();
             }
-        } else {
-            contador = 0;
         }
     }
 
-    return false;
-}
+    // Función para verificar si una distribución tiene más de 3 horas seguidas
+    function tieneMasDeTresHorasSeguidas(distribucion) {
+        let contador = 0;
+
+        for (const horasSeguidas of distribucion) {
+            if (horasSeguidas > 0) {
+                contador++;
+                if (contador > 3) {
+                    return true;
+                }
+            } else {
+                contador = 0;
+            }
+        }
+
+        return false;
+    }
 
 
     // Llama a la función para cargar las opciones al cargar la página
