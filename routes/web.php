@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\JefeDeDepartamentoController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -18,4 +18,9 @@ Route::get('/', function () {
 });
 Route::get('/teacherSheets', function () {
     return response()->file(public_path('views/teacherSheets.html'));
+});
+
+
+Route::get('/jefeDeDepartamento', function () {
+    return response()->file(public_path('views/jefeDeDepartamento.html'));
 });
