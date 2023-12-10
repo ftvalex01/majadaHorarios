@@ -54,7 +54,36 @@ document.addEventListener('DOMContentLoaded', function () {
                 });
             });
 
-            selectedModules.clear();
+            selectElements.forEach(selectElement => {
+                selectElement.addEventListener('change', async function (event) {
+                    const selectedOptionId = event.target.value;  // Cambio aquí
+            
+                    try {
+                        const specificModuleData = await SelectSpecificModule(selectedOptionId);
+                        const row = event.target.closest('tr');
+                        const totalHoras = specificModuleData.data.h_semanales;
+            
+                        // Actualiza la columna "Horas" con las horas totales del módulo
+                        row.cells[3].innerText = totalHoras;
+            
+                        // Llama a la función para generar las opciones de distribución
+                        const opcionesDistribucion = generarOpcionesDistribucion(totalHoras);
+            
+                        // Muestra las opciones en el elemento select con id "distribucionSemanal"
+                        const distribucionSemanalSelect = row.cells[4].querySelector('select');
+                        distribucionSemanalSelect.innerHTML = '';
+            
+                        for (const opcion of opcionesDistribucion) {
+                            const opcionElement = document.createElement('option');
+                            opcionElement.value = opcion.join('+');
+                            opcionElement.textContent = `(${opcion.join('+')})`;
+                            distribucionSemanalSelect.appendChild(opcionElement);
+                        }
+                    } catch (error) {
+                        console.error('Error al obtener datos del módulo específico:', error);
+                    }
+                });
+            });
         } catch (error) {
             console.error('Error al obtener datos:', error);
         }
@@ -78,83 +107,59 @@ document.addEventListener('DOMContentLoaded', function () {
             });
     }
 
-    function generarOpcionesDistribucion(totalHoras) {
-        const opciones = [];
-        generarOpciones([], totalHoras, 5, opciones);
-        return opciones;
+// Función para generar opciones de distribución semanal
+// Función para generar opciones de distribución semanal
+function generarOpcionesDistribucion(totalHoras) {
+    const opciones = [];
+    generarOpciones([], totalHoras, 5, opciones);
+    return opciones;
+}
+
+// Función recursiva para generar todas las combinaciones posibles
+function generarOpciones(combActual, horasRestantes, diasRestantes, opciones) {
+    // Si hemos utilizado todas las horas y no excede los días restantes, agregamos la combinación actual a las opciones
+    if (horasRestantes === 0 && diasRestantes >= 0) {
+        opciones.push([...combActual]);
+        return;
     }
 
-    function generarOpciones(combActual, horasRestantes, diasRestantes, opciones) {
-        if (horasRestantes === 0 && diasRestantes >= 0) {
-            opciones.push([...combActual]);
-            return;
-        }
-
-        for (let i = 1; i <= 3; i++) {
-            if (i <= horasRestantes) {
-                combActual.push(i);
-                if (diasRestantes > 0) {
-                    generarOpciones(combActual, horasRestantes - i, diasRestantes - 1, opciones);
-                }
-                combActual.pop();
+    // Intentamos agregar 1, 2 o 3 horas a la combinación actual y llamamos recursivamente
+    for (let i = 1; i <= 3; i++) {
+        // Verificamos que no exceda las horas restantes
+        if (i <= horasRestantes) {
+            combActual.push(i);
+            // Si hemos usado menos de 5 días, continuamos llamando recursivamente
+            if (diasRestantes > 0) {
+                generarOpciones(combActual, horasRestantes - i, diasRestantes - 1, opciones);
             }
+            combActual.pop();
+        }
+    }
+}
+
+// Función para verificar si una distribución tiene más de 3 horas seguidas
+function tieneMasDeTresHorasSeguidas(distribucion) {
+    let contador = 0;
+
+    for (const horasSeguidas of distribucion) {
+        if (horasSeguidas > 0) {
+            contador++;
+            if (contador > 3) {
+                return true;
+            }
+        } else {
+            contador = 0;
         }
     }
 
+    return false;
+}
+
+
+    // Llama a la función para cargar las opciones al cargar la página
     cargarOpciones();
-
-    selectElements.forEach((selectElement, index) => {
-        selectElement.addEventListener('change', async function (event) {
-            const selectedOptionId = event.target.value;
-
-            try {
-                if (selectedModules.has(selectedOptionId)) {
-                    console.log('Módulo ya seleccionado');
-                    event.target.value = 'selectModule';
-
-                    return;
-                }
-
-                selectedModules.delete(selectedOptionId);
-
-                data.data.forEach(option => {
-                    const optionElement = document.createElement('option');
-                    optionElement.value = option.id;
-                    optionElement.textContent = option.materia;
-
-                    if (selectedModules.has(option.id)) {
-                        optionElement.disabled = true;
-                    }
-
-                    selectElement.appendChild(optionElement);
-                });
-
-                const specificModuleData = await SelectSpecificModule(selectedOptionId);
-                const row = event.target.closest('tr');
-                const totalHoras = specificModuleData.data.h_semanales;
-
-                row.cells[3].innerText = totalHoras;
-
-                const opcionesDistribucion = generarOpcionesDistribucion(totalHoras);
-
-                const distribucionSemanalSelect = distribucionSemanalElements[index];
-                distribucionSemanalSelect.innerHTML = '';
-
-                for (const opcion of opcionesDistribucion) {
-                    const opcionElement = document.createElement('option');
-                    opcionElement.value = opcion.join('+');
-                    opcionElement.textContent = `(${opcion.join('+')})`;
-                    distribucionSemanalSelect.appendChild(opcionElement);
-                }
-
-                selectedModules.add(selectedOptionId);
-
-                // Actualiza el campo "Curso y Ciclo"
-                const cursoCicloCell = row.cells[1]; // Asumiendo que la celda correspondiente es la segunda
-                cursoCicloCell.innerText = specificModuleData.data.Estudio;
-            } catch (error) {
-                console.error('Error al obtener datos del módulo específico:', error);
-            }
-        });
-    });
 });
+
+function capitalizeFirstLetter(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
+}
