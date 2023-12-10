@@ -44,6 +44,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     const optionElement = document.createElement('option');
                     optionElement.value = option.id;
                     optionElement.textContent = option.materia;
+                    
 
                     // Si el módulo ya está seleccionado, deshabilita la opción
                     if (selectedModules.has(option.id)) {
@@ -65,6 +66,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
                         // Actualiza la columna "Horas" con las horas totales del módulo
                         row.cells[3].innerText = totalHoras;
+                        row.cells[0].innerText = capitalizeFirstLetter(specificModuleData.data.turno);
 
                         // Llama a la función para generar las opciones de distribución
                         const opcionesDistribucion = generarOpcionesDistribucion(totalHoras);
