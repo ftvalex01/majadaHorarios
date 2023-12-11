@@ -11,8 +11,8 @@ class UserSeeder extends Seeder
     {
         // Crear usuario para el rol de profesor
         User::create([
-            'name' => 'Profesor Usuario',
-            'email' => 'profesor@example.com',
+            'name' => 'Juan Carlos',
+            'email' => 'juancarlos@example.com',
             'password' => Hash::make('contraseña'), // Hash de la contraseña
             'especialidad_id' => 1, // ID de la especialidad deseada para el profesor
             'departamento_id' => 3, // ID del departamento
@@ -21,8 +21,8 @@ class UserSeeder extends Seeder
 
         // Crear usuario para el rol de jefe de estudios
         User::create([
-            'name' => 'Jefe de Estudios Usuario',
-            'email' => 'jefe_estudios@example.com',
+            'name' => 'Pepe Ruiz',
+            'email' => 'peperuiz@example.com',
             'password' => Hash::make('contraseña'), // Hash de la contraseña
             'especialidad_id' => 2, // ID de la especialidad deseada para el jefe de estudios
             'departamento_id' => 2, // ID del departamento
@@ -31,8 +31,8 @@ class UserSeeder extends Seeder
 
         // Crear usuario para el rol de jefe de departamento
         User::create([
-            'name' => 'Jefe de Departamento Usuario',
-            'email' => 'jefe_departamento@example.com',
+            'name' => 'Raymundo Alfajor',
+            'email' => 'raymundoalfajor@example.com',
             'password' => Hash::make('contraseña'), // Hash de la contraseña
             'especialidad_id' => 1, // ID de la especialidad deseada para el jefe de departamento
             'departamento_id' => 3, // ID del departamento
