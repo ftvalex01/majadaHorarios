@@ -53,4 +53,5 @@ class Modulo extends Model
     public function aula(){
         return $this->belongsToMany(Aula::class,'modulo_aula');
     }
+    
 }

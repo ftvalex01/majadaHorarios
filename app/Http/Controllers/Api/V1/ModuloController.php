@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ModuloRequest;
+use App\Http\Resources\AulaResource;
 use App\Models\Modulo;
 use App\Http\Resources\ModuloResource;
 
@@ -33,7 +34,9 @@ class ModuloController extends Controller
      */
     public function show(Modulo $modulo)
     {
-        return new ModuloResource($modulo);
+        $response = new ModuloResource($modulo);
+        $response['aulas'] = AulaResource::collection($modulo->aula);
+        return $response;
     }
 
     /**
