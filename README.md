@@ -11,7 +11,7 @@ Este proyecto consiste en el diseño e implementación de una aplicación web fu
 
 ### Restricciones de Horario
 - Se prohíbe tener más de 30 horas semanales en un aula.  :x:
-- Se establecen restricciones específicas como la participación del profesorado tutor, límites de horas semanales, elección de aula/taller, etc. :x:
+- Se establecen restricciones específicas como la participación del profesorado tutor, límites de horas semanales, elección de aula/taller, etc.:x:
 
 ### Automatización de Campos
 - El sistema debe autocompletar ciertos campos según la selección del usuario.  :white_check_mark:
