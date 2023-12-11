@@ -58,6 +58,31 @@ document.addEventListener('DOMContentLoaded', function () {
                 selectElement.addEventListener('change', async function (event) {
                     const selectedOptionId = event.target.value;
 
+                    // Check if the selected value is the placeholder
+                    if (selectedOptionId === 'selectModule') {
+                        const row = event.target.closest('tr');
+
+                        // Clear the content of the cells
+                        row.cells[0].innerText = '';
+                        row.cells[1].innerText = '';
+                        row.cells[3].innerText = '';
+
+                        // Clear the options in the distribucionSemanal select
+                        const distribucionSemanalSelect = row.cells[4].querySelector('select');
+                        distribucionSemanalSelect.innerHTML = '';
+
+                        // Enable all options in other dropdowns
+                        selectElements.forEach((otherSelectElement) => {
+                            if (otherSelectElement !== selectElement) {
+                                Array.from(otherSelectElement.options).forEach((option) => {
+                                    option.disabled = false;
+                                });
+                            }
+                        });
+
+                        return;  // Exit the function early for the placeholder option
+                    }
+
                     try {
                         const specificModuleData = await SelectSpecificModule(selectedOptionId);
                         const row = event.target.closest('tr');
