@@ -26,7 +26,9 @@ Este proyecto consiste en el diseño e implementación de una aplicación web fu
 
 ## Modelo de Datos
 Se parte de un modelo de datos base y se agregan tablas y relaciones necesarias para cumplir con los requerimientos funcionales.
-![Descripción de la imagen](./ModeloRelacional.jpg)
+--
+![Descripción de la imagen](ModeloRelacional.png)
+--
 
 ## Requerimientos Técnicos
 ### Despliegue
