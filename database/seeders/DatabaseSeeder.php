@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-
+use App\Models\Aula;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -20,5 +20,7 @@ class DatabaseSeeder extends Seeder
         $this->call(DepartamentoSeeder::class);
         $this->call(UserSeeder::class);
         $this->call(ModuloSeeder::class);
+        $this->call(AulaSeeder::class);
+        $this->call(ModuloAulaSeeder::class);
     }
 }
