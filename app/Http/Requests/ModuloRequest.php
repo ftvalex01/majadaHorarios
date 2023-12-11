@@ -22,6 +22,7 @@ class ModuloRequest extends FormRequest
             'user_id' => 'required|exists:users,id',
             'especialidad_id' => 'required|exists:especialidads,id',
             'curso_id' => 'required|exists:cursos,id',
+            'aula_id' => 'required|exists:aula,id'
         ];
     }
 }

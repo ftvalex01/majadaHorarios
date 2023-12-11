@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', function () {
+document.addEventListener('DOMContentLoaded', async function () {
     const userData = sessionStorage.getItem('user') ? JSON.parse(sessionStorage.getItem('user')) : {};
     const TokenDocente = sessionStorage.getItem('token');
 
@@ -15,7 +15,6 @@ document.addEventListener('DOMContentLoaded', function () {
     const selectedModules = new Set(userData.selectedModules || []);
 
     const selectElements = document.getElementsByName('teacherModules');
-    let data;
 
     async function cargarOpciones() {
         try {
@@ -26,8 +25,12 @@ document.addEventListener('DOMContentLoaded', function () {
                     'Authorization': `Bearer ${TokenDocente}`
                 }
             });
-
-            data = await response.json();
+    
+            if (!response.ok) {
+                throw new Error(`Error al obtener datos: ${response.statusText}`);
+            }
+    
+            const data = await response.json();
 
             console.log(data);
 
@@ -45,7 +48,6 @@ document.addEventListener('DOMContentLoaded', function () {
                     optionElement.value = option.id;
                     optionElement.textContent = option.materia;
 
-                    // Si el módulo ya está seleccionado, deshabilita la opción
                     if (selectedModules.has(option.id)) {
                         optionElement.disabled = true;
                     }
@@ -58,20 +60,19 @@ document.addEventListener('DOMContentLoaded', function () {
                 selectElement.addEventListener('change', async function (event) {
                     const selectedOptionId = event.target.value;
 
-                    // Check if the selected value is the placeholder
                     if (selectedOptionId === 'selectModule') {
                         const row = event.target.closest('tr');
 
-                        // Clear the content of the cells
                         row.cells[0].innerText = '';
                         row.cells[1].innerText = '';
                         row.cells[3].innerText = '';
 
-                        // Clear the options in the distribucionSemanal select
                         const distribucionSemanalSelect = row.cells[4].querySelector('select');
                         distribucionSemanalSelect.innerHTML = '';
 
-                        // Enable all options in other dropdowns
+                        const aulaSelectElement = row.cells[5].querySelector('select');
+                        aulaSelectElement.innerHTML = '';
+
                         selectElements.forEach((otherSelectElement) => {
                             if (otherSelectElement !== selectElement) {
                                 Array.from(otherSelectElement.options).forEach((option) => {
@@ -80,7 +81,7 @@ document.addEventListener('DOMContentLoaded', function () {
                             }
                         });
 
-                        return;  // Exit the function early for the placeholder option
+                        return;
                     }
 
                     try {
@@ -92,10 +93,10 @@ document.addEventListener('DOMContentLoaded', function () {
                         row.cells[1].innerText = `Curso: ${specificModuleData.data.curso.nombre} - Ciclo: ${specificModuleData.data.curso.año}`;
                         row.cells[3].innerText = totalHoras;
 
-                        const opcionesDistribucion = generarOpcionesDistribucion(totalHoras);
-
                         const distribucionSemanalSelect = row.cells[4].querySelector('select');
                         distribucionSemanalSelect.innerHTML = '';
+
+                        const opcionesDistribucion = generarOpcionesDistribucion(totalHoras);
 
                         for (const opcion of opcionesDistribucion) {
                             const opcionElement = document.createElement('option');
@@ -104,7 +105,10 @@ document.addEventListener('DOMContentLoaded', function () {
                             distribucionSemanalSelect.appendChild(opcionElement);
                         }
 
-                        // Disable the selected option in other dropdowns
+                        // Cargar las aulas
+                        const aulaSelectElement = row.cells[5].querySelector('select');
+                        await cargarAulas(selectedOptionId, aulaSelectElement);
+
                         selectElements.forEach((otherSelectElement) => {
                             if (otherSelectElement !== selectElement) {
                                 Array.from(otherSelectElement.options).forEach((option) => {
@@ -142,6 +146,42 @@ document.addEventListener('DOMContentLoaded', function () {
             });
     }
 
+    async function cargarAulas(moduloId, aulaSelectElement) {
+        try {
+            const response = await fetch(`http://majadahorarios.test/api/v1/modulos/${moduloId}`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${TokenDocente}`
+                }
+            });
+
+            const data = await response.json();
+
+            console.log(data);
+
+            // Limpiar opciones anteriores
+            aulaSelectElement.innerHTML = '';
+
+            if (data.data.aulas && data.data.aulas.length > 0) {
+                // Agregar opciones de aulas
+                data.data.aulas.forEach(aula => {
+                    const optionElement = document.createElement('option');
+                    optionElement.value = aula.id;
+                    optionElement.textContent = aula.nombre;
+                    aulaSelectElement.appendChild(optionElement);
+                });
+            } else {
+                // No hay aulas disponibles
+                const optionElement = document.createElement('option');
+                optionElement.textContent = 'No hay aulas disponibles';
+                aulaSelectElement.appendChild(optionElement);
+            }
+        } catch (error) {
+            console.error('Error al obtener datos de las aulas:', error);
+        }
+    }
+
     function generarOpcionesDistribucion(totalHoras) {
         const opciones = [];
         generarOpciones([], totalHoras, 5, opciones);
@@ -165,7 +205,7 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     }
 
-    cargarOpciones();
+    await cargarOpciones();
 });
 
 function capitalizeFirstLetter(string) {
