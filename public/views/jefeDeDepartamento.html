@@ -1,38 +1,197 @@
 <!DOCTYPE html>
-<html lang="es-ES">
-
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Jefe de Departamento</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="../../../../favicon.ico">
+
+    <title>Departamento Académico - Instituto XYZ</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom styles for this template -->
+
 </head>
 
 <body>
     <header>
-        <h1>Lista de Profesores del Departamento</h1>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <div class="container">
+                <a class="navbar-brand" href="#">Majada Marcial</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <span id="userName" class="nav-link disabled text-white"></span>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Hoja de profesores</a>
+                        </li>
+                        <li class="nav-item">
+                            <button id="logoutButton" class="btn btn-danger">Logout</button>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
     </header>
+<main role="main">
+    <div class="album py-5 bg-light">
+        <div class="container">
+            <div class="row">
+                <!-- Agregar aquí las tarjetas de los profesores -->
+                <div class="col-md-4">
+                    <div class="card mb-4 box-shadow">
+                        <!-- Imagen del profesor -->
+                        <img class="card-img-top" src="https://cdn.dribbble.com/users/760319/screenshots/3907189/man.png?resize=400x0" alt="Imagen del profesor">
 
-    <main>
-        <div>
-            <h2>Información del Jefe de Departamento:</h2>
-            <p id="jefeNombre">Nombre: </p>
-            <p id="jefeEmail">Email: </p>
-            <!-- Agrega más información según sea necesario -->
+                        <!-- Contenido de la tarjeta -->
+                        <div class="card-body">
+                            <!-- Nombre del profesor -->
+                            <h5 class="card-title">Nombre del Profesor</h5>
+                            <!-- Descripción o información adicional del profesor -->
+                            <p class="card-text">Breve descripción o información sobre el profesor.</p>
+                            <!-- Botones -->
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div class="btn-group">
+                                    <button type="button" class="btn btn-sm btn-outline-primary">Ver Detalles</button>
+                                    <button type="button" class="btn btn-sm btn-outline-secondary">Ver Horario</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Fin de la tarjeta del primer profesor -->
+                <div class="col-md-4">
+                    <div class="card mb-4 box-shadow">
+                        <!-- Imagen del profesor -->
+                        <img class="card-img-top" src="https://cdn.dribbble.com/users/760319/screenshots/3907189/man.png?resize=400x0" alt="Imagen del profesor">
+
+                        <!-- Contenido de la tarjeta -->
+                        <div class="card-body">
+                            <!-- Nombre del profesor -->
+                            <h5 class="card-title">Nombre del Profesor</h5>
+                            <!-- Descripción o información adicional del profesor -->
+                            <p class="card-text">Breve descripción o información sobre el profesor.</p>
+                            <!-- Botones -->
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div class="btn-group">
+                                    <button type="button" class="btn btn-sm btn-outline-primary">Ver Detalles</button>
+                                    <button type="button" class="btn btn-sm btn-outline-secondary">Ver Horario</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card mb-4 box-shadow">
+                        <!-- Imagen del profesor -->
+                        <img class="card-img-top" src="https://cdn.dribbble.com/users/760319/screenshots/3907189/man.png?resize=400x0" alt="Imagen del profesor">
+
+                        <!-- Contenido de la tarjeta -->
+                        <div class="card-body">
+                            <!-- Nombre del profesor -->
+                            <h5 class="card-title">Nombre del Profesor</h5>
+                            <!-- Descripción o información adicional del profesor -->
+                            <p class="card-text">Breve descripción o información sobre el profesor.</p>
+                            <!-- Botones -->
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div class="btn-group">
+                                    <button type="button" class="btn btn-sm btn-outline-primary">Ver Detalles</button>
+                                    <button type="button" class="btn btn-sm btn-outline-secondary">Ver Horario</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card mb-4 box-shadow">
+                        <!-- Imagen del profesor -->
+                        <img class="card-img-top" src="https://cdn.dribbble.com/users/760319/screenshots/3907189/man.png?resize=400x0" alt="Imagen del profesor">
+
+                        <!-- Contenido de la tarjeta -->
+                        <div class="card-body">
+                            <!-- Nombre del profesor -->
+                            <h5 class="card-title">Nombre del Profesor</h5>
+                            <!-- Descripción o información adicional del profesor -->
+                            <p class="card-text">Breve descripción o información sobre el profesor.</p>
+                            <!-- Botones -->
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div class="btn-group">
+                                    <button type="button" class="btn btn-sm btn-outline-primary">Ver Detalles</button>
+                                    <button type="button" class="btn btn-sm btn-outline-secondary">Ver Horario</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card mb-4 box-shadow">
+                        <!-- Imagen del profesor -->
+                        <img class="card-img-top" src="https://cdn.dribbble.com/users/760319/screenshots/3907189/man.png?resize=400x0" alt="Imagen del profesor">
+
+                        <!-- Contenido de la tarjeta -->
+                        <div class="card-body">
+                            <!-- Nombre del profesor -->
+                            <h5 class="card-title">Nombre del Profesor</h5>
+                            <!-- Descripción o información adicional del profesor -->
+                            <p class="card-text">Breve descripción o información sobre el profesor.</p>
+                            <!-- Botones -->
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div class="btn-group">
+                                    <button type="button" class="btn btn-sm btn-outline-primary">Ver Detalles</button>
+                                    <button type="button" class="btn btn-sm btn-outline-secondary">Ver Horario</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card mb-4 box-shadow">
+                        <!-- Imagen del profesor -->
+                        <img class="card-img-top" src="https://cdn.dribbble.com/users/760319/screenshots/3907189/man.png?resize=400x0" alt="Imagen del profesor">
+
+                        <!-- Contenido de la tarjeta -->
+                        <div class="card-body">
+                            <!-- Nombre del profesor -->
+                            <h5 class="card-title">Nombre del Profesor</h5>
+                            <!-- Descripción o información adicional del profesor -->
+                            <p class="card-text">Breve descripción o información sobre el profesor.</p>
+                            <!-- Botones -->
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div class="btn-group">
+                                    <button type="button" class="btn btn-sm btn-outline-primary">Ver Detalles</button>
+                                    <button type="button" class="btn btn-sm btn-outline-secondary">Ver Horario</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+
+                <!-- Puedes copiar y pegar el bloque anterior para agregar más tarjetas de profesores -->
+
+            </div>
         </div>
+    </div>
+</main>
 
-        <div>
-            <h2>Lista de Profesores:</h2>
-            <ul id="listaProfesores">
-                <!-- Aquí se agregarán dinámicamente los profesores desde JavaScript -->
-            </ul>
-        </div>
-    </main>
+<footer class="text-muted">
+    <div class="container">
+        <p class="float-right">
+            <a href="#">Volver arriba</a>
+        </p>
+    </div>
+</footer>
 
-    <footer>
-        <h4>Por: </h4>
-    </footer>
-
-    <script src="./js/jefeDeDepartamento.js"></script>
+<!-- Bootstrap core JavaScript
+================================================== -->
+    <!-- Colocado al final del documento para que las páginas carguen más rápido -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 </body>
-
 </html>
