@@ -13,7 +13,7 @@ class ModuloRequest extends FormRequest
 
     public function rules()
     {
-        return [
+        $rules = [
             'cod' => 'required|unique:modulos' . ($this->isMethod('patch') ? ',cod,' . $this->route('modulo')->id : ''),
             'materia' => 'required|string',
             'h_semanales' => 'required|integer',
@@ -22,7 +22,16 @@ class ModuloRequest extends FormRequest
             'user_id' => 'required|exists:users,id',
             'especialidad_id' => 'required|exists:especialidads,id',
             'curso_id' => 'required|exists:cursos,id',
-            'aula_id' => 'required|exists:aula,id'
         ];
+    
+        // Si el método es PUT y contiene los parámetros específicos, ajusta las reglas
+        if ($this->isMethod('put') && $this->has(['user_id'])) {
+            $rules = [
+                'user_id' => 'required|exists:users,id',
+            ];
+        }
+    
+        return $rules;
     }
+    
 }

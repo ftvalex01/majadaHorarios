@@ -1,6 +1,7 @@
 document.addEventListener('DOMContentLoaded', async function () {
     const userData = sessionStorage.getItem('user') ? JSON.parse(sessionStorage.getItem('user')) : {};
     const TokenDocente = sessionStorage.getItem('token');
+    let moduloId = null; // Agrega esta línea para almacenar el ID del módulo seleccionado
 
     document.getElementById('userName').innerText = userData.name || '';
     document.getElementById('teacher').innerText = 'Docente: ' + userData.name || '';
@@ -25,11 +26,11 @@ document.addEventListener('DOMContentLoaded', async function () {
                     'Authorization': `Bearer ${TokenDocente}`
                 }
             });
-    
+
             if (!response.ok) {
                 throw new Error(`Error al obtener datos: ${response.statusText}`);
             }
-    
+
             const data = await response.json();
 
             console.log(data);
@@ -118,6 +119,10 @@ document.addEventListener('DOMContentLoaded', async function () {
                                 });
                             }
                         });
+
+                        // Almacena el ID del módulo seleccionado
+                        moduloId = selectedOptionId;
+
                     } catch (error) {
                         console.error('Error al obtener datos del módulo específico:', error);
                     }
@@ -127,13 +132,14 @@ document.addEventListener('DOMContentLoaded', async function () {
             console.error('Error al obtener datos:', error);
         }
     }
-
+   
     async function SelectSpecificModule(selectModule) {
         return await fetch(`http://majadahorarios.test/api/v1/modulos/${selectModule}`, {
             method: 'GET',
             headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${TokenDocente}`
+                'Content-Type': 'application/x-www-form-urlencoded',
+                'Authorization': `Bearer ${TokenDocente}`,
+                'Accept':'application/json'
             }
         })
             .then(response => response.json())
@@ -146,6 +152,7 @@ document.addEventListener('DOMContentLoaded', async function () {
             });
     }
 
+   
     async function cargarAulas(moduloId, aulaSelectElement) {
         try {
             const response = await fetch(`http://majadahorarios.test/api/v1/modulos/${moduloId}`, {
@@ -205,8 +212,46 @@ document.addEventListener('DOMContentLoaded', async function () {
         }
     }
 
-    await cargarOpciones();
-});
+ 
+
+    
+        document.getElementById('guardarButton').addEventListener('click', async function () {
+            if (!moduloId) {
+                alert('Selecciona un módulo antes de enviar datos.');
+                return;
+            }
+    
+            try {
+                const response = await fetch(`http://majadahorarios.test/api/v1/modulos/${moduloId}`, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                        'Authorization': `Bearer ${TokenDocente}`,
+                        'Accept':'application/json'
+                    },
+                    body: new URLSearchParams({
+                        user_id: userData.id,
+                    })
+                });
+    
+                if (!response.ok) {
+                    throw new Error(`Error al enviar datos: ${response.statusText}`);
+                }
+    
+                alert('Datos enviados correctamente.');
+            } catch (error) {
+                console.error('Error al enviar datos:', error);
+                alert('Hubo un error al enviar los datos.');
+            }
+        });
+    
+
+    
+        await cargarOpciones();
+    });
+    
+    
+
 
 function capitalizeFirstLetter(string) {
     return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
