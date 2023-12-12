@@ -1,78 +1,70 @@
 document.addEventListener('DOMContentLoaded', async function () {
     const TokenDocente = sessionStorage.getItem('token');
 
-    try {
-        // Realizar la solicitud para obtener todos los profesores desde tu API o backend
-        const response = await fetch(`http://majadahorarios.test/api/v1/user`, {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${TokenDocente}`
+    async function loadDepartamentos() {
+        try {
+            const response = await fetch(`http://majadahorarios.test/api/v1/departamentos`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${TokenDocente}`
+                }
+            });
+
+            if (!response.ok) {
+                throw new Error('No se pudo obtener la lista de departamentos');
             }
-        });
-        if (!response.ok) {
-            throw new Error('No se pudo obtener la lista de profesores');
-        }
 
-        // Convertir la respuesta a formato JSON
-        const profesoresData = await response.json();
-        console.log(profesoresData);
-        
-        const contenedorProfesores = document.querySelector('.row');
+            const departamentosData = await response.json();
+            console.log(departamentosData);
 
-        // Función para crear una tarjeta de profesor
-        function crearTarjetaProfesor(profesor) {
-            const card = document.createElement('div');
-            card.classList.add('col-md-4');
+            const contenedorDepartamentos = document.getElementById('contenedorDepartamentos');
 
-            card.innerHTML = `
+            departamentosData.forEach(departamento => {
+                const cardDepartamento = document.createElement('div');
+                cardDepartamento.classList.add('col-md-4', 'departamento-card');
+                cardDepartamento.setAttribute('data-id-departamento', departamento.id);
+
+                cardDepartamento.innerHTML = `
                 <div class="card mb-4 box-shadow">
-                    <!-- Contenido de la tarjeta -->
                     <div class="card-body">
-                        <!-- Nombre del profesor -->
-                        <h5 class="card-title">${profesor.name}</h5>
-                        <img class="card-img-top" src="https://cdn.dribbble.com/users/760319/screenshots/3907189/man.png?resize=400x0" alt="Imagen del profesor">
-                        <!-- Botones -->
-                        <div class="d-flex justify-content-between align-items-center">
-                            <div class="btn-group">
-                                <button type="button" class="btn btn-sm btn-outline-primary ver-detalles">Ver Detalles</button>
-                                <button type="button" class="btn btn-sm btn-outline-secondary">Ver Horario</button>
-                            </div>
-                        </div>
+                    <button class="btn btn-primary departamento-btn" data-id-departamento="${departamento.id}">${departamento.nombre}</button>
                     </div>
                 </div>
-            `;
+                `;
 
-            // Agregar dataset con la información del profesor
-            const detallesProfesor = JSON.stringify(profesor);
-            card.querySelector('.ver-detalles').dataset.profesor = detallesProfesor;
-
-            return card;
-        }
-
-        // Mostrar las tarjetas de todos los profesores
-        profesoresData.data.forEach(profesor => {
-            const tarjetaProfesor = crearTarjetaProfesor(profesor);
-            contenedorProfesores.appendChild(tarjetaProfesor);
-
-            tarjetaProfesor.querySelector('.ver-detalles').addEventListener('click', function () {
-                // Mostrar los detalles del profesor en el modal
-                const nombreProfesor = profesor.name;
-                const email = profesor.email; // Reemplaza 'otroDato' con el campo que desees mostrar
-                const rol = profesor.rol;
-                document.getElementById('nombreProfesor').textContent = `Nombre: ${nombreProfesor}`;
-                document.getElementById('email').textContent = `Email: ${email}`;
-                document.getElementById('rol').textContent = `Rol: ${rol}`;
-
-                const modal = new bootstrap.Modal(document.getElementById('profesorModal'));
-                modal.show();
+                contenedorDepartamentos.appendChild(cardDepartamento);
             });
-        });
-
-    } catch (error) {
-        console.error('Error al obtener la lista de profesores:', error);
-        // Manejo de errores (puedes mostrar un mensaje de error o realizar alguna acción apropiada)
+        } catch (error) {
+            console.error('Error al obtener la lista de departamentos:', error);
+            // Manejo de errores
+        }
     }
+
+    async function loadProfesoresDepartamento(idDepartamento) {
+        try {
+            window.location.href = `/departamentos/${idDepartamento}/profesores`; // Ruta completa
+        } catch (error) {
+            console.error('Error al redireccionar a la página de profesores del departamento:', error);
+            // Manejo de errores
+        }
+    }
+
+
+    async function handleDepartamentoClick(event) {
+        const departamentoCard = event.target.closest('.departamento-card');
+        if (departamentoCard) {
+            const idDepartamento = departamentoCard.getAttribute('data-id-departamento');
+            await loadProfesoresDepartamento(idDepartamento);
+        }
+    }
+
+    // Cargar los departamentos al cargar la página
+    loadDepartamentos();
+
+    // Agregar un listener para capturar el clic en un departamento
+    const contenedorDepartamentos = document.getElementById('contenedorDepartamentos');
+    contenedorDepartamentos.addEventListener('click', handleDepartamentoClick);
 });
 
 document.getElementById('logoutButton').addEventListener('click', function () {

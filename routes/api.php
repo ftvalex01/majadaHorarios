@@ -4,6 +4,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\V1\ModuloController;
 use App\Http\Controllers\Auth\AuthController;
+use App\Http\Controllers\Api\V1\DepartamentoController;
+
 
 
 /*
@@ -31,4 +33,9 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::apiResource('modulos', ModuloController::class)->missing(function ($instance) {
         return response()->json(['error' => 'Modulo no encontrado'], 404);
     });
+    Route::apiResource('departamentos', DepartamentoController::class)->missing(function ($instance) {
+        return response()->json(['error' => 'Modulo no encontrado'], 404);
+    });
+
+    Route::get('departamentos/{id}/profesores', [DepartamentoController::class, 'profesoresPorDepartamento'])->name('departamentos.profesores');
 });
