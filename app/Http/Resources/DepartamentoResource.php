@@ -1,4 +1,3 @@
-// En DepartamentoResource.php
 <?php
 
 namespace App\Http\Resources;

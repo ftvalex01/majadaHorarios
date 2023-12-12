@@ -1,7 +1,9 @@
 <?php
 
+use App\Http\Controllers\Api\V1\DepartamentoController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\JefeDeDepartamentoController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -28,4 +30,6 @@ Route::get('/jefeDeDepartamento', function () {
 Route::get('/jefeDeEstudios', function () {
     return response()->file(public_path('views/jefeDeEstudios.html'));
 });
-
+Route::get('departamentos/{id}/profesores', function(){
+    return response()->file(public_path('views/profesoresDepartamento.html'));
+});
