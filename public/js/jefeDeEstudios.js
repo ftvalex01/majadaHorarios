@@ -1,9 +1,5 @@
 document.addEventListener('DOMContentLoaded', async function () {
-    const userData = sessionStorage.getItem('user') ? JSON.parse(sessionStorage.getItem('user')) : {};
     const TokenDocente = sessionStorage.getItem('token');
-
-    // Aquí deberías tener la lógica para obtener el ID del departamento del usuario loggeado
-    const idDepartamentoUsuarioLoggeado = userData.departamento_id; // Reemplaza 'departamento_id' con la clave correcta de tu objeto de usuario
 
     try {
         // Realizar la solicitud para obtener todos los profesores desde tu API o backend
@@ -20,11 +16,8 @@ document.addEventListener('DOMContentLoaded', async function () {
 
         // Convertir la respuesta a formato JSON
         const profesoresData = await response.json();
-        console.log(profesoresData)
-        // Filtrar profesores por el mismo ID de departamento del usuario loggeado
-        const profesoresMismoDepartamento = profesoresData.data.filter(profesor => profesor.departamento_id === idDepartamentoUsuarioLoggeado);
-        console.log(profesoresMismoDepartamento)
-        // Obtener el contenedor donde se mostrarán las tarjetas de profesores
+        console.log(profesoresData);
+        
         const contenedorProfesores = document.querySelector('.row');
 
         // Función para crear una tarjeta de profesor
@@ -57,9 +50,8 @@ document.addEventListener('DOMContentLoaded', async function () {
             return card;
         }
 
-
-        // Mostrar las tarjetas de profesores del mismo departamento
-        profesoresMismoDepartamento.forEach(profesor => {
+        // Mostrar las tarjetas de todos los profesores
+        profesoresData.data.forEach(profesor => {
             const tarjetaProfesor = crearTarjetaProfesor(profesor);
             contenedorProfesores.appendChild(tarjetaProfesor);
 
