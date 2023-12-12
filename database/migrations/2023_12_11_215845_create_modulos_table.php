@@ -19,14 +19,13 @@ return new class extends Migration
             $table->string('materia');
             $table->unsignedInteger('h_semanales')->default(0);
             $table->unsignedInteger('h_totales')->default(0);
-        
+            $table->string('distribucion_horas')->default('');
             $table->enum('turno', ['mañana', 'tarde'])->comment('Solo puede tomar los valores "mañana" o "tarde"')->default('tarde');
 
             // Claves foráneas
             $table->foreignId('user_id')->nullable()->constrained()->comment('Clave foránea para user_id, referencia a la tabla users');
             $table->foreignId('especialidad_id')->constrained()->comment('Clave foránea para especialidad_id, referencia a la tabla especialidades');
             $table->foreignId('curso_id')->constrained()->comment('Clave foránea para estudio_id, referencia a la tabla estudios');
-
             $table->timestamps();
         });
     }
