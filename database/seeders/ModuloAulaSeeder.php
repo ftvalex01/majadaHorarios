@@ -20,10 +20,10 @@ class ModuloAulaSeeder extends Seeder
         // ... Puedes seguir obteniendo más aulas según sea necesario
 
         // Establecer la relación entre módulos y aulas
-        $modulo1->aula()->attach($aula1);
-        $modulo1->aula()->attach($aula2);
+        $modulo1->aulas()->attach($aula1);
+        $modulo1->aulas()->attach($aula2);
 
-        $modulo2->aula()->attach($aula1);
+        $modulo2->aulas()->attach($aula1);
         // ... Puedes seguir estableciendo relaciones entre módulos y aulas
 
         // También puedes usar sync() para sincronizar relaciones, detach() para eliminar relaciones, etc.

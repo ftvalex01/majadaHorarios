@@ -15,7 +15,7 @@ class Modulo extends Model
         'h_semanales',
         'h_totales',
         'grupos',
-        'aula',
+        'distribucion_horas',
         'user_id',
         'especialidad_id',
         'curso_id',
@@ -50,8 +50,11 @@ class Modulo extends Model
     {
         return $this->belongsTo(Curso::class, 'curso_id');
     }
-    public function aula(){
-        return $this->belongsToMany(Aula::class,'modulo_aula');
+   
+      public function aulas()
+    {
+        return $this->belongsToMany(Aula::class, 'modulo_aula', 'modulo_id', 'aula_id')
+            ->withTimestamps();
     }
     
 }

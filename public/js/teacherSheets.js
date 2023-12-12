@@ -143,6 +143,7 @@ document.addEventListener('DOMContentLoaded', async function () {
                     }
 
                     try {
+                        
                         const specificModuleData = await SelectSpecificModule(selectedOptionId);
                         const row = event.target.closest('tr');
                         const totalHoras = specificModuleData.data.h_semanales;
@@ -212,24 +213,24 @@ document.addEventListener('DOMContentLoaded', async function () {
 
     async function cargarAulas(moduloId, aulaSelectElement) {
         try {
-            const response = await fetch(`http://majadahorarios.test/api/v1/modulos/${moduloId}`, {
+            const response = await fetch(`http://majadahorarios.test/api/v1/modulos/${moduloId}/aulas`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
                     'Authorization': `Bearer ${TokenDocente}`
                 }
             });
-
+    
             const data = await response.json();
-
+    
             console.log(data);
-
+    
             // Limpiar opciones anteriores
             aulaSelectElement.innerHTML = '';
-
-            if (data.data.aulas && data.data.aulas.length > 0) {
+    
+            if (data.data && data.data.length > 0) {
                 // Agregar opciones de aulas
-                data.data.aulas.forEach(aula => {
+                data.data.forEach(aula => {
                     const optionElement = document.createElement('option');
                     optionElement.value = aula.id;
                     optionElement.textContent = aula.nombre;
@@ -245,7 +246,7 @@ document.addEventListener('DOMContentLoaded', async function () {
             console.error('Error al obtener datos de las aulas:', error);
         }
     }
-
+    
     function generarOpcionesDistribucion(totalHoras) {
         const opciones = [];
         generarOpciones([], totalHoras, 5, opciones);
@@ -271,13 +272,24 @@ document.addEventListener('DOMContentLoaded', async function () {
 
 
 
-
     document.getElementById('guardarButton').addEventListener('click', async function () {
         if (!moduloId) {
             alert('Selecciona un módulo antes de enviar datos.');
             return;
         }
+    
+        // Obtener el valor del textarea de observaciones
+        const observaciones = document.getElementById('teacherObservations').value;
+    
+        // Obtener el valor del select de distribución semanal
+        const distribucionSemanal = document.getElementById('distribucionSemanal').value;
 
+        console.log('Datos a enviar:', {
+            user_id: userData.id,
+            observaciones: observaciones,
+            distribucion_horas: distribucionSemanal
+        });
+    
         try {
             const response = await fetch(`http://majadahorarios.test/api/v1/modulos/${moduloId}`, {
                 method: 'PUT',
@@ -288,20 +300,22 @@ document.addEventListener('DOMContentLoaded', async function () {
                 },
                 body: new URLSearchParams({
                     user_id: userData.id,
+                    observaciones: observaciones, // Agregar observaciones al cuerpo de la solicitud
+                    distribucion_horas: distribucionSemanal // Agregar distribución semanal al cuerpo de la solicitud
                 })
             });
-
+    
             if (!response.ok) {
                 throw new Error(`Error al enviar datos: ${response.statusText}`);
             }
-
+    
             alert('Datos enviados correctamente.');
         } catch (error) {
             console.error('Error al enviar datos:', error);
             alert('Hubo un error al enviar los datos.');
         }
     });
-
+    
 
 
     await cargarOpciones();
