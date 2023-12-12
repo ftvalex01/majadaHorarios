@@ -59,6 +59,7 @@ class ModuloSeeder extends Seeder
                 'h_totales' => $subjectData['H.Tot.'],
                 'curso_id' => $subjectData['Curso'], 
                 'especialidad_id' => $subjectData['Especialidad'],
+                'observaciones' => 'Sin observaciones',
             ]);
         }
     }
