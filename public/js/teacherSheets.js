@@ -7,7 +7,64 @@ document.addEventListener('DOMContentLoaded', async function () {
     document.getElementById('teacher').innerText = 'Docente: ' + userData.name || '';
     document.getElementById('specialization').innerText = 'Especialización: ' + (userData.especialidad.nombre || '');
     document.getElementById('department').innerText = 'Departamento: ' + (userData.departamento.nombre || '');
+    console.log(userData)
+    if (userData.rol === "jefe_departamento") {
+        const navbarDiv = document.querySelector('.collapse.navbar-collapse.justify-content-end#navbarNav');
 
+        // Crear un nuevo elemento li
+        const newNavItem = document.createElement('li');
+        newNavItem.classList.add('nav-item');
+
+        // Crear un enlace dentro del nuevo elemento li
+        const newLink = document.createElement('a');
+        newLink.classList.add('nav-link');
+        newLink.href = 'http://majadahorarios.test/jefeDeDepartamento';
+        newLink.textContent = 'Hoja de departamento';
+
+        // Agregar el enlace al elemento li
+        newNavItem.appendChild(newLink);
+
+        // Obtener el botón de logout
+        const logoutButton = navbarDiv.querySelector('#logoutButton');
+
+        // Insertar el nuevo elemento li antes del botón de logout
+        navbarDiv.querySelector('.navbar-nav').insertBefore(newNavItem, logoutButton.parentNode);
+    } else if (userData.rol === "jefe_estudios") {
+        const navbarDiv = document.querySelector('.collapse.navbar-collapse.justify-content-end#navbarNav');
+
+        // Crear un nuevo elemento li
+        const newNavItem1 = document.createElement('li');
+        newNavItem1.classList.add('nav-item');
+
+        // Crear un enlace dentro del nuevo elemento li
+        const newLink1 = document.createElement('a');
+        newLink1.classList.add('nav-link');
+        newLink1.href = 'http://majadahorarios.test/jefeDeDepartamento';
+        newLink1.textContent = 'Hoja de departamento';
+
+        // Agregar el enlace al elemento li
+        newNavItem1.appendChild(newLink1);
+
+        const newNavItem2 = document.createElement('li');
+        newNavItem2.classList.add('nav-item');
+
+        // Crear un enlace dentro del nuevo elemento li
+        const newLink2 = document.createElement('a');
+        newLink2.classList.add('nav-link');
+        newLink2.href = 'http://majadahorarios.test/jefeDeEstudios';
+        newLink2.textContent = 'Hoja de Jefe de Estudios';
+
+        // Agregar el enlace al elemento li
+        newNavItem2.appendChild(newLink2);
+
+        // Obtener el botón de logout
+        const logoutButton = navbarDiv.querySelector('#logoutButton');
+
+        // Insertar el nuevo elemento li antes del botón de logout
+        navbarDiv.querySelector('.navbar-nav').insertBefore(newNavItem1, logoutButton.parentNode);
+        navbarDiv.querySelector('.navbar-nav').insertBefore(newNavItem2, logoutButton.parentNode);
+
+    }
     document.getElementById('logoutButton').addEventListener('click', function () {
         sessionStorage.clear();
         window.location.href = 'index.html';
@@ -132,14 +189,14 @@ document.addEventListener('DOMContentLoaded', async function () {
             console.error('Error al obtener datos:', error);
         }
     }
-   
+
     async function SelectSpecificModule(selectModule) {
         return await fetch(`http://majadahorarios.test/api/v1/modulos/${selectModule}`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded',
                 'Authorization': `Bearer ${TokenDocente}`,
-                'Accept':'application/json'
+                'Accept': 'application/json'
             }
         })
             .then(response => response.json())
@@ -152,7 +209,7 @@ document.addEventListener('DOMContentLoaded', async function () {
             });
     }
 
-   
+
     async function cargarAulas(moduloId, aulaSelectElement) {
         try {
             const response = await fetch(`http://majadahorarios.test/api/v1/modulos/${moduloId}`, {
@@ -212,45 +269,45 @@ document.addEventListener('DOMContentLoaded', async function () {
         }
     }
 
- 
 
-    
-        document.getElementById('guardarButton').addEventListener('click', async function () {
-            if (!moduloId) {
-                alert('Selecciona un módulo antes de enviar datos.');
-                return;
-            }
-    
-            try {
-                const response = await fetch(`http://majadahorarios.test/api/v1/modulos/${moduloId}`, {
-                    method: 'PUT',
-                    headers: {
-                        'Content-Type': 'application/x-www-form-urlencoded',
-                        'Authorization': `Bearer ${TokenDocente}`,
-                        'Accept':'application/json'
-                    },
-                    body: new URLSearchParams({
-                        user_id: userData.id,
-                    })
-                });
-    
-                if (!response.ok) {
-                    throw new Error(`Error al enviar datos: ${response.statusText}`);
-                }
-    
-                alert('Datos enviados correctamente.');
-            } catch (error) {
-                console.error('Error al enviar datos:', error);
-                alert('Hubo un error al enviar los datos.');
-            }
-        });
-    
 
-    
-        await cargarOpciones();
+
+    document.getElementById('guardarButton').addEventListener('click', async function () {
+        if (!moduloId) {
+            alert('Selecciona un módulo antes de enviar datos.');
+            return;
+        }
+
+        try {
+            const response = await fetch(`http://majadahorarios.test/api/v1/modulos/${moduloId}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                    'Authorization': `Bearer ${TokenDocente}`,
+                    'Accept': 'application/json'
+                },
+                body: new URLSearchParams({
+                    user_id: userData.id,
+                })
+            });
+
+            if (!response.ok) {
+                throw new Error(`Error al enviar datos: ${response.statusText}`);
+            }
+
+            alert('Datos enviados correctamente.');
+        } catch (error) {
+            console.error('Error al enviar datos:', error);
+            alert('Hubo un error al enviar los datos.');
+        }
     });
-    
-    
+
+
+
+    await cargarOpciones();
+});
+
+
 
 
 function capitalizeFirstLetter(string) {

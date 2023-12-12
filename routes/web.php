@@ -24,3 +24,8 @@ Route::get('/teacherSheets', function () {
 Route::get('/jefeDeDepartamento', function () {
     return response()->file(public_path('views/jefeDeDepartamento.html'));
 });
+
+Route::get('/jefeDeEstudios', function () {
+    return response()->file(public_path('views/jefeDeEstudios.html'));
+});
+

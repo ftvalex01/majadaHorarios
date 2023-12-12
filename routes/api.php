@@ -27,7 +27,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/logout', [AuthController::class, 'logout']);
 
     // Rutas de recursos protegidos
-    Route::get('/user', [AuthController::class, 'getUser']);
+    Route::get('/user', [AuthController::class, 'getAllUsers']);
     Route::apiResource('modulos', ModuloController::class)->missing(function ($instance) {
         return response()->json(['error' => 'Modulo no encontrado'], 404);
     });
