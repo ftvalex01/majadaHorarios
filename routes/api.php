@@ -5,8 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\V1\ModuloController;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Api\V1\DepartamentoController;
-
-
+use App\Http\Controllers\Api\V1\ModuloAulaController;
 
 /*
 |--------------------------------------------------------------------------
@@ -36,6 +35,6 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::apiResource('departamentos', DepartamentoController::class)->missing(function ($instance) {
         return response()->json(['error' => 'Modulo no encontrado'], 404);
     });
-
+    Route::get('/modulos/{modulo}/aulas', [ModuloAulaController::class, 'getAulasByModulo']);
     Route::get('departamentos/{id}/profesores', [DepartamentoController::class, 'profesoresPorDepartamento'])->name('departamentos.profesores');
 });

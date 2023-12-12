@@ -6,7 +6,6 @@ use App\Models\Aula;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
-
 class AulaSeeder extends Seeder
 {
     /**
@@ -25,14 +24,12 @@ class AulaSeeder extends Seeder
             'Aula 108',
             'Aula 109',
             'Aula 110'
-
-            // ... Otros nombres de aulas que desees agregar
         ];
 
         foreach ($nombresAulas as $nombreAula) {
             Aula::create([
                 'nombre' => $nombreAula,
-                // Puedes agregar más columnas y valores si es necesario
+                'horas_totales' => 30,
             ]);
         }
     }

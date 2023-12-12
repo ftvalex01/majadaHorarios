@@ -25,9 +25,11 @@ class ModuloRequest extends FormRequest
         ];
     
         // Si el método es PUT y contiene los parámetros específicos, ajusta las reglas
-        if ($this->isMethod('put') && $this->has(['user_id'])) {
+        if ($this->isMethod('put') && $this->has(['user_id', 'distribucion_horas', 'observaciones'])) {
             $rules = [
                 'user_id' => 'required|exists:users,id',
+                'distribucion_horas' => 'required|string',  // Agrega aquí las reglas específicas para distribución de horas
+                'observaciones',  // Ajusta según tus necesidades
             ];
         }
     

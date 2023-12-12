@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\ModuloRequest;
 use App\Http\Resources\AulaResource;
 use App\Models\Modulo;
+
 use App\Http\Resources\ModuloResource;
 
 
@@ -35,7 +36,7 @@ class ModuloController extends Controller
     public function show(Modulo $modulo)
     {
         $response = new ModuloResource($modulo);
-        $response['aulas'] = AulaResource::collection($modulo->aula);
+        $response['aulas'] = AulaResource::collection($modulo->aulas);
         return $response;
     }
 

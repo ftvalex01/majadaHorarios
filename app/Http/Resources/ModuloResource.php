@@ -22,6 +22,7 @@ class ModuloResource extends JsonResource
             'h_semanales' => $this->h_semanales,
             'h_totales' => $this->h_totales,
             'turno' => $this->turno,
+            'distribucion_horas' => $this->distribucion_horas,
             'user_id' => $this->user_id,
             'especialidad' => new EspecialidadResource($this->especialidad),
             'curso' => new CursoResource($this->curso),
