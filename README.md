@@ -18,7 +18,7 @@ Este proyecto consiste en el diseño e implementación de una aplicación web fu
 
 ### Generación y Validación del Horario
 - Se deben generar horarios de acuerdo con las horas semanales de los módulos, limitando 3 horas seguidas.  :white_check_mark:
-- Se debe validar que el total de horas sume entre 17 y 20 horas, indicando errores mediante colores. :x:
+- Se debe validar que el total de horas sume entre 17 y 20 horas, indicando errores mediante colores. :white_check_mark:
 
 ### Informes y Vistas para el Jefe de Departamento y Jefe de Estudios
 - El jefe de departamento puede ver y editar horarios de los docentes de su departamento. :x:
