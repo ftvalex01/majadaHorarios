@@ -34,7 +34,7 @@
         </nav>
     </header>
     <main role="main">
-        <h1>Listado de profesores</h1>
+        <h1>Listado de profesores se accede desde el JEFE DE ESTUDIOS</h1>
         <div class="album py-5 bg-light">
             <div class="container">
                 <div class="row" id="profesoresList">
@@ -61,13 +61,32 @@
                 </div>
             </div>
         </div>
+        <div class="modal fade" id="modulosProfesorModal" tabindex="-1" aria-labelledby="modulosProfesorContent"
+            aria-hidden="true">
+            <!-- Contenido del nuevo modal para los horarios -->
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="modulosProfesorContent">Horario del Profesor</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <!-- Contenido del horario del profesor -->
+                        <div>
+                            <h6 id="nombreProfesorHorario"></h6>
+                            <p id="horarioProfesor"></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </main>
 
     <footer class="text-muted">
         <!-- ... (código del pie de página) ... -->
     </footer>
 
-    
+
     <script src="/js/profesoresDepartamento.js"></script>
 
     <!-- Bootstrap core JavaScript -->

@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', async function () {
     const userData = sessionStorage.getItem('user') ? JSON.parse(sessionStorage.getItem('user')) : {};
     const TokenDocente = sessionStorage.getItem('token');
-
+    const sumas = [];
     // Aquí deberías tener la lógica para obtener el ID del departamento del usuario loggeado
     const idDepartamentoUsuarioLoggeado = userData.departamento_id; // Reemplaza 'departamento_id' con la clave correcta de tu objeto de usuario
 
@@ -43,7 +43,7 @@ document.addEventListener('DOMContentLoaded', async function () {
                         <div class="d-flex justify-content-between align-items-center">
                             <div class="btn-group">
                                 <button type="button" class="btn btn-sm btn-outline-primary ver-detalles">Ver Detalles</button>
-                                <button type="button" class="btn btn-sm btn-outline-secondary">Ver Horario</button>
+                                <button type="button" class="btn btn-sm btn-outline-secondary ver-horario">Ver Horario</button>
                             </div>
                         </div>
                     </div>
@@ -75,6 +75,64 @@ document.addEventListener('DOMContentLoaded', async function () {
                 const modal = new bootstrap.Modal(document.getElementById('profesorModal'));
                 modal.show();
             });
+
+            tarjetaProfesor.querySelector('.ver-horario').addEventListener('click', async function () {
+                let profesorId = profesor.id;
+
+                try {
+                    const response = await fetch(`http://majadahorarios.test/api/v1/departamentos/${idDepartamentoUsuarioLoggeado}/profesores/${profesorId}/modulos`, {
+                        method: 'GET',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Authorization': `Bearer ${TokenDocente}`
+                        }
+                    });
+
+                    if (!response.ok) {
+                        throw new Error('No se pudo obtener el horario del profesor');
+                    }
+
+                    const horarioProfesor = await response.json();
+                    console.log("modulo modal info" + JSON.stringify(horarioProfesor, null, 2));
+
+                    // Mostrar información de todos los módulos en un nuevo modal
+                    if (Array.isArray(horarioProfesor) && horarioProfesor.length > 0) {
+                        let infoModulos = '';
+                        for (let i = 0; i < horarioProfesor.length; i++) {
+                            const modulo = horarioProfesor[i];
+                            const nombreModulo = modulo.materia;
+                            const distribucionHoraria = modulo.distribucion_horas;
+                            sumas.push(modulo.distribucion_horas);
+                            console.log(sumas + "sumas");
+                            // Aquí puedes hacer lo que desees con la información del módulo
+                            // Por ejemplo, puedes construir una estructura HTML para mostrar la información
+                            infoModulos += `
+                                <div class = "cardModalInfoModulos">
+                                    <h6>Información del Módulo ${i + 1}</h6>
+                                    <p>Nombre: ${nombreModulo}</p>
+                                    <p>Distribución Horaria: ${distribucionHoraria}</p>
+                                </div>
+                            `;
+                        }
+
+
+
+                        // Mostrar la información de todos los módulos en un nuevo modal
+                        document.getElementById('modulosProfesorContent').innerHTML = infoModulos;
+                        let modal2 = new bootstrap.Modal(document.getElementById('modulosProfesorModal'));
+
+                        modal2.show();
+
+                        let sumatorioHoras = sumarSumas(sumas);
+                        let sumatorioElement = document.createElement('p');
+                        sumatorioElement.textContent = `Sumatorio de Horas: ${sumatorioHoras}`;
+                        document.getElementById('modulosProfesorContent').appendChild(sumatorioElement);
+                    }
+                } catch (error) {
+                    console.error('Error al obtener el horario del profesor:', error);
+                    // Manejo de errores
+                }
+            });
         });
 
     } catch (error) {
@@ -87,3 +145,22 @@ document.getElementById('logoutButton').addEventListener('click', function () {
     sessionStorage.clear();
     window.location.href = 'index.html';
 });
+
+function sumarSumas(sumas) {
+    let resultado = [];
+
+    sumas.forEach(suma => {
+        const numeros = suma.split('+');
+
+        const sumaNumeros = numeros.reduce((total, num) => {
+            const numero = parseInt(num);
+            return total + numero;
+        }, 0);
+
+        resultado.push(sumaNumeros);
+    });
+
+    const sumaTotal = resultado.reduce((total, num) => total + num, 0);
+
+    return sumaTotal;
+}
