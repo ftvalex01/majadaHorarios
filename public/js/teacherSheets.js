@@ -1,77 +1,45 @@
 document.addEventListener('DOMContentLoaded', async function () {
     const userData = sessionStorage.getItem('user') ? JSON.parse(sessionStorage.getItem('user')) : {};
     const TokenDocente = sessionStorage.getItem('token');
-    let moduloId = null; // Agrega esta línea para almacenar el ID del módulo seleccionado
+    let moduloId = null;
 
     document.getElementById('userName').innerText = userData.name || '';
     document.getElementById('teacher').innerText = 'Docente: ' + userData.name || '';
     document.getElementById('specialization').innerText = 'Especialización: ' + (userData.especialidad.nombre || '');
     document.getElementById('department').innerText = 'Departamento: ' + (userData.departamento.nombre || '');
-    console.log(userData)
-    if (userData.rol === "jefe_departamento") {
-        const navbarDiv = document.querySelector('.collapse.navbar-collapse.justify-content-end#navbarNav');
 
-        // Crear un nuevo elemento li
-        const newNavItem = document.createElement('li');
-        newNavItem.classList.add('nav-item');
+    function updateTotalHours() {
+        const totalHoursCell = document.getElementById('totalHorasCell');
+        const guardarButton = document.getElementById('guardarButton');
+        const totalHours = Array.from(document.querySelectorAll('td:nth-child(4)'))
+            .map(td => parseInt(td.innerText) || 0)
+            .reduce((acc, curr) => acc + curr, 0);
 
-        // Crear un enlace dentro del nuevo elemento li
-        const newLink = document.createElement('a');
-        newLink.classList.add('nav-link');
-        newLink.href = 'http://majadahorarios.test/jefeDeDepartamento';
-        newLink.textContent = 'Hoja de departamento';
+        totalHoursCell.innerText = totalHours;
 
-        // Agregar el enlace al elemento li
-        newNavItem.appendChild(newLink);
-
-        // Obtener el botón de logout
-        const logoutButton = navbarDiv.querySelector('#logoutButton');
-
-        // Insertar el nuevo elemento li antes del botón de logout
-        navbarDiv.querySelector('.navbar-nav').insertBefore(newNavItem, logoutButton.parentNode);
-    } else if (userData.rol === "jefe_estudios") {
-        const navbarDiv = document.querySelector('.collapse.navbar-collapse.justify-content-end#navbarNav');
-
-        // Crear un nuevo elemento li
-        const newNavItem1 = document.createElement('li');
-        newNavItem1.classList.add('nav-item');
-
-        // Crear un enlace dentro del nuevo elemento li
-        const newLink1 = document.createElement('a');
-        newLink1.classList.add('nav-link');
-        newLink1.href = 'http://majadahorarios.test/jefeDeDepartamento';
-        newLink1.textContent = 'Hoja de departamento';
-
-        // Agregar el enlace al elemento li
-        newNavItem1.appendChild(newLink1);
-
-        const newNavItem2 = document.createElement('li');
-        newNavItem2.classList.add('nav-item');
-
-        // Crear un enlace dentro del nuevo elemento li
-        const newLink2 = document.createElement('a');
-        newLink2.classList.add('nav-link');
-        newLink2.href = 'http://majadahorarios.test/jefeDeEstudios';
-        newLink2.textContent = 'Hoja de Jefe de Estudios';
-
-        // Agregar el enlace al elemento li
-        newNavItem2.appendChild(newLink2);
-
-        // Obtener el botón de logout
-        const logoutButton = navbarDiv.querySelector('#logoutButton');
-
-        // Insertar el nuevo elemento li antes del botón de logout
-        navbarDiv.querySelector('.navbar-nav').insertBefore(newNavItem1, logoutButton.parentNode);
-        navbarDiv.querySelector('.navbar-nav').insertBefore(newNavItem2, logoutButton.parentNode);
-
+        if (totalHours >= 17 && totalHours <= 20) {
+            totalHoursCell.style.backgroundColor = 'green';
+            totalHoursCell.style.color = 'white';
+            guardarButton.disabled = false;
+        } else {
+            totalHoursCell.style.backgroundColor = 'red';
+            totalHoursCell.style.color = 'white';
+            guardarButton.disabled = true;
+        }
     }
+
+    if (userData.rol === "jefe_departamento") {
+        // Código para jefe de departamento...
+    } else if (userData.rol === "jefe_estudios") {
+        // Código para jefe de estudios...
+    }
+
     document.getElementById('logoutButton').addEventListener('click', function () {
         sessionStorage.clear();
         window.location.href = 'index.html';
     });
 
     const selectedModules = new Set(userData.selectedModules || []);
-
     const selectElements = document.getElementsByName('teacherModules');
 
     async function cargarOpciones() {
@@ -120,6 +88,8 @@ document.addEventListener('DOMContentLoaded', async function () {
 
                     if (selectedOptionId === 'selectModule') {
                         const row = event.target.closest('tr');
+                        const moduleHours = parseInt(row.cells[3].innerText) || 0;
+                        subtractModuleHours(moduleHours);
 
                         row.cells[0].innerText = '';
                         row.cells[1].innerText = '';
@@ -143,7 +113,6 @@ document.addEventListener('DOMContentLoaded', async function () {
                     }
 
                     try {
-                        
                         const specificModuleData = await SelectSpecificModule(selectedOptionId);
                         const row = event.target.closest('tr');
                         const totalHoras = specificModuleData.data.h_semanales;
@@ -164,7 +133,6 @@ document.addEventListener('DOMContentLoaded', async function () {
                             distribucionSemanalSelect.appendChild(opcionElement);
                         }
 
-                        // Cargar las aulas
                         const aulaSelectElement = row.cells[5].querySelector('select');
                         await cargarAulas(selectedOptionId, aulaSelectElement);
 
@@ -178,9 +146,8 @@ document.addEventListener('DOMContentLoaded', async function () {
                             }
                         });
 
-                        // Almacena el ID del módulo seleccionado
                         moduloId = selectedOptionId;
-
+                        updateTotalHours();
                     } catch (error) {
                         console.error('Error al obtener datos del módulo específico:', error);
                     }
@@ -202,14 +169,13 @@ document.addEventListener('DOMContentLoaded', async function () {
         })
             .then(response => response.json())
             .then(data => {
-                console.log(data);
+                
                 return data;
             })
             .catch(error => {
                 console.error('Error al obtener datos:', error);
             });
     }
-
 
     async function cargarAulas(moduloId, aulaSelectElement) {
         try {
@@ -223,29 +189,30 @@ document.addEventListener('DOMContentLoaded', async function () {
     
             const data = await response.json();
     
-            console.log(data);
+          
     
-            // Limpiar opciones anteriores
             aulaSelectElement.innerHTML = '';
     
-            if (data.data && data.data.length > 0) {
-                // Agregar opciones de aulas
-                data.data.forEach(aula => {
+            if (data.aulas && data.aulas.length > 0) {
+                data.aulas.forEach(aula => {
                     const optionElement = document.createElement('option');
                     optionElement.value = aula.id;
                     optionElement.textContent = aula.nombre;
+    
                     aulaSelectElement.appendChild(optionElement);
                 });
             } else {
-                // No hay aulas disponibles
                 const optionElement = document.createElement('option');
                 optionElement.textContent = 'No hay aulas disponibles';
                 aulaSelectElement.appendChild(optionElement);
             }
+    
         } catch (error) {
             console.error('Error al obtener datos de las aulas:', error);
         }
     }
+    
+    
     
     function generarOpcionesDistribucion(totalHoras) {
         const opciones = [];
@@ -270,18 +237,43 @@ document.addEventListener('DOMContentLoaded', async function () {
         }
     }
 
+    function resetTotalHours() {
+        const totalHoursCell = document.getElementById('totalHorasCell');
+        const guardarButton = document.getElementById('guardarButton');
 
+        totalHoursCell.innerText = 0;
+        totalHoursCell.style.backgroundColor = '';
+        totalHoursCell.style.color = '';
+        guardarButton.disabled = true;
+    }
+
+    function subtractModuleHours(moduleHours) {
+        const totalHoursCell = document.getElementById('totalHorasCell');
+        const guardarButton = document.getElementById('guardarButton');
+
+        const currentTotalHours = parseInt(totalHoursCell.innerText) || 0;
+        const newTotalHours = Math.max(0, currentTotalHours - moduleHours);
+
+        totalHoursCell.innerText = newTotalHours;
+
+        if (newTotalHours >= 17 && newTotalHours <= 20) {
+            totalHoursCell.style.backgroundColor = 'green';
+            totalHoursCell.style.color = 'white';
+            guardarButton.disabled = false;
+        } else {
+            totalHoursCell.style.backgroundColor = 'red';
+            totalHoursCell.style.color = 'white';
+            guardarButton.disabled = true;
+        }
+    }
 
     document.getElementById('guardarButton').addEventListener('click', async function () {
         if (!moduloId) {
             alert('Selecciona un módulo antes de enviar datos.');
             return;
         }
-    
-        // Obtener el valor del textarea de observaciones
+
         const observaciones = document.getElementById('teacherObservations').value;
-    
-        // Obtener el valor del select de distribución semanal
         const distribucionSemanal = document.getElementById('distribucionSemanal').value;
 
         console.log('Datos a enviar:', {
@@ -289,7 +281,7 @@ document.addEventListener('DOMContentLoaded', async function () {
             observaciones: observaciones,
             distribucion_horas: distribucionSemanal
         });
-    
+
         try {
             const response = await fetch(`http://majadahorarios.test/api/v1/modulos/${moduloId}`, {
                 method: 'PUT',
@@ -300,29 +292,24 @@ document.addEventListener('DOMContentLoaded', async function () {
                 },
                 body: new URLSearchParams({
                     user_id: userData.id,
-                    observaciones: observaciones, // Agregar observaciones al cuerpo de la solicitud
-                    distribucion_horas: distribucionSemanal // Agregar distribución semanal al cuerpo de la solicitud
+                    observaciones: observaciones,
+                    distribucion_horas: distribucionSemanal
                 })
             });
-    
+
             if (!response.ok) {
                 throw new Error(`Error al enviar datos: ${response.statusText}`);
             }
-    
+
             alert('Datos enviados correctamente.');
         } catch (error) {
             console.error('Error al enviar datos:', error);
             alert('Hubo un error al enviar los datos.');
         }
     });
-    
-
 
     await cargarOpciones();
 });
-
-
-
 
 function capitalizeFirstLetter(string) {
     return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();

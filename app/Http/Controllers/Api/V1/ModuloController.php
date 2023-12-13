@@ -90,4 +90,8 @@ class ModuloController extends Controller
 
         return response()->json($modulosArray);
     }
+    public function todasAulas(Modulo $modulo){
+        $aula = $modulo->aulas()->get();         
+        return response()->json(['aulas' => AulaResource::collection($aula)], 200);
+    }
 }

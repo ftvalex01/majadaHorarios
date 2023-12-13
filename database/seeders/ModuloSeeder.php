@@ -16,7 +16,7 @@ class ModuloSeeder extends Seeder
                 "Grupos" => 1,
                 "H.Sem." => 8,
                 "H.Tot." => 8,
-                "Curso" => 1, 
+                "Curso" => 1,
                 "Especialidad" => 2,
             ],
             [
@@ -26,7 +26,7 @@ class ModuloSeeder extends Seeder
                 "Grupos" => 1,
                 "H.Sem." => 3,
                 "H.Tot." => 3,
-                "Curso" => 2, 
+                "Curso" => 2,
                 "Especialidad" => 2,
             ],
             [
@@ -36,7 +36,7 @@ class ModuloSeeder extends Seeder
                 "Grupos" => 1,
                 "H.Sem." => 3,
                 "H.Tot." => 3,
-                "Curso" => 1, 
+                "Curso" => 1,
                 "Especialidad" => 2,
             ],
             [
