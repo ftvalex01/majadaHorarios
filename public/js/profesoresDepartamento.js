@@ -42,8 +42,9 @@ document.addEventListener('DOMContentLoaded', async function () {
                     document.getElementById('email').textContent = `Email: ${email}`;
                     document.getElementById('rol').textContent = `Rol: ${rol}`;
 
-                    const modal = new bootstrap.Modal(document.getElementById('profesorModal'));
-                    modal.show();
+                    let modal1 = new bootstrap.Modal(document.getElementById('profesorModal'));
+
+                    modal1.show();
                 });
 
                 // Agregar evento click al botón "Ver Horario"
@@ -66,7 +67,7 @@ document.addEventListener('DOMContentLoaded', async function () {
                         const horarioProfesor = await response.json();
                         console.log("modulo modal info" + JSON.stringify(horarioProfesor, null, 2));
 
-                        // Mostrar información de todos los módulos
+                        // Mostrar información de todos los módulos en un nuevo modal
                         if (Array.isArray(horarioProfesor) && horarioProfesor.length > 0) {
                             let infoModulos = '';
                             for (let i = 0; i < horarioProfesor.length; i++) {
@@ -75,15 +76,21 @@ document.addEventListener('DOMContentLoaded', async function () {
                                 const distribucionHoraria = modulo.distribucion_horas;
 
                                 // Aquí puedes hacer lo que desees con la información del módulo
-                                // Por ejemplo, puedes mostrarla en un elemento HTML
-                                infoModulos += `Módulo ${i + 1}: Nombre - ${nombreModulo}, Horario - ${distribucionHoraria}<br>`;
+                                // Por ejemplo, puedes construir una estructura HTML para mostrar la información
+                                infoModulos += `
+                                    <div>
+                                        <h6>Información del Módulo ${i + 1}</h6>
+                                        <p>Nombre: ${nombreModulo}</p>
+                                        <p>Distribución Horaria: ${distribucionHoraria}</p>
+                                    </div>
+                                `;
                             }
 
-                            // Mostrar la información de todos los módulos en un elemento HTML
-                            document.getElementById('nombreProfesor').innerHTML = `Información de los módulos:<br>${infoModulos}`;
+                            // Mostrar la información de todos los módulos en un nuevo modal
+                            document.getElementById('modulosProfesorContent').innerHTML = infoModulos;
+                            let modal2 = new bootstrap.Modal(document.getElementById('modulosProfesorModal'));
 
-                            const modal = new bootstrap.Modal(document.getElementById('profesorModal'));
-                            modal.show();
+                            modal2.show();
                         }
                     } catch (error) {
                         console.error('Error al obtener el horario del profesor:', error);
