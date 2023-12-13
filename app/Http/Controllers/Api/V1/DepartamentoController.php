@@ -62,11 +62,11 @@ class DepartamentoController extends Controller
             return response()->json(['error' => 'Error al obtener profesores del departamento'], 500);
         }
     }
-    public function mostrarProfesoresDepartamento($id)
-    {
-        $departamento = Departamento::findOrFail($id);
-        $profesores = $departamento->profesores()->get();
+        public function mostrarProfesoresDepartamento($id)
+        {
+            $departamento = Departamento::findOrFail($id);
+            $profesores = $departamento->profesores()->get();
 
-        return view('profesores_departamento', ['profesores' => $profesores]);
-    }
+            return view('profesores_departamento', ['profesores' => $profesores]);
+        }
 }

@@ -18,7 +18,7 @@ Este proyecto consiste en el diseño e implementación de una aplicación web fu
 
 ### Generación y Validación del Horario
 - Se deben generar horarios de acuerdo con las horas semanales de los módulos, limitando 3 horas seguidas.  :white_check_mark:
-- Se debe validar que el total de horas sume entre 17 y 20 horas, indicando errores mediante colores. :x:
+- Se debe validar que el total de horas sume entre 17 y 20 horas, indicando errores mediante colores. :white_check_mark:
 
 ### Informes y Vistas para el Jefe de Departamento y Jefe de Estudios
 - El jefe de departamento puede ver y editar horarios de los docentes de su departamento. :x:
@@ -40,7 +40,7 @@ El proyecto debe ser desplegado para su acceso público utilizando una de las si
 - Autenticación en API mediante Passport o Sanctum. :white_check_mark:
 - Validación de datos con FormRequest. :white_check_mark: 
 - Recursos JS y CSS accesibles mediante Vite. 
-- Gestión de autorizaciones por roles. :x:
+- Gestión de autorizaciones por roles. :white_check_mark:
 - Uso de Eloquent Resources, códigos HTTP específicos, comentarios, etc. :white_check_mark: 
 - Código fuente disponible en BitBucket/GitHub. :white_check_mark: 
 
