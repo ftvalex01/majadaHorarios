@@ -26,27 +26,63 @@ main {
     margin: 20px 0;
 }
 
+#teacherDataBox {
+    background-color: #f8f9fa;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+    text-align: center; /* Alinea el contenido al centro */
+}
+
+#teacherDataBox h4 {
+    font-family: 'Helvetica Neue', sans-serif;
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+#teacherDataBox .col-md-6 {
+    margin-bottom: 15px;
+}
+
 table {
-    border: 2px solid #000;
-    width: 100%;
+    border-collapse: collapse;
+    width: 90%;
+    margin: 20px auto; /* Centra la tabla y ajusta el margen */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-table td, table th {
-    border: 2px solid #000;
-    height: 29px;
-    padding: 5px;
+table th, table td {
+    border: 1px solid #dee2e6;
+    padding: 15px;
+    text-align: center;
 }
 
-footer {
-    padding: 10px;
+table th {
+    background-color: #343a40;
+    color: rgb(14, 10, 10);
+}
+
+tbody tr:nth-child(even) {
+    background-color: #f8f9fa;
 }
 
 textarea {
     display: block;
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: 30px;
-    padding: 10px;
+    margin: 30px auto;
+    padding: 15px;
+    width: 90%; /* Ajusta el ancho para centrar y mejora el aspecto en dispositivos pequeños */
+    box-sizing: border-box;
+}
+
+footer {
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    background-color: #343a40;
+    color: white;
+    padding: 10px 0;
+    margin-top: 20px;
+    text-align: center;
 }
 
 #container {
@@ -56,8 +92,6 @@ textarea {
     border: 1px solid black;
     overflow-x: auto;
 }
-
-
 
 #department {
     grid-area: department;
