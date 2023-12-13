@@ -40,7 +40,7 @@ El proyecto debe ser desplegado para su acceso público utilizando una de las si
 - Autenticación en API mediante Passport o Sanctum. :white_check_mark:
 - Validación de datos con FormRequest. :white_check_mark: 
 - Recursos JS y CSS accesibles mediante Vite. 
-- Gestión de autorizaciones por roles. :x:
+- Gestión de autorizaciones por roles. :white_check_mark:
 - Uso de Eloquent Resources, códigos HTTP específicos, comentarios, etc. :white_check_mark: 
 - Código fuente disponible en BitBucket/GitHub. :white_check_mark: 
 
