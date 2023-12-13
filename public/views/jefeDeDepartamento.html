@@ -51,12 +51,31 @@
             </div>
         </div>
         <!-- Resto del código HTML -->
+        <div class="modal fade" id="profesorModal" tabindex="-1" aria-labelledby="profesorModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="profesorModalLabel">Detalles del Profesor</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p id="nombreProfesor"></p>
+                        <p id="email"></p>
+                        <p id="rol"></p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </main>
 
     <footer class="text-muted">
         <!-- ... (código del pie de página) ... -->
     </footer>
-    <script src="../js/jefeDeEstudios.js"></script>
+    <script src="../js/jefeDeDepartamento.js"></script>
     <!-- Bootstrap core JavaScript -->
     <!-- Colocado al final del documento para que las páginas carguen más rápido -->
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"

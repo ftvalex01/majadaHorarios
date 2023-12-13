@@ -42,86 +42,33 @@
                 </div>
             </div>
         </div>
+        <div class="modal fade" id="profesorModal" tabindex="-1" aria-labelledby="profesorModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="profesorModalLabel">Detalles del Profesor</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p id="nombreProfesor"></p>
+                        <p id="email"></p>
+                        <p id="rol"></p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </main>
 
     <footer class="text-muted">
         <!-- ... (código del pie de página) ... -->
     </footer>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', async function () {
-            const TokenDocente = sessionStorage.getItem('token');
-            const url = window.location.pathname;
-            const parts = url.split('/');
-            const idDepartamento = parts[2];
-
-            async function loadProfesoresPorDepartamento(idDepartamento) {
-                try {
-                    const response = await fetch(`http://majadahorarios.test/api/v1/departamentos/${idDepartamento}/profesores`, {
-                        method: 'GET',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'Authorization': `Bearer ${TokenDocente}`
-                        }
-                    });
-
-                    if (!response.ok) {
-                        throw new Error('No se pudieron obtener los profesores del departamento');
-                    }
-
-                    const { profesores } = await response.json();
-                    console.log(profesores);
-
-                    const profesoresListElement = document.getElementById('profesoresList');
-                    profesoresListElement.innerHTML = '';
-
-                    profesores.forEach(profesor => {
-                        const card = crearTarjetaProfesor(profesor);
-                        profesoresListElement.appendChild(card);
-                    });
-                } catch (error) {
-                    console.error('Error al obtener profesores del departamento:', error);
-                    // Manejo de errores
-                }
-            }
-
-            loadProfesoresPorDepartamento(idDepartamento);
-        });
-
-        function crearTarjetaProfesor(profesor) {
-            const card = document.createElement('div');
-            card.classList.add('col-md-4');
-
-            card.innerHTML = `
-                <div class="card mb-4 box-shadow">
-                    <!-- Contenido de la tarjeta -->
-                    <div class="card-body">
-                        <!-- Nombre del profesor -->
-                        <h5 class="card-title">${profesor.name}</h5>
-                        <img class="card-img-top" src="https://cdn.dribbble.com/users/760319/screenshots/3907189/man.png?resize=400x0" alt="Imagen del profesor">
-                        <!-- Botones -->
-                        <div class="d-flex justify-content-between align-items-center">
-                            <div class="btn-group">
-                                <button type="button" class="btn btn-sm btn-outline-primary ver-detalles">Ver Detalles</button>
-                                <button type="button" class="btn btn-sm btn-outline-secondary">Ver Horario</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            `;
-
-            // Agregar dataset con la información del profesor
-            const detallesProfesor = JSON.stringify(profesor);
-            card.querySelector('.ver-detalles').dataset.profesor = detallesProfesor;
-
-            return card;
-        }
-
-        document.getElementById('logoutButton').addEventListener('click', function () {
-            sessionStorage.clear();
-            window.location.href = '../../index.html';
-        });
-    </script>
+    
+    <script src="/js/profesoresDepartamento.js"></script>
 
     <!-- Bootstrap core JavaScript -->
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"

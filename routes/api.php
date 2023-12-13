@@ -37,4 +37,7 @@ Route::middleware('auth:sanctum')->group(function () {
     });
     Route::get('/modulos/{modulo}/aulas', [ModuloAulaController::class, 'getAulasByModulo']);
     Route::get('departamentos/{id}/profesores', [DepartamentoController::class, 'profesoresPorDepartamento'])->name('departamentos.profesores');
+
+    Route::get('departamentos/{departamento_id}/profesores/{profesor_id}/modulos', [ModuloController::class, 'obtenerModulosDeProfesor'])
+        ->name('departamentos.profesores.modulos');
 });
