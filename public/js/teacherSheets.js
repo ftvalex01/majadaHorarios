@@ -111,7 +111,7 @@ document.addEventListener('DOMContentLoaded', async function () {
 
             const data = await response.json();
 
-            console.log(data);
+          
 
             selectElements.forEach((selectElement, index) => {
                 selectElement.innerHTML = '';
@@ -207,7 +207,6 @@ document.addEventListener('DOMContentLoaded', async function () {
                         // Add the module data to the array when selected
                         const moduleData = {
                             moduloId: selectedOptionId,
-                            observaciones: '',
                             distribucionSemanal: '',
                         };
 
@@ -335,10 +334,10 @@ document.addEventListener('DOMContentLoaded', async function () {
             alert('Selecciona al menos un módulo antes de enviar datos.');
             return;
         }
-
         try {
-            for (const moduleData of selectedModulesData) {
-                const response = await fetch(`http://majadahorarios.test/api/v1/modulos/${moduleData.moduloId}`, {
+         
+            
+                const response = await fetch(`http://majadahorarios.test/api/v1/modulos/${moduloId}`, {
                     method: 'PUT',
                     headers: {
                         'Content-Type': 'application/x-www-form-urlencoded',
@@ -347,15 +346,14 @@ document.addEventListener('DOMContentLoaded', async function () {
                     },
                     body: new URLSearchParams({
                         user_id: userData.id,
-                        observaciones: moduleData.observaciones,
-                        distribucion_horas: moduleData.distribucionSemanal
+                        distribucion_horas: distribucionSemanal
                     })
                 });
 
                 if (!response.ok) {
                     throw new Error(`Error al enviar datos: ${response.statusText}`);
                 }
-            }
+            
 
             alert('Datos enviados correctamente.');
         } catch (error) {
