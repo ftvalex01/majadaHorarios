@@ -95,3 +95,4 @@ class ModuloController extends Controller
         return response()->json(['aulas' => AulaResource::collection($aula)], 200);
     }
 }
+

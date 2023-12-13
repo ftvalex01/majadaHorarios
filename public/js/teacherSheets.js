@@ -29,9 +29,61 @@ document.addEventListener('DOMContentLoaded', async function () {
     }
 
     if (userData.rol === "jefe_departamento") {
-        // Código para jefe de departamento...
-    } else if (userData.rol === "jefe_estudios") {
-        // Código para jefe de estudios...
+        const navbarDiv = document.querySelector('.collapse.navbar-collapse.justify-content-end#navbarNav');
+
+        // Crear un nuevo elemento li
+        const newNavItem = document.createElement('li');
+        newNavItem.classList.add('nav-item');
+
+        // Crear un enlace dentro del nuevo elemento li
+        const newLink = document.createElement('a');
+        newLink.classList.add('nav-link');
+        newLink.href = 'http://majadahorarios.test/jefeDeDepartamento';
+        newLink.textContent = 'Hoja de departamento';
+
+        // Agregar el enlace al elemento li
+        newNavItem.appendChild(newLink);
+
+        // Obtener el botón de logout
+        const logoutButton = navbarDiv.querySelector('#logoutButton');
+
+        // Insertar el nuevo elemento li antes del botón de logout
+        navbarDiv.querySelector('.navbar-nav').insertBefore(newNavItem, logoutButton.parentNode);
+    }else if (userData.rol === "jefe_estudios") {
+        const navbarDiv = document.querySelector('.collapse.navbar-collapse.justify-content-end#navbarNav');
+
+        // Crear un nuevo elemento li
+        const newNavItem1 = document.createElement('li');
+        newNavItem1.classList.add('nav-item');
+
+        // Crear un enlace dentro del nuevo elemento li
+        const newLink1 = document.createElement('a');
+        newLink1.classList.add('nav-link');
+        newLink1.href = 'http://majadahorarios.test/jefeDeDepartamento';
+        newLink1.textContent = 'Hoja de departamento';
+
+        // Agregar el enlace al elemento li
+        newNavItem1.appendChild(newLink1);
+
+        const newNavItem2 = document.createElement('li');
+        newNavItem2.classList.add('nav-item');
+
+        // Crear un enlace dentro del nuevo elemento li
+        const newLink2 = document.createElement('a');
+        newLink2.classList.add('nav-link');
+        newLink2.href = 'http://majadahorarios.test/jefeDeEstudios';
+        newLink2.textContent = 'Hoja de Jefe de Estudios';
+
+        // Agregar el enlace al elemento li
+        newNavItem2.appendChild(newLink2);
+
+        // Obtener el botón de logout
+        const logoutButton = navbarDiv.querySelector('#logoutButton');
+
+        // Insertar el nuevo elemento li antes del botón de logout
+        navbarDiv.querySelector('.navbar-nav').insertBefore(newNavItem1, logoutButton.parentNode);
+        navbarDiv.querySelector('.navbar-nav').insertBefore(newNavItem2, logoutButton.parentNode);
+
     }
 
     document.getElementById('logoutButton').addEventListener('click', function () {
@@ -41,6 +93,7 @@ document.addEventListener('DOMContentLoaded', async function () {
 
     const selectedModules = new Set(userData.selectedModules || []);
     const selectElements = document.getElementsByName('teacherModules');
+    let selectedModulesData = [];
 
     async function cargarOpciones() {
         try {
@@ -109,6 +162,11 @@ document.addEventListener('DOMContentLoaded', async function () {
                             }
                         });
 
+                        // Remove the module data from the array when deselected
+                        selectedModulesData = selectedModulesData.filter(data => data.moduloId !== selectedOptionId);
+
+                        updateTotalHours();
+
                         return;
                     }
 
@@ -146,6 +204,16 @@ document.addEventListener('DOMContentLoaded', async function () {
                             }
                         });
 
+                        // Add the module data to the array when selected
+                        const moduleData = {
+                            moduloId: selectedOptionId,
+                            observaciones: '',
+                            distribucionSemanal: '',
+                        };
+
+                        selectedModulesData = selectedModulesData.filter(data => data.moduloId !== selectedOptionId);
+                        selectedModulesData.push(moduleData);
+
                         moduloId = selectedOptionId;
                         updateTotalHours();
                     } catch (error) {
@@ -169,7 +237,6 @@ document.addEventListener('DOMContentLoaded', async function () {
         })
             .then(response => response.json())
             .then(data => {
-                
                 return data;
             })
             .catch(error => {
@@ -186,19 +253,17 @@ document.addEventListener('DOMContentLoaded', async function () {
                     'Authorization': `Bearer ${TokenDocente}`
                 }
             });
-    
+
             const data = await response.json();
-    
-          
-    
+
             aulaSelectElement.innerHTML = '';
-    
+
             if (data.aulas && data.aulas.length > 0) {
                 data.aulas.forEach(aula => {
                     const optionElement = document.createElement('option');
                     optionElement.value = aula.id;
                     optionElement.textContent = aula.nombre;
-    
+
                     aulaSelectElement.appendChild(optionElement);
                 });
             } else {
@@ -206,14 +271,12 @@ document.addEventListener('DOMContentLoaded', async function () {
                 optionElement.textContent = 'No hay aulas disponibles';
                 aulaSelectElement.appendChild(optionElement);
             }
-    
+
         } catch (error) {
             console.error('Error al obtener datos de las aulas:', error);
         }
     }
-    
-    
-    
+
     function generarOpcionesDistribucion(totalHoras) {
         const opciones = [];
         generarOpciones([], totalHoras, 5, opciones);
@@ -268,37 +331,30 @@ document.addEventListener('DOMContentLoaded', async function () {
     }
 
     document.getElementById('guardarButton').addEventListener('click', async function () {
-        if (!moduloId) {
-            alert('Selecciona un módulo antes de enviar datos.');
+        if (selectedModulesData.length === 0) {
+            alert('Selecciona al menos un módulo antes de enviar datos.');
             return;
         }
 
-        const observaciones = document.getElementById('teacherObservations').value;
-        const distribucionSemanal = document.getElementById('distribucionSemanal').value;
-
-        console.log('Datos a enviar:', {
-            user_id: userData.id,
-            observaciones: observaciones,
-            distribucion_horas: distribucionSemanal
-        });
-
         try {
-            const response = await fetch(`http://majadahorarios.test/api/v1/modulos/${moduloId}`, {
-                method: 'PUT',
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded',
-                    'Authorization': `Bearer ${TokenDocente}`,
-                    'Accept': 'application/json'
-                },
-                body: new URLSearchParams({
-                    user_id: userData.id,
-                    observaciones: observaciones,
-                    distribucion_horas: distribucionSemanal
-                })
-            });
+            for (const moduleData of selectedModulesData) {
+                const response = await fetch(`http://majadahorarios.test/api/v1/modulos/${moduleData.moduloId}`, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                        'Authorization': `Bearer ${TokenDocente}`,
+                        'Accept': 'application/json'
+                    },
+                    body: new URLSearchParams({
+                        user_id: userData.id,
+                        observaciones: moduleData.observaciones,
+                        distribucion_horas: moduleData.distribucionSemanal
+                    })
+                });
 
-            if (!response.ok) {
-                throw new Error(`Error al enviar datos: ${response.statusText}`);
+                if (!response.ok) {
+                    throw new Error(`Error al enviar datos: ${response.statusText}`);
+                }
             }
 
             alert('Datos enviados correctamente.');
