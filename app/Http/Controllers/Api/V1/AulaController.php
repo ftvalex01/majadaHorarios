@@ -37,4 +37,9 @@ class AulaController extends Controller
         $aula->delete();
         return response()->json(['message' => 'Aula eliminada correctamente']);
     }
+    public function showById($id)
+    {
+        $aula = Aula::findOrFail($id);
+        return new AulaResource($aula);
+    }
 }

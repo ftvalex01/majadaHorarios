@@ -57,4 +57,8 @@ class ModuloController extends Controller
         $modulo->delete();
         return response()->json(['message' => 'Modulo eliminado correctamente'], 200);
     }
+    public function todasAulas(Modulo $modulo){
+        $aula = $modulo->aulas()->get();         
+        return response()->json(['aulas' => AulaResource::collection($aula)], 200);
+    }
 }

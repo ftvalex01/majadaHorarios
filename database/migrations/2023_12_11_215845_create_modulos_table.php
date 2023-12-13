@@ -26,6 +26,7 @@ return new class extends Migration
             $table->foreignId('user_id')->nullable()->constrained()->comment('Clave foránea para user_id, referencia a la tabla users');
             $table->foreignId('especialidad_id')->constrained()->comment('Clave foránea para especialidad_id, referencia a la tabla especialidades');
             $table->foreignId('curso_id')->constrained()->comment('Clave foránea para estudio_id, referencia a la tabla estudios');
+           
             $table->timestamps();
         });
     }

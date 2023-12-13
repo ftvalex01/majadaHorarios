@@ -10,5 +10,14 @@ class ModuloAula extends Model
 
     protected $fillable = ['aula_id', 'modulo_id'];
 
-    // Puedes agregar más relaciones o métodos según sea necesario
+    public function aula()
+    {
+        return $this->belongsTo(Aula::class, 'aula_id');
+    }
+
+    public function modulo()
+    {
+        return $this->belongsTo(Modulo::class, 'modulo_id');
+    }
+
 }
