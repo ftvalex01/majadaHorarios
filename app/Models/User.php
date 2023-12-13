@@ -38,4 +38,7 @@ class User extends Authenticatable
     {
         return $this->belongsTo(Departamento::class);
     }
+    public function modulos(){
+        return $this->hasMany(Modulo::class);
+    }
 }
