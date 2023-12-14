@@ -97,6 +97,10 @@ class ModuloController extends Controller
         return response()->json(['aulas' => AulaResource::collection($aula)], 200);
     }
  
-    
+    public function modulosPorEspecialidad($especialidadId)
+{
+    $modulos = Modulo::where('especialidad_id', $especialidadId)->get();
+    return ModuloResource::collection($modulos);
+}
 }
 

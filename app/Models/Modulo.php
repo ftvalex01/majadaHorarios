@@ -18,6 +18,7 @@ class Modulo extends Model
         'distribucion_horas',
         'aula_id',
         'user_id',
+        'observaciones',
         'especialidad_id',
         'curso_id',
     ];

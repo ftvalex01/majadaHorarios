@@ -84,18 +84,26 @@ document.addEventListener('DOMContentLoaded', async function () {
     // Function to load module options
     async function cargarOpciones() {
         try {
-            const response = await fetch('http://majadahorarios.test/api/v1/modulos', {
+
+            const especialidadId = userData.especialidad?.id;
+            if (!especialidadId) {
+                console.error('No se encontró la especialidad del usuario');
+                return;
+            }
+    
+            const url = `http://majadahorarios.test/api/v1/especialidades/${especialidadId}/modulos`;
+            const response = await fetch(url, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
                     'Authorization': `Bearer ${TokenDocente}`
                 }
             });
-
+    
             if (!response.ok) {
                 throw new Error(`Error al obtener datos: ${response.statusText}`);
             }
-
+    
             const data = await response.json();
 
             // Iterate through selectElements and populate them with options
@@ -271,7 +279,7 @@ document.addEventListener('DOMContentLoaded', async function () {
     // Function to generate distribution options
     function generarOpcionesDistribucion(totalHoras) {
         const opciones = [];
-        generarOpciones([], totalHoras, 5, opciones);
+        generarOpciones([], totalHoras, 3, opciones);
         return opciones;
     }
 
@@ -332,7 +340,7 @@ document.addEventListener('DOMContentLoaded', async function () {
             observaciones: observaciones,
             distribucion_horas: distribucionHoras
         };
-
+      
         try {
             const response = await fetch(url, {
                 method: 'PUT',
@@ -361,11 +369,12 @@ document.addEventListener('DOMContentLoaded', async function () {
             const selectModulo = fila.querySelector('select[name="teacherModules"]');
             const selectDistribucion = fila.querySelector('select[name="distribucionSemanal"]');
             const observaciones = document.getElementById('teacherObservations').value.trim();
+            
             if (selectModulo && selectModulo.value !== 'selectModule') {
                 const moduloId = selectModulo.value;
-                const distribucionHoras = selectDistribucion ? selectDistribucion.value : '';
-                const userId = userData.id; // Asegúrate de que esta variable esté definida correctamente
-
+                let distribucionHoras = selectDistribucion ? selectDistribucion.value : '';
+                distribucionHoras = `(${distribucionHoras})`;
+                const userId = userData.id; 
                 console.log(`Modulo ID: ${moduloId}, Distribución Horas: ${distribucionHoras}, User ID: ${userId}`);
 
                 try {
