@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\V1\DepartamentoController;
+use App\Http\Controllers\EspecialidadController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\JefeDeDepartamentoController;
 
@@ -33,3 +34,9 @@ Route::get('/jefeDeEstudios', function () {
 Route::get('departamentos/{id}/profesores', function(){
     return response()->file(public_path('views/profesoresDepartamento.html'));
 });
+
+
+
+    Route::get('/admin', function () {
+        return response()->file(public_path('views/admin.html'));
+    });

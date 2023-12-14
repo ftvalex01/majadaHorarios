@@ -1,13 +1,16 @@
 document.addEventListener('DOMContentLoaded', async function () {
+    // Retrieve user data and token from sessionStorage
     const userData = sessionStorage.getItem('user') ? JSON.parse(sessionStorage.getItem('user')) : {};
     const TokenDocente = sessionStorage.getItem('token');
     let moduloId = null;
 
+    // Set user-related information on the page
     document.getElementById('userName').innerText = userData.name || '';
     document.getElementById('teacher').innerText = 'Docente: ' + userData.name || '';
-    document.getElementById('specialization').innerText = 'Especialización: ' + (userData.especialidad.nombre || '');
-    document.getElementById('department').innerText = 'Departamento: ' + (userData.departamento.nombre || '');
+    document.getElementById('specialization').innerText = 'Especialización: ' + (userData.especialidad?.nombre || '');
+    document.getElementById('department').innerText = 'Departamento: ' + (userData.departamento?.nombre || '');
 
+    // Function to update total hours and button state
     function updateTotalHours() {
         const totalHoursCell = document.getElementById('totalHorasCell');
         const guardarButton = document.getElementById('guardarButton');
@@ -28,73 +31,51 @@ document.addEventListener('DOMContentLoaded', async function () {
         }
     }
 
-    if (userData.rol === "jefe_departamento") {
-        const navbarDiv = document.querySelector('.collapse.navbar-collapse.justify-content-end#navbarNav');
-
-        // Crear un nuevo elemento li
-        const newNavItem = document.createElement('li');
-        newNavItem.classList.add('nav-item');
-
-        // Crear un enlace dentro del nuevo elemento li
-        const newLink = document.createElement('a');
-        newLink.classList.add('nav-link');
-        newLink.href = 'http://majadahorarios.test/jefeDeDepartamento';
-        newLink.textContent = 'Hoja de departamento';
-
-        // Agregar el enlace al elemento li
-        newNavItem.appendChild(newLink);
-
-        // Obtener el botón de logout
-        const logoutButton = navbarDiv.querySelector('#logoutButton');
-
-        // Insertar el nuevo elemento li antes del botón de logout
-        navbarDiv.querySelector('.navbar-nav').insertBefore(newNavItem, logoutButton.parentNode);
-    }else if (userData.rol === "jefe_estudios") {
-        const navbarDiv = document.querySelector('.collapse.navbar-collapse.justify-content-end#navbarNav');
-
-        // Crear un nuevo elemento li
-        const newNavItem1 = document.createElement('li');
-        newNavItem1.classList.add('nav-item');
-
-        // Crear un enlace dentro del nuevo elemento li
-        const newLink1 = document.createElement('a');
-        newLink1.classList.add('nav-link');
-        newLink1.href = 'http://majadahorarios.test/jefeDeDepartamento';
-        newLink1.textContent = 'Hoja de departamento';
-
-        // Agregar el enlace al elemento li
-        newNavItem1.appendChild(newLink1);
-
-        const newNavItem2 = document.createElement('li');
-        newNavItem2.classList.add('nav-item');
-
-        // Crear un enlace dentro del nuevo elemento li
-        const newLink2 = document.createElement('a');
-        newLink2.classList.add('nav-link');
-        newLink2.href = 'http://majadahorarios.test/jefeDeEstudios';
-        newLink2.textContent = 'Hoja de Jefe de Estudios';
-
-        // Agregar el enlace al elemento li
-        newNavItem2.appendChild(newLink2);
-
-        // Obtener el botón de logout
-        const logoutButton = navbarDiv.querySelector('#logoutButton');
-
-        // Insertar el nuevo elemento li antes del botón de logout
-        navbarDiv.querySelector('.navbar-nav').insertBefore(newNavItem1, logoutButton.parentNode);
-        navbarDiv.querySelector('.navbar-nav').insertBefore(newNavItem2, logoutButton.parentNode);
-
+    // Check user role and update navbar links accordingly
+    const navbarDiv = document.querySelector('.collapse.navbar-collapse.justify-content-end#navbarNav');
+    if (userData.rol === "jefe_departamento" || userData.rol === "jefe_estudios") {
+        const links = [
+            {
+                href: 'http://majadahorarios.test/jefeDeDepartamento',
+                text: 'Hoja de departamento'
+            },
+            {
+                href: 'http://majadahorarios.test/jefeDeEstudios',
+                text: 'Hoja de Jefe de Estudios'
+            }
+        ];
+        if (userData.rol === "jefe_estudios") {
+            // Agrega un enlace adicional para el jefe de estudios
+            links.push({
+                href: 'http://majadahorarios.test/admin',
+                text: 'Registro de Profesores'
+            });
+        }
+    
+        links.forEach(link => {
+            const newNavItem = document.createElement('li');
+            newNavItem.classList.add('nav-item');
+            const newLink = document.createElement('a');
+            newLink.classList.add('nav-link');
+            newLink.href = link.href;
+            newLink.textContent = link.text;
+            newNavItem.appendChild(newLink);
+            navbarDiv.querySelector('.navbar-nav').insertBefore(newNavItem, navbarDiv.querySelector('#logoutButton').parentNode);
+        });
     }
 
+    // Logout button event listener
     document.getElementById('logoutButton').addEventListener('click', function () {
         sessionStorage.clear();
         window.location.href = 'index.html';
     });
 
+    // Initialize selectedModules and selectElements
     const selectedModules = new Set(userData.selectedModules || []);
     const selectElements = document.getElementsByName('teacherModules');
     let selectedModulesData = [];
 
+    // Function to load module options
     async function cargarOpciones() {
         try {
             const response = await fetch('http://majadahorarios.test/api/v1/modulos', {
@@ -111,8 +92,7 @@ document.addEventListener('DOMContentLoaded', async function () {
 
             const data = await response.json();
 
-          
-
+            // Iterate through selectElements and populate them with options
             selectElements.forEach((selectElement, index) => {
                 selectElement.innerHTML = '';
 
@@ -135,10 +115,12 @@ document.addEventListener('DOMContentLoaded', async function () {
                 });
             });
 
+            // Add change event listeners to selectElements
             selectElements.forEach(selectElement => {
                 selectElement.addEventListener('change', async function (event) {
                     const selectedOptionId = event.target.value;
 
+                    // Handle when "Selecciona Modulo" is selected
                     if (selectedOptionId === 'selectModule') {
                         const row = event.target.closest('tr');
                         const moduleHours = parseInt(row.cells[3].innerText) || 0;
@@ -154,6 +136,7 @@ document.addEventListener('DOMContentLoaded', async function () {
                         const aulaSelectElement = row.cells[5].querySelector('select');
                         aulaSelectElement.innerHTML = '';
 
+                        // Enable all other select elements
                         selectElements.forEach((otherSelectElement) => {
                             if (otherSelectElement !== selectElement) {
                                 Array.from(otherSelectElement.options).forEach((option) => {
@@ -194,6 +177,7 @@ document.addEventListener('DOMContentLoaded', async function () {
                         const aulaSelectElement = row.cells[5].querySelector('select');
                         await cargarAulas(selectedOptionId, aulaSelectElement);
 
+                        // Disable the selected option in other select elements
                         selectElements.forEach((otherSelectElement) => {
                             if (otherSelectElement !== selectElement) {
                                 Array.from(otherSelectElement.options).forEach((option) => {
@@ -225,6 +209,7 @@ document.addEventListener('DOMContentLoaded', async function () {
         }
     }
 
+    // Fetch data for a specific module
     async function SelectSpecificModule(selectModule) {
         return await fetch(`http://majadahorarios.test/api/v1/modulos/${selectModule}`, {
             method: 'GET',
@@ -243,6 +228,7 @@ document.addEventListener('DOMContentLoaded', async function () {
             });
     }
 
+    // Function to load aulas for a module
     async function cargarAulas(moduloId, aulaSelectElement) {
         try {
             const response = await fetch(`http://majadahorarios.test/api/v1/modulos/${moduloId}/aulas`, {
@@ -276,6 +262,7 @@ document.addEventListener('DOMContentLoaded', async function () {
         }
     }
 
+    // Function to generate distribution options
     function generarOpcionesDistribucion(totalHoras) {
         const opciones = [];
         generarOpciones([], totalHoras, 5, opciones);
@@ -299,6 +286,7 @@ document.addEventListener('DOMContentLoaded', async function () {
         }
     }
 
+    // Reset total hours and button state
     function resetTotalHours() {
         const totalHoursCell = document.getElementById('totalHorasCell');
         const guardarButton = document.getElementById('guardarButton');
@@ -309,6 +297,7 @@ document.addEventListener('DOMContentLoaded', async function () {
         guardarButton.disabled = true;
     }
 
+    // Subtract module hours and update button state
     function subtractModuleHours(moduleHours) {
         const totalHoursCell = document.getElementById('totalHorasCell');
         const guardarButton = document.getElementById('guardarButton');
@@ -328,54 +317,57 @@ document.addEventListener('DOMContentLoaded', async function () {
             guardarButton.disabled = true;
         }
     }
+
+    // Function to update module data
     async function actualizarModulo(moduloId, userId, observaciones, distribucionHoras) {
         const url = `http://majadahorarios.test/api/v1/modulos/${moduloId}`;
         const tokenDocente = sessionStorage.getItem('token');
-    
+
         const headers = new Headers();
         headers.append("Accept", "application/json");
         headers.append("Authorization", `Bearer ${tokenDocente}`);
         headers.append("Content-Type", "application/x-www-form-urlencoded");
-    
+
         const body = new URLSearchParams();
         body.append("user_id", userId);
         body.append("observaciones", observaciones);
         body.append("distribucion_horas", distribucionHoras);
-        
+
         try {
             const response = await fetch(url, {
                 method: 'PUT',
                 headers: headers,
                 body: body
             });
-    
+
             if (!response.ok) {
                 throw new Error(`Error al actualizar el módulo: ${response.statusText}`);
             }
-    
+
             return response.json();
         } catch (error) {
             console.error('Error en la actualización del módulo:', error);
             throw error; // Propaga el error para manejarlo más adelante
         }
     }
-    
+
+    // Save button click event listener
     document.getElementById('guardarButton').addEventListener('click', async function () {
         const filas = document.querySelectorAll('table tbody tr');
         let todoCorrecto = true;
-    
+
         for (let fila of filas) {
             const selectModulo = fila.querySelector('select[name="teacherModules"]');
             const selectDistribucion = fila.querySelector('select[name="distribucionSemanal"]');
             const observaciones = document.getElementById('teacherObservations').value.trim();
-        
+
             if (selectModulo && selectModulo.value !== 'selectModule') {
                 const moduloId = selectModulo.value;
                 const distribucionHoras = selectDistribucion ? selectDistribucion.value : '';
                 const userId = userData.id;
-    
+
                 console.log("Datos a enviar:", { moduloId, userId, observaciones, distribucionHoras });
-    
+
                 try {
                     const resultado = await actualizarModulo(moduloId, userId, observaciones, distribucionHoras);
                     console.log('Resultado de la actualización:', resultado);
@@ -386,17 +378,46 @@ document.addEventListener('DOMContentLoaded', async function () {
                 }
             }
         }
-        
+
         if (todoCorrecto) {
             alert('Todos los módulos han sido actualizados correctamente.');
         } else {
             alert('Hubo un error al actualizar algunos módulos.');
         }
     });
-    
+
+    // Load module options
     await cargarOpciones();
+    function getCurrentSchoolYear() {
+        const today = new Date();
+        const currentMonth = today.getMonth(); // 0-indexed (0 for January, 11 for December)
+        const currentYear = today.getFullYear();
+    
+        // Calculate the start and end years for the school year
+        let startYear, endYear;
+        if (currentMonth >= 8) {
+            // If the current month is August or later, the school year has started
+            startYear = currentYear;
+            endYear = currentYear + 1;
+        } else {
+            // Otherwise, the school year has not started yet (current month is before August)
+            startYear = currentYear - 1;
+            endYear = currentYear;
+        }
+    
+        // Format the school year as "YYYY/YYYY"
+        return `${startYear}/${endYear}`;
+    }
+    // Call the function to get the current school year
+    const currentSchoolYear = getCurrentSchoolYear();
+    
+    // Set the value in your HTML
+    document.getElementById('schoolYear').innerText = `Curso: ${currentSchoolYear}`;
 });
 
+// Function to capitalize the first letter of a string
 function capitalizeFirstLetter(string) {
     return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
 }
+
+
