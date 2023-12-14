@@ -45,14 +45,14 @@ El proyecto debe ser desplegado para su acceso público utilizando una de las si
 - Uso de Eloquent Resources, códigos HTTP específicos, comentarios, etc. :white_check_mark: 
 - Código fuente disponible en BitBucket/GitHub. :white_check_mark: 
 
-## Memoria Técnica :x:
+## Memoria Técnica 
 La memoria técnica debe incluir:
-- Portada
-- Introducción
-- Diseño e implementación
-- Problemas encontrados
-- Trabajo futuro y conclusiones
-- Documentación de acceso al proyecto y enlaces al repositorio.
+- Portada :white_check_mark:
+- Introducción :white_check_mark:
+- Diseño e implementación :white_check_mark:
+- Problemas encontrados :x:
+- Trabajo futuro y conclusiones :x:
+- Documentación de acceso al proyecto y enlaces al repositorio. :x:
 
 ## Autoevaluación :x:
 Se debe subir una autoevaluación explicando la nota a la que optas y las razones para ello.
