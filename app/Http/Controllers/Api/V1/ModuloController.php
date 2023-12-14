@@ -84,7 +84,7 @@ class ModuloController extends Controller
                 'observaciones' => $modulo->observaciones,
                 'especialidad' => new EspecialidadResource($modulo->especialidad),
                 'curso' => new CursoResource($modulo->curso),
-                // ... Otros campos necesarios
+       
             ];
         });
 
