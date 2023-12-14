@@ -11,10 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
+        // En tu migración:
         Schema::create('aulas', function (Blueprint $table) {
             $table->id();
             $table->string('nombre');
-            $table->unsignedInteger('horas_totales');
             $table->timestamps();
         });
     }

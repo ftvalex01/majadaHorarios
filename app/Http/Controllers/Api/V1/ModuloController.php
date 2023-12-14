@@ -9,7 +9,9 @@ use App\Models\Modulo;
 use App\Http\Resources\CursoResource;
 use App\Http\Resources\EspecialidadResource;
 use App\Http\Resources\ModuloResource;
+use App\Models\Aula;
 use App\Models\Departamento;
+use Illuminate\Support\Facades\Request;
 
 class ModuloController extends Controller
 {
@@ -94,5 +96,7 @@ class ModuloController extends Controller
         $aula = $modulo->aulas()->get();         
         return response()->json(['aulas' => AulaResource::collection($aula)], 200);
     }
+ 
+    
 }
 

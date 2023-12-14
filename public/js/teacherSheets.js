@@ -360,7 +360,7 @@ document.addEventListener('DOMContentLoaded', async function () {
                 const distribucionHoras = selectDistribucion ? selectDistribucion.value : '';
                 const userId = userData.id; // Asegúrate de que esta variable esté definida correctamente
                 
-                console.log(`Modulo ID: ${moduloId}, Distribución Horas: ${distribucionHoras}, User ID: ${userId}`);
+                console.log(`Modulo ID: ${moduloId}, Distribución Horas: ${distribucionHoras}, User ID: ${userId}`); 
     
                 try {
                     const resultado = await actualizarModulo(moduloId, userId, observaciones, distribucionHoras);
