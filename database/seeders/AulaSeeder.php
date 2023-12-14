@@ -29,7 +29,6 @@ class AulaSeeder extends Seeder
         foreach ($nombresAulas as $nombreAula) {
             Aula::create([
                 'nombre' => $nombreAula,
-                'horas_totales' => 30,
             ]);
         }
     }

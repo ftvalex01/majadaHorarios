@@ -9,7 +9,9 @@ use App\Models\Modulo;
 use App\Http\Resources\CursoResource;
 use App\Http\Resources\EspecialidadResource;
 use App\Http\Resources\ModuloResource;
+use App\Models\Aula;
 use App\Models\Departamento;
+use Illuminate\Support\Facades\Request;
 
 class ModuloController extends Controller
 {
@@ -84,7 +86,7 @@ class ModuloController extends Controller
                 'observaciones' => $modulo->observaciones,
                 'especialidad' => new EspecialidadResource($modulo->especialidad),
                 'curso' => new CursoResource($modulo->curso),
-                // ... Otros campos necesarios
+       
             ];
         });
 
@@ -94,5 +96,7 @@ class ModuloController extends Controller
         $aula = $modulo->aulas()->get();         
         return response()->json(['aulas' => AulaResource::collection($aula)], 200);
     }
+ 
+    
 }
 

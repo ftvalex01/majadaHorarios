@@ -24,18 +24,20 @@ class ModuloRequest extends FormRequest
         'curso_id' => 'required|exists:cursos,id',
     ];
 
-    if ($this->isMethod('put')) {
-        $updateRules = [
-            'user_id' => 'exists:users,id', // 'required' si siempre se espera un user_id en la actualización
-            'distribucion_horas', // 'nullable' permite que el campo sea opcional
-            'observaciones', // Valida las observaciones
-        ];
+  if ($this->isMethod('put')) {
+    $updateRules = [
+        'user_id' => 'exists:users,id',
+        'distribucion_horas' => 'string|required', 
+        'observaciones' => 'nullable|string', 
+    ];
 
-        return array_merge($baseRules, $updateRules);
+    return $updateRules;
+}
+
+        return $baseRules;
     }
 
-    return $baseRules;
-}
+    
 
     
 }

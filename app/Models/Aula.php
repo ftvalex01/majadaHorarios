@@ -9,11 +9,13 @@ class Aula extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['nombre','horas_totales'];
+     protected $fillable = ['nombre'];
+
 
     public function modulos()
     {
         return $this->belongsToMany(Modulo::class, 'modulo_aula', 'aula_id', 'modulo_id')
             ->withTimestamps();
     }
+   
 }

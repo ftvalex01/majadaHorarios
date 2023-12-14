@@ -31,12 +31,12 @@ Route::get('/jefeDeDepartamento', function () {
 Route::get('/jefeDeEstudios', function () {
     return response()->file(public_path('views/jefeDeEstudios.html'));
 });
-Route::get('departamentos/{id}/profesores', function(){
+Route::get('departamentos/{id}/profesores', function () {
     return response()->file(public_path('views/profesoresDepartamento.html'));
 });
 
 
 
-    Route::get('/admin', function () {
-        return response()->file(public_path('views/admin.html'));
-    });
+Route::get('/admin', function () {
+    return response()->file(public_path('views/admin.html'));
+});

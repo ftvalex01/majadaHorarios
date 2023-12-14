@@ -317,75 +317,71 @@ document.addEventListener('DOMContentLoaded', async function () {
             guardarButton.disabled = true;
         }
     }
-
-    // Function to update module data
     async function actualizarModulo(moduloId, userId, observaciones, distribucionHoras) {
         const url = `http://majadahorarios.test/api/v1/modulos/${moduloId}`;
         const tokenDocente = sessionStorage.getItem('token');
-
-        const headers = new Headers();
-        headers.append("Accept", "application/json");
-        headers.append("Authorization", `Bearer ${tokenDocente}`);
-        headers.append("Content-Type", "application/x-www-form-urlencoded");
-
-        const body = new URLSearchParams();
-        body.append("user_id", userId);
-        body.append("observaciones", observaciones);
-        body.append("distribucion_horas", distribucionHoras);
-
+    
+        const data = {
+            user_id: userId,
+            observaciones: observaciones,
+            distribucion_horas: distribucionHoras
+        };
+    
         try {
             const response = await fetch(url, {
                 method: 'PUT',
-                headers: headers,
-                body: body
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${tokenDocente}`
+                },
+                body: JSON.stringify(data)
             });
-
+    
             if (!response.ok) {
-                throw new Error(`Error al actualizar el módulo: ${response.statusText}`);
+                throw new Error(`HTTP error! status: ${response.status}`);
             }
-
-            return response.json();
+    
+            return await response.json();
         } catch (error) {
             console.error('Error en la actualización del módulo:', error);
-            throw error; // Propaga el error para manejarlo más adelante
+            throw error;
         }
     }
-
-    // Save button click event listener
     document.getElementById('guardarButton').addEventListener('click', async function () {
         const filas = document.querySelectorAll('table tbody tr');
         let todoCorrecto = true;
-
+    
         for (let fila of filas) {
             const selectModulo = fila.querySelector('select[name="teacherModules"]');
             const selectDistribucion = fila.querySelector('select[name="distribucionSemanal"]');
             const observaciones = document.getElementById('teacherObservations').value.trim();
-
             if (selectModulo && selectModulo.value !== 'selectModule') {
                 const moduloId = selectModulo.value;
                 const distribucionHoras = selectDistribucion ? selectDistribucion.value : '';
-                const userId = userData.id;
-
-                console.log("Datos a enviar:", { moduloId, userId, observaciones, distribucionHoras });
-
+                const userId = userData.id; // Asegúrate de que esta variable esté definida correctamente
+                
+                console.log(`Modulo ID: ${moduloId}, Distribución Horas: ${distribucionHoras}, User ID: ${userId}`); 
+    
                 try {
                     const resultado = await actualizarModulo(moduloId, userId, observaciones, distribucionHoras);
                     console.log('Resultado de la actualización:', resultado);
                 } catch (error) {
                     console.error('Error al actualizar el módulo:', error);
                     todoCorrecto = false;
-                    break; // Detiene el bucle si hay un error
+                    break;
                 }
             }
         }
-
+    
         if (todoCorrecto) {
             alert('Todos los módulos han sido actualizados correctamente.');
         } else {
             alert('Hubo un error al actualizar algunos módulos.');
         }
     });
+    
 
+    
     // Load module options
     await cargarOpciones();
     function getCurrentSchoolYear() {
