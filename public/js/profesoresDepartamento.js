@@ -1,10 +1,17 @@
+
+let TokenDocente = sessionStorage.getItem('token');
+if (!TokenDocente) {
+    window.location.href = '../../index.html'; // Redirige al index si no hay un token
+}
 document.addEventListener('DOMContentLoaded', async function () {
-    const TokenDocente = sessionStorage.getItem('token');
+
     let url = window.location.pathname;
     let parts = url.split('/');
     const idDepartamento = parts[2];
+    let sumas = [];
 
-
+    const modal2 = new bootstrap.Modal(document.getElementById('modulosProfesorModal'));
+    const modulosProfesorContent = document.getElementById('modulosProfesorContent');
 
     async function loadProfesoresPorDepartamento(idDepartamento) {
         try {
@@ -71,14 +78,16 @@ document.addEventListener('DOMContentLoaded', async function () {
                         if (Array.isArray(horarioProfesor) && horarioProfesor.length > 0) {
                             let infoModulos = '';
                             for (let i = 0; i < horarioProfesor.length; i++) {
+                                // sumas = [];
                                 const modulo = horarioProfesor[i];
                                 const nombreModulo = modulo.materia;
                                 const distribucionHoraria = modulo.distribucion_horas;
-
+                                sumas.push(modulo.distribucion_horas);
+                                console.log(sumas + "sumas");
                                 // Aquí puedes hacer lo que desees con la información del módulo
                                 // Por ejemplo, puedes construir una estructura HTML para mostrar la información
                                 infoModulos += `
-                                    <div>
+                                    <div class = "cardModalInfoModulos">
                                         <h6>Información del Módulo ${i + 1}</h6>
                                         <p>Nombre: ${nombreModulo}</p>
                                         <p>Distribución Horaria: ${distribucionHoraria}</p>
@@ -86,11 +95,43 @@ document.addEventListener('DOMContentLoaded', async function () {
                                 `;
                             }
 
-                            // Mostrar la información de todos los módulos en un nuevo modal
-                            document.getElementById('modulosProfesorContent').innerHTML = infoModulos;
-                            let modal2 = new bootstrap.Modal(document.getElementById('modulosProfesorModal'));
+                            // Mostrar información en el mismo modal
+                            modulosProfesorContent.innerHTML = infoModulos;
+                            // if (!sumatorioBool) {
+                            // sumas = ["(1+1+1)", "(2+2+22)"];
 
+                            sumatorioHoras = sumarDistribucionesHorarias(sumas);
+                            console.log(sumatorioHoras + "sumatorioHoras")
+                            let sumatorioElement = document.createElement('p');
+                            sumatorioElement.textContent = `Sumatorio de Horas: ${sumatorioHoras}`;
+                            sumas = [];
+                            if (horarioProfesor.reduce((total, num) => total + parseInt(num.distribucion_horas), 0) >= 17 && horarioProfesor.reduce((total, num) => total + parseInt(num.distribucion_horas), 0) <= 20) {
+                                sumatorioElement.style.color = "green";
+                            } else {
+                                sumatorioElement.style.color = "red";
+                                let errorP = document.createElement("p");
+                                errorP.innerText = "Debe cumplir un mínimo de 17 horas y un máximo de 20";
+                                sumatorioElement.appendChild(errorP);
+                            }
+                            modulosProfesorContent.appendChild(sumatorioElement);
+                            sumatorioBool = true;
+                            // }
+
+                            // Mostrar el modal
                             modal2.show();
+                        }
+                        else {
+                            let infoModulos = '';
+
+                            infoModulos += `
+                                    <div class = "cardModalInfoModulos">
+                                        <p>Este profesor no tiene asignado ningún modulo por el momento.</p>
+                                    </div>
+                                `;
+
+                            modulosProfesorContent.innerHTML = infoModulos;
+                            modal2.show();
+
                         }
                     } catch (error) {
                         console.error('Error al obtener el horario del profesor:', error);
@@ -134,6 +175,43 @@ function crearTarjetaProfesor(profesor) {
     card.querySelector('.ver-detalles').dataset.profesor = detallesProfesor;
 
     return card;
+}
+function sumarSumas(sumas) {
+    let resultado = [];
+
+    sumas.forEach(suma => {
+        const numeros = suma.split('+');
+
+        const sumaNumeros = numeros.reduce((total, num) => {
+            const numero = parseInt(num);
+            return total + numero;
+        }, 0);
+
+        resultado.push(sumaNumeros);
+    });
+
+    const sumaTotal = resultado.reduce((total, num) => total + num, 0);
+
+    return sumaTotal;
+}
+function sumarDistribucionesHorarias(distribuciones) {
+    let sumaTotal = 0;
+
+    distribuciones.forEach(distribucion => {
+        // Elimina los paréntesis y divide los números por '+'
+        const numeros = distribucion.slice(1, -1).split('+');
+
+        // Suma los números convertidos a enteros
+        const sumaNumeros = numeros.reduce((total, num) => {
+            const numero = parseInt(num);
+            return total + numero;
+        }, 0);
+
+        // Agrega la suma de la distribución al total
+        sumaTotal += sumaNumeros;
+    });
+
+    return sumaTotal;
 }
 
 document.getElementById('logoutButton').addEventListener('click', function () {
