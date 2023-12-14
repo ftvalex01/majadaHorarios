@@ -70,6 +70,9 @@ class ModuloController extends Controller
         $departamento = Departamento::findOrFail($departamentoId);
         $profesor = $departamento->profesores()->findOrFail($profesorId);
         $modulos = $profesor->modulos()->get();
+        // $aulasModulos = $profesor->modulos()->get();
+        // $aulasDeLosModulos = $aulasModulos->aulas()->get();
+
 
         // Aquí obtienes los módulos del profesor con ID $profesorId en el departamento con ID $departamentoId
 
@@ -86,21 +89,22 @@ class ModuloController extends Controller
                 'observaciones' => $modulo->observaciones,
                 'especialidad' => new EspecialidadResource($modulo->especialidad),
                 'curso' => new CursoResource($modulo->curso),
-       
+                'aula' => $modulo->aulas()->get(),
+
             ];
         });
 
         return response()->json($modulosArray);
     }
-    public function todasAulas(Modulo $modulo){
-        $aula = $modulo->aulas()->get();         
+    public function todasAulas(Modulo $modulo)
+    {
+        $aula = $modulo->aulas()->get();
         return response()->json(['aulas' => AulaResource::collection($aula)], 200);
     }
- 
-    public function modulosPorEspecialidad($especialidadId)
-{
-    $modulos = Modulo::where('especialidad_id', $especialidadId)->get();
-    return ModuloResource::collection($modulos);
-}
-}
 
+    public function modulosPorEspecialidad($especialidadId)
+    {
+        $modulos = Modulo::where('especialidad_id', $especialidadId)->get();
+        return ModuloResource::collection($modulos);
+    }
+}
