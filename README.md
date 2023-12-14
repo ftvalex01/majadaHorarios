@@ -21,7 +21,7 @@ Este proyecto consiste en el diseño e implementación de una aplicación web fu
 - Se debe validar que el total de horas sume entre 17 y 20 horas, indicando errores mediante colores. :white_check_mark:
 
 ### Informes y Vistas para el Jefe de Departamento y Jefe de Estudios
-- El jefe de departamento puede ver y editar horarios de los docentes de su departamento. :x:
+- El jefe de departamento puede ver los horarios de los docentes de su departamento. :white_check_mark:
 - El jefe de estudios puede obtener informes sobre la asignación de horas por aula, ver horarios de docentes, y más. :x:
 
 ## Modelo de Datos
