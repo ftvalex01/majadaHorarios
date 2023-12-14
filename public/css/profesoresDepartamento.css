@@ -13,48 +13,61 @@ body {
     font-family: var(--fuente-principal);
     display: flex;
     flex-direction: column;
-    min-height: 100vh; /* Mínimo alto de la página para que el footer se mantenga abajo */
-    margin: 0; /* Eliminar márgenes predeterminados */
-    padding: 0; /* Eliminar relleno predeterminado */
-    background-color: var(--color-fondo); /* Color de fondo */
-    color: var(--color-texto); /* Color del texto */
-    transition: background-color 0.3s, color 0.3s; /* Transiciones suaves */
+    min-height: 100vh;
+    /* Mínimo alto de la página para que el footer se mantenga abajo */
+    margin: 0;
+    /* Eliminar márgenes predeterminados */
+    padding: 0;
+    /* Eliminar relleno predeterminado */
+    background-color: var(--color-fondo);
+    /* Color de fondo */
+    color: var(--color-texto);
+    /* Color del texto */
+    transition: background-color 0.3s, color 0.3s;
+    /* Transiciones suaves */
 }
 
 /* Estilos para el encabezado (header) y el Navbar */
 header .navbar {
     background-color: var(--color-secundario);
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15);
-    padding: 1rem 0; /* Espaciado interno en el encabezado */
+    padding: 1rem 0;
+    /* Espaciado interno en el encabezado */
 }
 
 .navbar-brand {
     color: white;
     font-family: var(--fuente-secundaria);
     font-weight: bold;
-    font-size: 1.5rem; /* Tamaño de fuente del logo */
+    font-size: 1.5rem;
+    /* Tamaño de fuente del logo */
     text-decoration: none;
 }
+
 .navbar .navbar-nav .nav-link {
     color: white;
     background-color: transparent;
     text-decoration: none;
 }
 
-.navbar .navbar-nav .nav-link:hover, 
+.navbar .navbar-nav .nav-link:hover,
 .navbar .navbar-nav .nav-link:focus {
     color: var(--color-primario);
     background-color: transparent;
 }
+
 /* Estilos para el botón de logout */
 #logoutButton {
     background-color: var(--color-acento);
     border: none;
     color: white;
-    padding: 0.5rem 1rem; /* Espaciado interno del botón */
-    border-radius: 0.25rem; /* Borde redondeado del botón */
+    padding: 0.5rem 1rem;
+    /* Espaciado interno del botón */
+    border-radius: 0.25rem;
+    /* Borde redondeado del botón */
     cursor: pointer;
-    transition: background-color 0.3s; /* Transición de color de fondo */
+    transition: background-color 0.3s;
+    /* Transición de color de fondo */
     font-weight: bold;
 }
 
@@ -78,4 +91,16 @@ footer {
     color: white;
     text-align: center;
     padding: 10px 0;
+}
+
+p {
+    font-size: 16px;
+}
+
+.modulos {
+    background-color: rgba(0, 0, 0, 0.1);
+    /* width: 130%; */
+    margin: 8px;
+    padding: 2px;
+    border-radius: 5px;
 }

@@ -111,18 +111,62 @@ document.addEventListener('DOMContentLoaded', async function () {
                             const modulo = horarioProfesor[i];
                             const nombreModulo = modulo.materia;
                             const distribucionHoraria = modulo.distribucion_horas;
+                            const turno = modulo.curso.turno;
+                            const cod = modulo.cod;
+                            const h_sem = modulo.h_semanales;
+                            const h_tot = modulo.h_totales;
+                            const especialidad = modulo.especialidad.nombre;
+                            const obs = modulo.observaciones;
+                            const curso = modulo.curso.nombre;
+                            const cursoyear = modulo.curso.año;
+                            const aulas = modulo.aula;
+
+                            console.log(modulo.aula)
+                            let aulasHTML = '';
+                            for (let j = 0; j < aulas.length; j++) {
+                                const aula = aulas[j];
+                                aulasHTML += `
+            <p><strong>Aula ${j + 1}:</strong> ${aula.nombre}</p>
+            <!-- Mostrar otros detalles del aula si es necesario -->
+        `;
+                            }
+
                             sumas.push(modulo.distribucion_horas);
                             console.log(sumas + "sumas");
                             // Aquí puedes hacer lo que desees con la información del módulo
                             // Por ejemplo, puedes construir una estructura HTML para mostrar la información
                             infoModulos += `
-                                <div class = "cardModalInfoModulos">
-                                    <h6>Información del Módulo ${i + 1}</h6>
-                                    <p>Nombre: ${nombreModulo}</p>
-                                    <p>Distribución Horaria: ${distribucionHoraria}</p>
+                                <div class = "cardModalInfoModulos modulos">
+                                <div class="accordion" id="modulo-${i}-accordion">
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header" id="heading-${i}">
+                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-${i}" aria-expanded="false" aria-controls="collapse-${i}">
+                                            Módulo ${i + 1}: ${nombreModulo}
+                                        </button>
+                                    </h2>
+                                    <div id="collapse-${i}" class="accordion-collapse collapse" aria-labelledby="heading-${i}" data-bs-parent="#modulo-${i}-accordion">
+                                        <div class="accordion-body">
+                                        <h3><em>Información del Módulo ${i + 1}</em></h3>
+                                        <p><strong>Nombre:</strong> ${nombreModulo}</p>
+                                        <p><strong>Código:</strong> ${cod}</p>
+                                        <p><strong>Horas semanales:</strong> ${h_sem}</p>
+                                        <p><strong>Horas totales:</strong> ${h_tot}</p>
+                
+                                        <p><strong>Distribución Horaria:</strong> ${distribucionHoraria.slice(1, -1)}</p>
+                                        <p><strong>Turno:</strong> ${turno}</p>
+                                        <p><strong>Especialidad:</strong> ${especialidad}</p>
+                                        <p><strong>Observaciones:</strong> ${obs}</p>
+                                        <p><strong>Curso:</strong> ${curso}</p>
+                                        <p><strong>Año del curso:</strong> ${cursoyear}</p>
+                                        ${aulasHTML}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                                 </div>
                             `;
                         }
+
 
                         // Mostrar información en el mismo modal
                         modulosProfesorContent.innerHTML = infoModulos;
@@ -134,20 +178,14 @@ document.addEventListener('DOMContentLoaded', async function () {
                         let sumatorioElement = document.createElement('p');
                         sumatorioElement.textContent = `Sumatorio de Horas: ${sumatorioHoras}`;
                         sumas = [];
-                        if (horarioProfesor.reduce((total, num) => total + parseInt(num.distribucion_horas), 0) >= 17 && horarioProfesor.reduce((total, num) => total + parseInt(num.distribucion_horas), 0) <= 20) {
+                        console.log(horarioProfesor.reduce((total, num) => total + parseInt(num.distribucion_horas), 0) + "horarioProfesor.reduce((total, num) => total + parseInt(num.distribucion_horas), 0)")
+                        if (sumatorioHoras >= 17 && sumatorioHoras <= 20) {
                             sumatorioElement.style.color = "green";
                         } else {
                             sumatorioElement.style.color = "red";
                             let errorP = document.createElement("p");
-                            errorP.style.padding = "15px";
-                            errorP.style.color = "black"
-                            let errorDiv = document.createElement("div");
-                            errorDiv.style.backgroundColor = "rgba(227, 75, 75, 0.4)";
-                            errorDiv.style.borderRadius = "15px"
                             errorP.innerText = "Debe cumplir un mínimo de 17 horas y un máximo de 20";
-
-                            sumatorioElement.appendChild(errorDiv);
-                            errorDiv.appendChild(errorP);
+                            sumatorioElement.appendChild(errorP);
                         }
                         modulosProfesorContent.appendChild(sumatorioElement);
                         sumatorioBool = true;
@@ -155,12 +193,13 @@ document.addEventListener('DOMContentLoaded', async function () {
 
                         // Mostrar el modal
                         modal2.show();
-                    } else {
+                    }
+                    else {
                         let infoModulos = '';
 
                         infoModulos += `
                                 <div class = "cardModalInfoModulos">
-                                    <p>Este profesor no tiene asignado ningún modulo por el momento.</p>
+                                    <p><strong>Este profesor no tiene asignado ningún modulo por el momento.</strong></p>
                                 </div>
                             `;
 
