@@ -15,6 +15,7 @@ class AulaRequest extends FormRequest
     {
         return [
             'nombre' => 'required|string|max:255',
+            
         ];
     }
 }

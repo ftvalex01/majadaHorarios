@@ -21,7 +21,7 @@ return new class extends Migration
             $table->unsignedInteger('h_totales')->default(0);
             $table->string('distribucion_horas')->default('');
             $table->enum('turno', ['mañana', 'tarde'])->comment('Solo puede tomar los valores "mañana" o "tarde"')->default('tarde');
-            $table->text('observaciones');
+            $table->text('observaciones')->nullable();
             // Claves foráneas
             $table->foreignId('user_id')->nullable()->constrained()->comment('Clave foránea para user_id, referencia a la tabla users');
             $table->foreignId('especialidad_id')->constrained()->comment('Clave foránea para especialidad_id, referencia a la tabla especialidades');

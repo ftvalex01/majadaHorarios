@@ -328,40 +328,72 @@ document.addEventListener('DOMContentLoaded', async function () {
             guardarButton.disabled = true;
         }
     }
-
-    document.getElementById('guardarButton').addEventListener('click', async function () {
-        if (selectedModulesData.length === 0) {
-            alert('Selecciona al menos un módulo antes de enviar datos.');
-            return;
-        }
+    async function actualizarModulo(moduloId, userId, observaciones, distribucionHoras) {
+        const url = `http://majadahorarios.test/api/v1/modulos/${moduloId}`;
+        const tokenDocente = sessionStorage.getItem('token');
+    
+        const headers = new Headers();
+        headers.append("Accept", "application/json");
+        headers.append("Authorization", `Bearer ${tokenDocente}`);
+        headers.append("Content-Type", "application/x-www-form-urlencoded");
+    
+        const body = new URLSearchParams();
+        body.append("user_id", userId);
+        body.append("observaciones", observaciones);
+        body.append("distribucion_horas", distribucionHoras);
+        
         try {
-         
-            
-                const response = await fetch(`http://majadahorarios.test/api/v1/modulos/${moduloId}`, {
-                    method: 'PUT',
-                    headers: {
-                        'Content-Type': 'application/x-www-form-urlencoded',
-                        'Authorization': `Bearer ${TokenDocente}`,
-                        'Accept': 'application/json'
-                    },
-                    body: new URLSearchParams({
-                        user_id: userData.id,
-                        distribucion_horas: distribucionSemanal
-                    })
-                });
-
-                if (!response.ok) {
-                    throw new Error(`Error al enviar datos: ${response.statusText}`);
-                }
-            
-
-            alert('Datos enviados correctamente.');
+            const response = await fetch(url, {
+                method: 'PUT',
+                headers: headers,
+                body: body
+            });
+    
+            if (!response.ok) {
+                throw new Error(`Error al actualizar el módulo: ${response.statusText}`);
+            }
+    
+            return response.json();
         } catch (error) {
-            console.error('Error al enviar datos:', error);
-            alert('Hubo un error al enviar los datos.');
+            console.error('Error en la actualización del módulo:', error);
+            throw error; // Propaga el error para manejarlo más adelante
+        }
+    }
+    
+    document.getElementById('guardarButton').addEventListener('click', async function () {
+        const filas = document.querySelectorAll('table tbody tr');
+        let todoCorrecto = true;
+    
+        for (let fila of filas) {
+            const selectModulo = fila.querySelector('select[name="teacherModules"]');
+            const selectDistribucion = fila.querySelector('select[name="distribucionSemanal"]');
+            const observaciones = document.getElementById('teacherObservations').value.trim();
+        
+            if (selectModulo && selectModulo.value !== 'selectModule') {
+                const moduloId = selectModulo.value;
+                const distribucionHoras = selectDistribucion ? selectDistribucion.value : '';
+                const userId = userData.id;
+    
+                console.log("Datos a enviar:", { moduloId, userId, observaciones, distribucionHoras });
+    
+                try {
+                    const resultado = await actualizarModulo(moduloId, userId, observaciones, distribucionHoras);
+                    console.log('Resultado de la actualización:', resultado);
+                } catch (error) {
+                    console.error('Error al actualizar el módulo:', error);
+                    todoCorrecto = false;
+                    break; // Detiene el bucle si hay un error
+                }
+            }
+        }
+        
+        if (todoCorrecto) {
+            alert('Todos los módulos han sido actualizados correctamente.');
+        } else {
+            alert('Hubo un error al actualizar algunos módulos.');
         }
     });
-
+    
     await cargarOpciones();
 });
 

@@ -12,27 +12,30 @@ class ModuloRequest extends FormRequest
     }
 
     public function rules()
-    {
-        $rules = [
-            'cod' => 'required|unique:modulos' . ($this->isMethod('patch') ? ',cod,' . $this->route('modulo')->id : ''),
-            'materia' => 'required|string',
-            'h_semanales' => 'required|integer',
-            'h_totales' => 'required|integer',
-            'turno' => 'required|in:mañana,tarde',
-            'user_id' => 'required|exists:users,id',
-            'especialidad_id' => 'required|exists:especialidads,id',
-            'curso_id' => 'required|exists:cursos,id',
+{
+    $baseRules = [
+        'cod' => 'required|unique:modulos' . ($this->isMethod('patch') ? ',cod,' . $this->route('modulo')->id : ''),
+        'materia' => 'required|string',
+        'h_semanales' => 'required|integer',
+        'h_totales' => 'required|integer',
+        'turno' => 'required|in:mañana,tarde',
+        'user_id' => 'required|exists:users,id',
+        'especialidad_id' => 'required|exists:especialidads,id',
+        'curso_id' => 'required|exists:cursos,id',
+    ];
+
+    if ($this->isMethod('put')) {
+        $updateRules = [
+            'user_id' => 'exists:users,id', // 'required' si siempre se espera un user_id en la actualización
+            'distribucion_horas', // 'nullable' permite que el campo sea opcional
+            'observaciones', // Valida las observaciones
         ];
-    
-        // Si el método es PUT y contiene los parámetros específicos, ajusta las reglas
-        if ($this->isMethod('put') && $this->has(['user_id', 'distribucion_horas'])) {
-            $rules = [
-                'user_id' => 'required|exists:users,id',
-                'distribucion_horas' => 'required|string',
-            ];
-        }
-    
-        return $rules;
+
+        return array_merge($baseRules, $updateRules);
     }
+
+    return $baseRules;
+}
+
     
 }
