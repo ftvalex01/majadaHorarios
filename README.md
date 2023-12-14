@@ -36,7 +36,8 @@ El proyecto debe ser desplegado para su acceso público utilizando una de las si
 
 ### Funcionalidades Técnicas
 - Uso de seeders y factories. :white_check_mark:
-- Agrupamiento de rutas y middleware auth. :x:
+- Agrupamiento de rutas y middleware auth. :white_check_mark:
+
 - Autenticación en API mediante Passport o Sanctum. :white_check_mark:
 - Validación de datos con FormRequest. :white_check_mark: 
 - Recursos JS y CSS accesibles mediante Vite. 
