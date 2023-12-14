@@ -1,39 +1,41 @@
+/* Importar fuentes de Google Fonts */
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@700&family=Roboto:wght@400;500&display=swap');
 
+/* Variables de color y fuente */
 :root {
     --color-primario: #7FBFFF;
     --color-secundario: #005792;
     --color-fondo: #F4F4F4;
     --color-texto: #333333;
     --color-acento: #3D8EB9;
-    --color-fondo-oscuro: #333333;
-    --color-texto-oscuro: #F4F4F4;
     --fuente-principal: 'Roboto', sans-serif;
     --fuente-secundaria: 'Open Sans', sans-serif;
 }
 
+/* Estilos generales para el cuerpo de la página */
 body {
     font-family: var(--fuente-principal);
-    background-color: var(--color-fondo);
-    color: var(--color-texto);
-    margin: 0;
-    min-height: 100vh;
     display: flex;
     flex-direction: column;
-    transition: background-color 0.3s, color 0.3s;
+    min-height: 100vh; /* Mínimo alto de la página para que el footer se mantenga abajo */
+    margin: 0; /* Eliminar márgenes predeterminados */
+    padding: 0; /* Eliminar relleno predeterminado */
 }
 
+/* Estilos para el encabezado (header) y el Navbar */
 header .navbar {
     background-color: var(--color-secundario);
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15);
+    padding: 1rem 0; /* Espaciado interno en el encabezado */
 }
 
 .navbar-brand {
     color: white;
     font-family: var(--fuente-secundaria);
     font-weight: bold;
+    font-size: 1.5rem; /* Tamaño de fuente del logo */
+    text-decoration: none;
 }
-
 .navbar .navbar-nav .nav-link {
     color: white;
     background-color: transparent;
@@ -45,13 +47,23 @@ header .navbar {
     color: var(--color-primario);
     background-color: transparent;
 }
-
-
-main {
-    flex: 1;
-    padding: 20px;
+/* Estilos para el botón de logout */
+#logoutButton {
+    background-color: var(--color-acento);
+    border: none;
+    color: white;
+    padding: 0.5rem 1rem; /* Espaciado interno del botón */
+    border-radius: 0.25rem; /* Borde redondeado del botón */
+    cursor: pointer;
+    transition: background-color 0.3s; /* Transición de color de fondo */
+    font-weight: bold;
 }
 
+#logoutButton:hover {
+    background-color: darken(var(--color-acento), 5%);
+}
+
+/* Estilos para el título principal */
 h1 {
     font-family: var(--fuente-secundaria);
     color: var(--color-secundario);
@@ -60,18 +72,7 @@ h1 {
     margin-bottom: 1em;
 }
 
-.album {
-    background-color: var(--color-fondo);
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-.modal-content {
-    background-color: var(--color-fondo);
-    color: var(--color-texto);
-}
-
+/* Estilos para el pie de página */
 footer {
     box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
     background-color: var(--color-secundario);
@@ -80,5 +81,3 @@ footer {
     padding: 10px 0;
     margin-top: auto;
 }
-
-

@@ -1,28 +1,76 @@
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@700&family=Roboto:wght@400;500&display=swap');
+
+:root {
+    --color-primario: #7FBFFF;
+    --color-secundario: #005792;
+    --color-fondo: #F4F4F4;
+    --color-texto: #333333;
+    --color-acento: #3D8EB9;
+    --color-fondo-oscuro: #333333;
+    --color-texto-oscuro: #F4F4F4;
+    --fuente-principal: 'Roboto', sans-serif;
+    --fuente-secundaria: 'Open Sans', sans-serif;
 }
 
 body {
-    background-color: #f4f4f4;
+    font-family: var(--fuente-principal);
+    background-color: var(--color-fondo);
+    color: var(--color-texto);
+    transition: background-color 0.3s, color 0.3s;
 }
 
-header, footer {
-    background-color: #1D2333;
+.dark-theme {
+    background-color: var(--color-fondo-oscuro);
+    color: var(--color-texto-oscuro);
+}
+
+header .navbar {
+    background-color: var(--color-secundario);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.navbar-brand {
     color: white;
-    text-align: center;
+    font-family: var(--fuente-principal);
+    font-weight: bold;
+}
+.navbar .navbar-nav .nav-link {
+    color: var(--color-texto-oscuro); /* Hace que el color sea el mismo que el elemento padre */
+    background-color: transparent; /* Elimina cualquier color de fondo */
+    text-decoration: none; /* Quita cualquier subrayado */
 }
 
-header {
-    padding: 15px;
+.navbar .navbar-nav .nav-link:hover, 
+.navbar .navbar-nav .nav-link:focus {
+    color: blue; /* Mantiene el color al pasar el mouse o enfocar */
+    background-color: transparent; /* Mantiene el fondo transparente */
+    text-decoration: none;
+    font-size: 1.1rem; /* Mantiene sin subrayado */
+}
+#themeToggle {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    color: white;
+}
+
+#themeToggle .fa-sun, #themeToggle .fa-moon {
+    display: none;
+}
+
+#themeToggle .fa-sun {
+    display: inline;
+}
+
+.dark-theme #themeToggle .fa-sun {
+    display: none;
+}
+
+.dark-theme #themeToggle .fa-moon {
+    display: inline;
 }
 
 main {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: calc(100vh - 38px - 67px);
     margin: 20px 0;
 }
 
@@ -32,24 +80,26 @@ main {
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     margin-bottom: 20px;
-    text-align: center; /* Alinea el contenido al centro */
+    text-align: center;
 }
 
 #teacherDataBox h4 {
-    font-family: 'Helvetica Neue', sans-serif;
+    font-family: var(--fuente-secundaria);
     font-size: 18px;
     font-weight: bold;
     margin-bottom: 10px;
 }
 
-#teacherDataBox .col-md-6 {
-    margin-bottom: 15px;
+
+
+.table-responsive {
+    overflow-x: auto;
 }
 
 table {
     border-collapse: collapse;
-    width: 90%;
-    margin: 20px auto; /* Centra la tabla y ajusta el margen */
+    width: 100%;
+    margin: auto;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
@@ -60,59 +110,69 @@ table th, table td {
 }
 
 table th {
-    background-color: #343a40;
-    color: rgb(14, 10, 10);
+    background-color: var(--color-secundario);
+    color: black;
+}
+
+.dark-theme table th {
+    background-color: var(--color-acento);
+}
+
+table td {
+    background-color: var(--color-fondo);
+    color: var(--color-texto);
+}
+
+.dark-theme table td {
+    background-color: var(--color-fondo-oscuro);
+    color: var(--color-texto-oscuro);
 }
 
 tbody tr:nth-child(even) {
     background-color: #f8f9fa;
 }
 
+.dark-theme tbody tr:nth-child(even) {
+    background-color: var(--color-fondo-oscuro);
+}
+
 textarea {
     display: block;
     margin: 30px auto;
     padding: 15px;
-    width: 90%; /* Ajusta el ancho para centrar y mejora el aspecto en dispositivos pequeños */
+    width: 90%;
     box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 5px;
 }
 
 footer {
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    background-color: #343a40;
+    background-color: var(--color-secundario);
     color: white;
     padding: 10px 0;
     margin-top: 20px;
-    text-align: center;
 }
 
-#container {
-    background-color: white;
-    padding: 15px;
-    border-radius: 10px;
-    border: 1px solid black;
-    overflow-x: auto;
+.btn {
+    font-family: var(--fuente-secundaria);
+    margin: 2px;
 }
 
-#department {
-    grid-area: department;
+.btn-danger {
+    background-color: var(--color-acento);
+    border-color: var(--color-acento);
 }
 
-#specialization {
-    grid-area: specialization;
+.btn-danger:hover {
+    background-color: darken(var(--color-acento), 5%);
+    border-color: darken(var(--color-acento), 5%);
 }
-
-#teacher {
-    grid-area: teacher;
+.dark-theme #teacherDataBox h4{
+    color: var(--color-texto);
+    
 }
+.dark-theme footer {
+  background-color: var(--color-secundario);
 
-#schoolYear {
-    grid-area: schoolYear;
-}
-
-.blankCells {
-    border: none;
-}
-
-.totalCell {
-    text-align: start;
 }
