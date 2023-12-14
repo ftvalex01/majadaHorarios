@@ -1,7 +1,11 @@
+let TokenDocente = sessionStorage.getItem('token');
+if (!TokenDocente) {
+    window.location.href = '../../index.html'; // Redirige al index si no hay un token
+}
 document.addEventListener('DOMContentLoaded', async function () {
     // Retrieve user data and token from sessionStorage
     const userData = sessionStorage.getItem('user') ? JSON.parse(sessionStorage.getItem('user')) : {};
-    const TokenDocente = sessionStorage.getItem('token');
+    // const TokenDocente = sessionStorage.getItem('token');
     let moduloId = null;
 
     // Set user-related information on the page
@@ -35,14 +39,7 @@ document.addEventListener('DOMContentLoaded', async function () {
     const navbarDiv = document.querySelector('.collapse.navbar-collapse.justify-content-end#navbarNav');
     if (userData.rol === "jefe_departamento" || userData.rol === "jefe_estudios") {
         const links = [
-            {
-                href: 'http://majadahorarios.test/jefeDeDepartamento',
-                text: 'Hoja de departamento'
-            },
-            {
-                href: 'http://majadahorarios.test/jefeDeEstudios',
-                text: 'Hoja de Jefe de Estudios'
-            }
+
         ];
         if (userData.rol === "jefe_estudios") {
             // Agrega un enlace adicional para el jefe de estudios
@@ -50,8 +47,17 @@ document.addEventListener('DOMContentLoaded', async function () {
                 href: 'http://majadahorarios.test/admin',
                 text: 'Registro de Profesores'
             });
+            links.push({
+                href: 'http://majadahorarios.test/jefeDeEstudios',
+                text: 'Hoja de Jefe de Estudios'
+            });
+        } else if (userData.rol === "jefe_departamento") {
+            links.push({
+                href: 'http://majadahorarios.test/jefeDeDepartamento',
+                text: 'Hoja de departamento'
+            });
         }
-    
+
         links.forEach(link => {
             const newNavItem = document.createElement('li');
             newNavItem.classList.add('nav-item');
@@ -320,13 +326,13 @@ document.addEventListener('DOMContentLoaded', async function () {
     async function actualizarModulo(moduloId, userId, observaciones, distribucionHoras) {
         const url = `http://majadahorarios.test/api/v1/modulos/${moduloId}`;
         const tokenDocente = sessionStorage.getItem('token');
-    
+
         const data = {
             user_id: userId,
             observaciones: observaciones,
             distribucion_horas: distribucionHoras
         };
-    
+
         try {
             const response = await fetch(url, {
                 method: 'PUT',
@@ -336,11 +342,11 @@ document.addEventListener('DOMContentLoaded', async function () {
                 },
                 body: JSON.stringify(data)
             });
-    
+
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
-    
+
             return await response.json();
         } catch (error) {
             console.error('Error en la actualización del módulo:', error);
@@ -350,7 +356,7 @@ document.addEventListener('DOMContentLoaded', async function () {
     document.getElementById('guardarButton').addEventListener('click', async function () {
         const filas = document.querySelectorAll('table tbody tr');
         let todoCorrecto = true;
-    
+
         for (let fila of filas) {
             const selectModulo = fila.querySelector('select[name="teacherModules"]');
             const selectDistribucion = fila.querySelector('select[name="distribucionSemanal"]');
@@ -359,9 +365,9 @@ document.addEventListener('DOMContentLoaded', async function () {
                 const moduloId = selectModulo.value;
                 const distribucionHoras = selectDistribucion ? selectDistribucion.value : '';
                 const userId = userData.id; // Asegúrate de que esta variable esté definida correctamente
-                
-                console.log(`Modulo ID: ${moduloId}, Distribución Horas: ${distribucionHoras}, User ID: ${userId}`); 
-    
+
+                console.log(`Modulo ID: ${moduloId}, Distribución Horas: ${distribucionHoras}, User ID: ${userId}`);
+
                 try {
                     const resultado = await actualizarModulo(moduloId, userId, observaciones, distribucionHoras);
                     console.log('Resultado de la actualización:', resultado);
@@ -372,23 +378,23 @@ document.addEventListener('DOMContentLoaded', async function () {
                 }
             }
         }
-    
+
         if (todoCorrecto) {
             alert('Todos los módulos han sido actualizados correctamente.');
         } else {
             alert('Hubo un error al actualizar algunos módulos.');
         }
     });
-    
 
-    
+
+
     // Load module options
     await cargarOpciones();
     function getCurrentSchoolYear() {
         const today = new Date();
         const currentMonth = today.getMonth(); // 0-indexed (0 for January, 11 for December)
         const currentYear = today.getFullYear();
-    
+
         // Calculate the start and end years for the school year
         let startYear, endYear;
         if (currentMonth >= 8) {
@@ -400,13 +406,13 @@ document.addEventListener('DOMContentLoaded', async function () {
             startYear = currentYear - 1;
             endYear = currentYear;
         }
-    
+
         // Format the school year as "YYYY/YYYY"
         return `${startYear}/${endYear}`;
     }
     // Call the function to get the current school year
     const currentSchoolYear = getCurrentSchoolYear();
-    
+
     // Set the value in your HTML
     document.getElementById('schoolYear').innerText = `Curso: ${currentSchoolYear}`;
 });

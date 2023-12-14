@@ -1,5 +1,9 @@
+let TokenDocente = sessionStorage.getItem('token');
+if (!TokenDocente) {
+    window.location.href = '../../index.html'; // Redirige al index si no hay un token
+}
 document.addEventListener('DOMContentLoaded', async function () {
-    const TokenDocente = sessionStorage.getItem('token');
+    // const TokenDocente = sessionStorage.getItem('token');
 
     async function loadDepartamentos() {
         try {
