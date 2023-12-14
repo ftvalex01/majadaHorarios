@@ -1,0 +1,152 @@
+/* Importar fuentes de Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@700&family=Roboto:wght@400;500&display=swap');
+
+/* Variables de color y fuente */
+:root {
+    --color-primario: #7FBFFF;
+    --color-secundario: #005792;
+    --color-fondo: #F4F4F4;
+    --color-texto: #333333;
+    --color-acento: #3D8EB9;
+    --fuente-principal: 'Roboto', sans-serif;
+    --fuente-secundaria: 'Open Sans', sans-serif;
+}
+
+/* Estilos generales para el cuerpo de la página */
+body {
+    font-family: var(--fuente-principal);
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* Mínimo alto de la página para que el footer se mantenga abajo */
+    margin: 0; /* Eliminar márgenes predeterminados */
+    padding: 0; /* Eliminar relleno predeterminado */
+}
+
+/* Estilos para el encabezado (header) y el Navbar */
+header .navbar {
+    background-color: var(--color-secundario);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15);
+    padding: 1rem 0; /* Espaciado interno en el encabezado */
+}
+
+.navbar-brand {
+    color: white;
+    font-family: var(--fuente-secundaria);
+    font-weight: bold;
+    font-size: 1.5rem; /* Tamaño de fuente del logo */
+    text-decoration: none;
+}
+.navbar .navbar-nav .nav-link {
+    color: white;
+    background-color: transparent;
+    text-decoration: none;
+}
+
+.navbar .navbar-nav .nav-link:hover, 
+.navbar .navbar-nav .nav-link:focus {
+    color: var(--color-primario);
+    background-color: transparent;
+}
+/* Estilos para el botón de logout */
+#logoutButton {
+    background-color: var(--color-acento);
+    border: none;
+    color: white;
+    padding: 0.5rem 1rem; /* Espaciado interno del botón */
+    border-radius: 0.25rem; /* Borde redondeado del botón */
+    cursor: pointer;
+    transition: background-color 0.3s; /* Transición de color de fondo */
+    font-weight: bold;
+}
+
+#logoutButton:hover {
+    background-color: darken(var(--color-acento), 5%);
+}
+
+/* Estilos para el título principal */
+h1 {
+    font-family: var(--fuente-secundaria);
+    color: var(--color-secundario);
+    text-align: center;
+    font-size: 2em;
+    margin-bottom: 1em;
+}
+
+/* Estilos para el pie de página */
+footer {
+    box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
+    background-color: var(--color-secundario);
+    color: white;
+    text-align: center;
+    padding: 10px 0;
+    margin-top: auto;
+}
+
+#userForm {
+    background-color: white;
+    margin: 2rem auto;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    width: 80%;
+    max-width: 500px;
+}
+
+#userForm label {
+    margin-bottom: 0.5rem;
+    display: block;
+}
+
+#userForm input, #userForm select {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 1rem;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    font-size: 1rem;
+}
+
+#userForm button {
+    background-color: var(--color-primario);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.2s;
+}
+
+#userForm button:hover {
+    background-color: var(--color-acento);
+}
+
+
+footer {
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    background-color: var(--color-secundario);
+    color: white;
+    padding: 10px 0;
+    margin-top: 20px;
+}
+
+.btn {
+    font-family: var(--fuente-secundaria);
+    margin: 2px;
+}
+
+.btn-danger {
+    background-color: var(--color-acento);
+    border-color: var(--color-acento);
+}
+
+.btn-danger:hover {
+    background-color: darken(var(--color-acento), 5%);
+    border-color: darken(var(--color-acento), 5%);
+}
+@media screen and (max-width: 768px) {
+    #userForm {
+        width: 95%;
+        margin: 1rem auto;
+    }
+}

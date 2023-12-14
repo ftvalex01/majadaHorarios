@@ -44,7 +44,14 @@ document.addEventListener('DOMContentLoaded', async function () {
                 text: 'Hoja de Jefe de Estudios'
             }
         ];
-
+        if (userData.rol === "jefe_estudios") {
+            // Agrega un enlace adicional para el jefe de estudios
+            links.push({
+                href: 'http://majadahorarios.test/admin',
+                text: 'Registro de Profesores'
+            });
+        }
+    
         links.forEach(link => {
             const newNavItem = document.createElement('li');
             newNavItem.classList.add('nav-item');
