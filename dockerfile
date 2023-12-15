@@ -15,7 +15,7 @@ COPY . /app/
 
 # Instalar dependencias de Node.js y compilar el frontend (ajusta según tu estructura)
 RUN npm install
-RUN npm run build
+
 
 # Etapa de producción
 FROM php:8.1-apache-buster as production
