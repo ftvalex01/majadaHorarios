@@ -15,7 +15,7 @@ document.addEventListener('DOMContentLoaded', async function () {
 
     async function loadProfesoresPorDepartamento(idDepartamento) {
         try {
-            const response = await fetch(`http://majadahorarios.test/api/v1/departamentos/${idDepartamento}/profesores`, {
+            const response = await fetch(`https://majadahorarios-app.onrender.com/api/v1/departamentos/${idDepartamento}/profesores`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
@@ -59,7 +59,7 @@ document.addEventListener('DOMContentLoaded', async function () {
                     let profesorId = profesor.id;
 
                     try {
-                        const response = await fetch(`http://majadahorarios.test/api/v1/departamentos/${idDepartamento}/profesores/${profesorId}/modulos`, {
+                        const response = await fetch(`https://majadahorarios-app.onrender.com/api/v1/departamentos/${idDepartamento}/profesores/${profesorId}/modulos`, {
                             method: 'GET',
                             headers: {
                                 'Content-Type': 'application/json',
