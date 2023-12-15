@@ -11,7 +11,6 @@ use App\Http\Resources\EspecialidadResource;
 use App\Http\Resources\ModuloResource;
 use App\Models\Aula;
 use App\Models\Departamento;
-use App\Models\User;
 use Illuminate\Support\Facades\Request;
 
 class ModuloController extends Controller
@@ -108,13 +107,4 @@ class ModuloController extends Controller
         $modulos = Modulo::where('especialidad_id', $especialidadId)->get();
         return ModuloResource::collection($modulos);
     }
-    public function obtenerModulosPorUsuario($userId)
-{
-    $usuario = User::findOrFail($userId);
-    $modulos = $usuario->modulos;
-
-    return ModuloResource::collection($modulos);
-}
-
-
 }
