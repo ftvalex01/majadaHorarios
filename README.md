@@ -22,7 +22,7 @@ Este proyecto consiste en el diseño e implementación de una aplicación web fu
 
 ### Informes y Vistas para el Jefe de Departamento y Jefe de Estudios
 - El jefe de departamento puede ver los horarios de los docentes de su departamento. :white_check_mark:
-- El jefe de estudios puede obtener informes sobre la asignación de horas por aula, ver horarios de docentes, y más. :x:
+- El jefe de estudios puede obtener informes sobre la asignación de horas por aula, ver horarios de docentes, y más. :white_check_mark:
 
 ## Modelo de Datos
 Se parte de un modelo de datos base y se agregan tablas y relaciones necesarias para cumplir con los requerimientos funcionales.
@@ -32,7 +32,7 @@ Se parte de un modelo de datos base y se agregan tablas y relaciones necesarias 
 
 ## Requerimientos Técnicos
 ### Despliegue
-El proyecto debe ser desplegado para su acceso público utilizando una de las siguientes opciones: IaaS, IaaC o PaaS. :x:
+El proyecto debe ser desplegado para su acceso público utilizando una de las siguientes opciones: IaaS, IaaC o PaaS. :white_check_mark:
 
 ### Funcionalidades Técnicas
 - Uso de seeders y factories. :white_check_mark:
@@ -40,7 +40,7 @@ El proyecto debe ser desplegado para su acceso público utilizando una de las si
 
 - Autenticación en API mediante Passport o Sanctum. :white_check_mark:
 - Validación de datos con FormRequest. :white_check_mark: 
-- Recursos JS y CSS accesibles mediante Vite. 
+- Recursos JS y CSS accesibles mediante Vite. :white_check_mark:
 - Gestión de autorizaciones por roles. :white_check_mark:
 - Uso de Eloquent Resources, códigos HTTP específicos, comentarios, etc. :white_check_mark: 
 - Código fuente disponible en BitBucket/GitHub. :white_check_mark: 
