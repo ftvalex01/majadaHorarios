@@ -116,19 +116,20 @@ document.addEventListener('DOMContentLoaded', async function () {
 
                 selectElement.appendChild(optionPlaceholder);
 
+                
                 data.data.forEach(option => {
-                    const optionElement = document.createElement('option');
-                    optionElement.value = option.id;
-                    optionElement.textContent = option.materia;
-
-                    if (selectedModules.has(option.id)) {
-                        optionElement.disabled = true;
+                    // Solo añadir la opción si el módulo no tiene un user_id asignado o si el user_id es el del usuario actual
+                    if (option.user_id === null || option.user_id === userData.id) {
+                        const optionElement = document.createElement('option');
+                        optionElement.value = option.id;
+                        optionElement.textContent = option.materia;
+                
+                        if (selectedModules.has(option.id)) {
+                            optionElement.disabled = true;
+                        }
+                
+                        selectElement.appendChild(optionElement);
                     }
-                    // Deshabilitar la opción si el módulo ya tiene un user_id asociado
-                    if (option.user_id !== null && option.user_id !== userData.id) {
-                        optionElement.disabled = true;
-}
-                    selectElement.appendChild(optionElement);
                 });
             });
            
