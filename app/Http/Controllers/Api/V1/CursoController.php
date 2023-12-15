@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Requests\CursoRequest;
 use App\Http\Resources\CursoResource;
 use App\Models\Curso;
 use Illuminate\Http\Request;
-
+use App\Http\Controllers\Controller;
 class CursoController extends Controller
 {
     public function index()
