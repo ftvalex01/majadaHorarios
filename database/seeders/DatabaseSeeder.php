@@ -5,7 +5,6 @@ namespace Database\Seeders;
 use App\Models\Aula;
 use Illuminate\Database\Seeder;
 
-
 class DatabaseSeeder extends Seeder
 {
     /**

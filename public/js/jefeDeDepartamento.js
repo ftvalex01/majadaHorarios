@@ -15,7 +15,7 @@ document.addEventListener('DOMContentLoaded', async function () {
 
     try {
         // Realizar la solicitud para obtener todos los profesores desde tu API o backend
-        const response = await fetch(`https://majadahorarios-app.onrender.com/api/v1/user`, {
+        const response = await fetch(`http://majadahorarios.test/api/v1/user`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -88,7 +88,7 @@ document.addEventListener('DOMContentLoaded', async function () {
                 let profesorId = profesor.id;
 
                 try {
-                    const response = await fetch(`https://majadahorarios-app.onrender.com/api/v1/departamentos/${idDepartamentoUsuarioLoggeado}/profesores/${profesorId}/modulos`, {
+                    const response = await fetch(`http://majadahorarios.test/api/v1/departamentos/${idDepartamentoUsuarioLoggeado}/profesores/${profesorId}/modulos`, {
                         method: 'GET',
                         headers: {
                             'Content-Type': 'application/json',

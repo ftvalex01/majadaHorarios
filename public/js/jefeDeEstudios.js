@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', async function () {
 
     async function loadDepartamentos() {
         try {
-            const response = await fetch(`https://majadahorarios-app.onrender.com/api/v1/departamentos`, {
+            const response = await fetch(`http://majadahorarios.test/api/v1/departamentos`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
@@ -80,7 +80,7 @@ document.getElementById('logoutButton').addEventListener('click', function () {
 });
 document.getElementById('generarTablaAulas').addEventListener('click', async function() {
     try {
-        const response = await fetch('https://majadahorarios-app.onrender.com/api/v1/obtener-datos-aulas', {
+        const response = await fetch('http://majadahorarios.test/api/v1/obtener-datos-aulas', {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',

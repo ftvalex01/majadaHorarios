@@ -44,16 +44,16 @@ document.addEventListener('DOMContentLoaded', async function () {
         if (userData.rol === "jefe_estudios") {
             // Agrega un enlace adicional para el jefe de estudios
             links.push({
-                href: 'https://majadahorarios-app.onrender.com/admin',
+                href: 'http://majadahorarios.test/admin',
                 text: 'Registro de Profesores'
             });
             links.push({
-                href: 'https://majadahorarios-app.onrender.com/jefeDeEstudios',
+                href: 'http://majadahorarios.test/jefeDeEstudios',
                 text: 'Hoja de Jefe de Estudios'
             });
         } else if (userData.rol === "jefe_departamento") {
             links.push({
-                href: 'https://majadahorarios-app.onrender.com/jefeDeDepartamento',
+                href: 'http://majadahorarios.test/jefeDeDepartamento',
                 text: 'Hoja de departamento'
             });
         }
@@ -91,7 +91,7 @@ document.addEventListener('DOMContentLoaded', async function () {
                 return;
             }
     
-            const url = `https://majadahorarios-app.onrender.com/api/v1/especialidades/${especialidadId}/modulos`;
+            const url = `http://majadahorarios.test/api/v1/especialidades/${especialidadId}/modulos`;
             const response = await fetch(url, {
                 method: 'GET',
                 headers: {
@@ -250,7 +250,7 @@ document.addEventListener('DOMContentLoaded', async function () {
     
     // Fetch data for a specific module
     async function SelectSpecificModule(selectModule) {
-        return await fetch(`https://majadahorarios-app.onrender.com/api/v1/modulos/${selectModule}`, {
+        return await fetch(`http://majadahorarios.test/api/v1/modulos/${selectModule}`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded',
@@ -270,7 +270,7 @@ document.addEventListener('DOMContentLoaded', async function () {
     // Function to load aulas for a module
     async function cargarAulas(moduloId, aulaSelectElement) {
         try {
-            const response = await fetch(`https://majadahorarios-app.onrender.com/api/v1/modulos/${moduloId}/aulas`, {
+            const response = await fetch(`http://majadahorarios.test/api/v1/modulos/${moduloId}/aulas`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
@@ -357,7 +357,7 @@ document.addEventListener('DOMContentLoaded', async function () {
         }
     }
     async function actualizarModulo(moduloId, userId, observaciones, distribucionHoras) {
-        const url = `https://majadahorarios-app.onrender.com/api/v1/modulos/${moduloId}`;
+        const url = `http://majadahorarios.test/api/v1/modulos/${moduloId}`;
         const tokenDocente = sessionStorage.getItem('token');
 
         const data = {

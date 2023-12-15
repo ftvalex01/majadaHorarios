@@ -12,18 +12,18 @@ document.addEventListener('DOMContentLoaded', function () {
     if (userData.rol === "jefe_departamento" || userData.rol === "jefe_estudios") {
         const links = [
             {
-                href: 'https://majadahorarios-app.onrender.com/jefeDeDepartamento',
+                href: 'http://majadahorarios.test/jefeDeDepartamento',
                 text: 'Hoja de departamento'
             },
             {
-                href: 'https://majadahorarios-app.onrender.com/jefeDeEstudios',
+                href: 'http://majadahorarios.test/jefeDeEstudios',
                 text: 'Hoja de Jefe de Estudios'
             }
         ];
         if (userData.rol === "jefe_estudios") {
             // Agrega un enlace adicional para el jefe de estudios
             links.push({
-                href: 'https://majadahorarios-app.onrender.com/admin',
+                href: 'http://majadahorarios.test/admin',
                 text: 'Registro de Profesores'
             });
         }
@@ -42,7 +42,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 // Fetch especialidades
 async function loadEspecialidades() {
-    return await fetch(`https://majadahorarios-app.onrender.com/api/v1/especialidades`, {
+    return await fetch(`http://majadahorarios.test/api/v1/especialidades`, {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',
@@ -61,7 +61,7 @@ async function loadEspecialidades() {
  
 // Fetch departamentos
 async function loadDepartamentos() {
-    return await fetch(`https://majadahorarios-app.onrender.com/api/v1/departamentos`, {
+    return await fetch(`http://majadahorarios.test/api/v1/departamentos`, {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',
@@ -118,7 +118,7 @@ userForm.addEventListener('submit', async function (e) {
 
 
     try {
-        const response = await fetch('https://majadahorarios-app.onrender.com/api/v1/register', {
+        const response = await fetch('http://majadahorarios.test/api/v1/register', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

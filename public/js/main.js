@@ -23,7 +23,7 @@ document.getElementById('professorsForm').addEventListener('submit', function(ev
     }
 
     // Si todo es válido, realiza la petición al servidor
-    fetch('https://majadahorarios-app.onrender.com/api/v1/login', {
+    fetch('http://majadahorarios.test/api/v1/login', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
