@@ -54,7 +54,3 @@ function validateEmail(email) {
     return re.test(String(email).toLowerCase());
 }
 
-// Evento de cambio de tema
-document.getElementById('themeToggle').addEventListener('click', function() {
-    document.body.classList.toggle('dark-theme');
-});
