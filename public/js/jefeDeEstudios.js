@@ -31,11 +31,14 @@ document.addEventListener('DOMContentLoaded', async function () {
 
                 cardDepartamento.innerHTML = `
                 <div class="card mb-4 box-shadow">
-                    <div class="card-body">
-                    <button class="btn btn-primary departamento-btn" data-id-departamento="${departamento.id}">${departamento.nombre}</button>
+                    <div class="card-body d-flex justify-content-center align-items-center">
+                        <button class="btn btn-primary departamento-btn" data-id-departamento="${departamento.id}">
+                            ${departamento.nombre}
+                        </button>
                     </div>
                 </div>
-                `;
+            `;
+            
 
                 contenedorDepartamentos.appendChild(cardDepartamento);
             });

@@ -351,20 +351,37 @@ document.addEventListener('DOMContentLoaded', async function () {
                 body: JSON.stringify(data)
             });
 
-            if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`);
-            }
+     
 
             return await response.json();
+            
         } catch (error) {
-            console.error('Error en la actualización del módulo:', error);
+            Swal.fire({
+                title: 'Error',
+                text: 'Hubo un error al actualizar algunos módulos.',
+                icon: 'error',
+                confirmButtonText: 'Ok'
+            });
             throw error;
         }
     }
     document.getElementById('guardarButton').addEventListener('click', async function () {
         const filas = document.querySelectorAll('table tbody tr');
         let todoCorrecto = true;
-
+        const totalHoursCell = document.getElementById('totalHorasCell');
+        const totalHours = parseInt(totalHoursCell.innerText) || 0;
+    
+        // Verificar si las horas están en el rango correcto
+        if (totalHours < 17 || totalHours > 20) {
+            Swal.fire({
+                title: 'Error',
+                text: 'No puedes enviar el formulario si no tienes las horas en verde',
+                icon: 'error',
+                confirmButtonText: 'Ok'
+            });
+            return;
+        }
+    
         for (let fila of filas) {
             const selectModulo = fila.querySelector('select[name="teacherModules"]');
             const selectDistribucion = fila.querySelector('select[name="distribucionSemanal"]');
@@ -375,11 +392,10 @@ document.addEventListener('DOMContentLoaded', async function () {
                 let distribucionHoras = selectDistribucion ? selectDistribucion.value : '';
                 distribucionHoras = `(${distribucionHoras})`;
                 const userId = userData.id; 
-                console.log(`Modulo ID: ${moduloId}, Distribución Horas: ${distribucionHoras}, User ID: ${userId}`);
-
+    
                 try {
                     const resultado = await actualizarModulo(moduloId, userId, observaciones, distribucionHoras);
-                    console.log('Resultado de la actualización:', resultado);
+                    // Puedes procesar el resultado si es necesario
                 } catch (error) {
                     console.error('Error al actualizar el módulo:', error);
                     todoCorrecto = false;
@@ -387,16 +403,56 @@ document.addEventListener('DOMContentLoaded', async function () {
                 }
             }
         }
-
+    
         if (todoCorrecto) {
-            alert('Todos los módulos han sido actualizados correctamente.');
+            Swal.fire({
+                title: 'Éxito',
+                text: 'Todos los módulos han sido actualizados correctamente.',
+                icon: 'success',
+                confirmButtonText: 'Ok'
+            }).then(() => {
+                // Limpia la tabla después de confirmar el mensaje
+                limpiarTabla();
+            });
         } else {
-            alert('Hubo un error al actualizar algunos módulos.');
+            Swal.fire({
+                title: 'Error',
+                text: 'Hubo un error al actualizar algunos módulos.',
+                icon: 'error',
+                confirmButtonText: 'Ok'
+            });
         }
     });
-
-
-
+    function limpiarTabla() {
+        const filas = document.querySelectorAll('table tbody tr');
+    
+        filas.forEach(fila => {
+            // Limpiar los 'select' de Módulos, Distribución Semanal y Aulas
+            const selectModulos = fila.querySelector('select[name="teacherModules"]');
+            const selectDistribucion = fila.querySelector('select[name="distribucionSemanal"]');
+            const selectAulas = fila.querySelector('select[name="teacherAulas"]');
+    
+            if (selectModulos) selectModulos.selectedIndex = 0;
+            if (selectDistribucion) selectDistribucion.innerHTML = '';
+            if (selectAulas) selectAulas.innerHTML = '';
+    
+            // Limpiar las celdas de texto
+            const turnoCell = fila.querySelector('.turno');
+            const cursoCicloCell = fila.querySelector('#cursoCicloCell'); // Asegúrate de que el ID es único
+            const horasModuloCell = fila.querySelector('.horas-modulo');
+    
+            if (turnoCell) turnoCell.innerText = '';
+            if (cursoCicloCell) cursoCicloCell.innerText = '';
+            if (horasModuloCell) horasModuloCell.innerText = '';
+        });
+    
+        // Restablecer el total de horas
+        const totalHoursCell = document.getElementById('totalHorasCell');
+        totalHoursCell.innerText = '0';
+        totalHoursCell.style.backgroundColor = '';
+        totalHoursCell.style.color = '';
+    }
+    
     // Load module options
     await cargarOpciones();
     function getCurrentSchoolYear() {
