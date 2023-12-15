@@ -18,6 +18,15 @@ class UserSeeder extends Seeder
             'departamento_id' => 3, // ID del departamento
             'rol' => 'profesor',
         ]);
+        // Crear usuario para el rol de profesor
+        User::create([
+            'name' => 'Juan Carlosxx',
+            'email' => 'juancarlosxx@example.com',
+            'password' => Hash::make('contraseña'), // Hash de la contraseña
+            'especialidad_id' => 1, // ID de la especialidad deseada para el profesor
+            'departamento_id' => 3, // ID del departamento
+            'rol' => 'profesor',
+        ]);
 
         // Crear usuario para el rol de jefe de estudios
         User::create([

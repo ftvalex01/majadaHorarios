@@ -124,11 +124,14 @@ document.addEventListener('DOMContentLoaded', async function () {
                     if (selectedModules.has(option.id)) {
                         optionElement.disabled = true;
                     }
-
+                    // Deshabilitar la opción si el módulo ya tiene un user_id asociado
+                    if (option.user_id !== null && option.user_id !== userData.id) {
+                        optionElement.disabled = true;
+}
                     selectElement.appendChild(optionElement);
                 });
             });
-
+           
             // Add change event listeners to selectElements
             selectElements.forEach(selectElement => {
                 selectElement.addEventListener('change', async function (event) {
@@ -163,10 +166,10 @@ document.addEventListener('DOMContentLoaded', async function () {
                         selectedModulesData = selectedModulesData.filter(data => data.moduloId !== selectedOptionId);
 
                         updateTotalHours();
-
+                        actualizarOpcionesDisponibles();
                         return;
                     }
-
+                    actualizarOpcionesDisponibles();
                     try {
                         const specificModuleData = await SelectSpecificModule(selectedOptionId);
                         const row = event.target.closest('tr');
@@ -222,7 +225,28 @@ document.addEventListener('DOMContentLoaded', async function () {
             console.error('Error al obtener datos:', error);
         }
     }
-
+    function actualizarOpcionesDisponibles() {
+        // Obtener todos los módulos seleccionados en todos los select, excepto el actual
+        const modulosSeleccionados = new Set();
+        selectElements.forEach(selectElement => {
+            const valorSeleccionado = selectElement.value;
+            if (valorSeleccionado !== 'selectModule') {
+                modulosSeleccionados.add(valorSeleccionado);
+            }
+        });
+    
+        // Actualizar las opciones de cada select individualmente
+        selectElements.forEach(selectElement => {
+            const valorActual = selectElement.value;
+            Array.from(selectElement.options).forEach(option => {
+                if (option.value !== 'selectModule') {
+                    // Si el valor de la opción está en modulosSeleccionados y no es el valor actual del select, deshabilitar
+                    option.disabled = modulosSeleccionados.has(option.value) && option.value !== valorActual;
+                }
+            });
+        });
+    }
+    
     // Fetch data for a specific module
     async function SelectSpecificModule(selectModule) {
         return await fetch(`http://majadahorarios.test/api/v1/modulos/${selectModule}`, {
