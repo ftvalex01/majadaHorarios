@@ -1,3 +1,5 @@
+
+
 document.addEventListener('DOMContentLoaded', function () {
     const userData = sessionStorage.getItem('user') ? JSON.parse(sessionStorage.getItem('user')) : {};
     const TokenDocente = sessionStorage.getItem('token');
@@ -80,6 +82,31 @@ async function loadDepartamentos() {
 userForm.addEventListener('submit', async function (e) {
     e.preventDefault();
 
+
+       // Validaciones
+       const name = document.getElementById('name').value;
+       const email = document.getElementById('email').value;
+       const password = document.getElementById('password').value;
+
+
+
+       if(!name){
+        Swal.fire('Error', 'Por favor ingresa un nombre  válido.', 'error');
+           document.getElementById('email').focus();
+           return;
+       }
+       if (!email.includes('@')) {
+           Swal.fire('Error', 'Por favor ingresa un correo electrónico válido.', 'error');
+           document.getElementById('email').focus();
+           return;
+       }
+   
+       if (password.length < 8) {
+           Swal.fire('Error', 'La contraseña debe tener al menos 8 caracteres.', 'error');
+           document.getElementById('password').focus();
+           return;
+       }
+   
     const formData = {
         name: document.getElementById('name').value,
         email: document.getElementById('email').value,
@@ -88,6 +115,7 @@ userForm.addEventListener('submit', async function (e) {
         especialidad_id: especialidadSelect.value,
         rol: document.getElementById('rol').value,
     };
+
 
     try {
         const response = await fetch('http://majadahorarios.test/api/v1/register', {
@@ -102,14 +130,28 @@ userForm.addEventListener('submit', async function (e) {
 
         const result = await response.json();
         if (response.ok) {
-            console.log('Usuario creado:', result);
-            // Aquí puedes manejar acciones posteriores como limpiar el formulario o mostrar un mensaje de éxito
+            Swal.fire({
+                title: 'Éxito',
+                text: 'Los datos se han enviado correctamente',
+                icon: 'success',
+                confirmButtonText: 'Ok'
+            });
+            userForm.reset(); // Limpia el formulario
         } else {
-            console.error('Error al crear usuario:', result);
-            // Manejar errores, como mostrar un mensaje de error en la interfaz
+            Swal.fire({
+                title: 'Error',
+                text: 'Hubo un error en el registro',
+                icon: 'error',
+                confirmButtonText: 'Ok'
+            });
         }
     } catch (error) {
-        console.error('Error en la solicitud:', error);
+        Swal.fire({
+            title: 'Error',
+            text: 'Error en la solicitud: ' + error,
+            icon: 'error',
+            confirmButtonText: 'Ok'
+        });
     }
 });
 

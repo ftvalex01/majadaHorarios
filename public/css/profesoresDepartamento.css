@@ -74,7 +74,9 @@ header .navbar {
 #logoutButton:hover {
     background-color: darken(var(--color-acento), 5%);
 }
-
+main {
+    flex: 1; /* Hace que el contenido principal ocupe todo el espacio disponible */
+}
 /* Estilos para el título principal */
 h1 {
     font-family: var(--fuente-secundaria);
@@ -91,6 +93,9 @@ footer {
     color: white;
     text-align: center;
     padding: 10px 0;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
 }
 
 p {
