@@ -64,9 +64,6 @@ main {
     min-height: calc(100vh - 60px - 80px);
 }
 
-footer {
-    padding: 20px 0;
-}
 
 input, form p {
     display: block;
@@ -163,7 +160,9 @@ input[type=submit]:hover {
     margin-top: 5px;
 }
 
-
+footer {
+    padding: 20px 0;
+}
 
 .footer-social h3 {
     margin-bottom: 15px; /* Espaciado debajo del título */
