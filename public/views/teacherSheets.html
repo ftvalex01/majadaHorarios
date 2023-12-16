@@ -53,7 +53,7 @@
             </div>
 
             <div class="table-responsive">
-                <table class="table table-bordered">
+                <table id="teacherTable" class="table  table-bordered">
                     <thead>
                         <tr>
                             <td colspan="7" class="blankCells"></td>
@@ -241,13 +241,33 @@
         </div>
 
     </main>
-    <footer class="text-white text-center py-2">
-        <h4>Por: </h4>
+    <footer>
+        <p>&copy; 2023 Lucas Vega Blanco & Alejandro Suarez. Algunos derechos reservados. Este trabajo está licenciado bajo una <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" ></a><img src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" alt="Licencia Creative Commons"></a>.</p>
+        <div class="footer-social">
+            <h3>Síguenos en Redes Sociales</h3>
+            <ul>
+              <li>
+                <a href="https://github.com/ftvalex01" 
+                  >Alejandro<i class="fab fa-github"></i
+                ></a>
+                <a href="https://github.com/LucasVega2004" 
+                  >Lucas<i class="fab fa-github"></i
+                ></a>
+              </li>
+            </ul>
+        </div>
     </footer>
 
     <!-- Bootstrap y scripts -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <!-- Inclusión de jsPDF -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+
+<!-- Inclusión de autoTable -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.23/jspdf.plugin.autotable.min.js"></script>
+
+
     <script src="../js/teacherSheets.js"></script>
     <script>
         document.getElementById('themeToggle').addEventListener('click', function() {

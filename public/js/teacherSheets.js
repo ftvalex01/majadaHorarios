@@ -436,7 +436,8 @@ document.addEventListener('DOMContentLoaded', async function () {
                 icon: 'success',
                 confirmButtonText: 'Ok'
             }).then(() => {
-                // Limpia la tabla después de confirmar el mensaje
+                // Descargar PDF
+                descargarPDF();
                 limpiarTabla();
             });
         } else {
@@ -513,3 +514,61 @@ function capitalizeFirstLetter(string) {
 }
 
 
+function descargarPDF() {
+    const userData = sessionStorage.getItem('user') ? JSON.parse(sessionStorage.getItem('user')) : {};
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF();
+
+    doc.text(`Hoja de Profesor: ${userData.name || ''}`, 14, 15);
+
+    console.log(obtenerDatosTabla());
+    const datosTabla = obtenerDatosTabla();
+
+    // Verificar si hay datos para mostrar
+    if (datosTabla.length > 0) {
+        doc.autoTable({
+            head: [['Turno (M/T)', 'Curso y Ciclo', 'Módulo', 'Horas', 'Distribución Semanal', 'Aula/Taller']],
+            body: datosTabla,
+            startY: 20
+        });
+    } else {
+        doc.text("No hay datos para mostrar.", 14, 30);
+    }
+    // Extraer y agregar texto de observaciones
+    const textoObservaciones = document.getElementById('teacherObservations').value.trim();
+    const yFinalTabla = doc.lastAutoTable.finalY || 50; // Posición Y después de la tabla
+    doc.text("Observaciones:", 14, yFinalTabla + 10); // Título de la sección de observaciones
+    doc.text(textoObservaciones, 14, yFinalTabla + 15, {
+        maxWidth: 180
+    }); // Texto de las observaciones
+        doc.save('tabla-enviada.pdf');
+    }
+function obtenerDatosTabla() {
+    const filas = document.querySelectorAll('#teacherTable tbody tr');
+    let datosTabla = [];
+
+    filas.forEach(fila => {
+        let datosFila = [];
+        let esFilaValida = true;
+
+        fila.querySelectorAll('td').forEach((celda, index) => {
+            const select = celda.querySelector('select');
+            if (select) {
+                const opcionSeleccionada = select.selectedIndex >= 0 ? select.options[select.selectedIndex].text : 'No seleccionado';
+                if (opcionSeleccionada !== 'Selecciona Modulo' && opcionSeleccionada !== 'No seleccionado') {
+                    datosFila.push(opcionSeleccionada);
+                } else {
+                    esFilaValida = false;
+                }
+            } else {
+                datosFila.push(celda.textContent.trim());
+            }
+        });
+
+        if (esFilaValida) {
+            datosTabla.push(datosFila);
+        }
+    });
+
+    return datosTabla;
+}

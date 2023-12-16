@@ -1,4 +1,6 @@
 // Validación del formulario
+
+
 document.getElementById('professorsForm').addEventListener('submit', function(event) {
     event.preventDefault();
 
