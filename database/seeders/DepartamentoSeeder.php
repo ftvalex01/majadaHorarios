@@ -15,7 +15,7 @@ class DepartamentoSeeder extends Seeder
     public function run()
     {
         // Ejemplo de nombres de departamentos
-        $nombresDepartamentos = ['Departamento A', 'Departamento B', 'Departamento C'];
+        $nombresDepartamentos = ['Departamento de Informatica', 'Departamento de Marketing y Comercio', 'Departamento de Educacion', 'Departamento de Inglés', 'Departamento de Diseño Gráfico'];
 
         // Itera sobre los nombres y crea un registro para cada uno
         foreach ($nombresDepartamentos as $nombre) {

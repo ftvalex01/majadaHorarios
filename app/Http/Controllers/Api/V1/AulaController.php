@@ -55,7 +55,6 @@ class AulaController extends Controller
                      'cursos.nombre as nombre_curso', 
                      'cursos.turno')
             ->groupBy('aulas.nombre', 'cursos.nombre', 'cursos.turno')
-            ->havingRaw('SUM(modulos.h_semanales) <= 30')
             ->get();
     
         return response()->json($datos);

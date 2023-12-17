@@ -144,6 +144,69 @@ footer {
     background-color: darken(var(--color-acento), 5%);
     border-color: darken(var(--color-acento), 5%);
 }
+
+
+footer {
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    background-color: var(--color-secundario);
+    color: white;
+    padding: 10px 0;
+    margin-top: 20px;
+    text-align: center;
+}
+
+.footer-social h3 {
+    margin-bottom: 15px; /* Espaciado debajo del título */
+    font-size: 1.2em; /* Tamaño de la fuente para el título */
+}
+
+.footer-social ul {
+    list-style: none; /* Remover estilos de lista */
+    padding: 0; /* Remover padding */
+    margin: 0 auto; /* Centrar la lista */
+    display: inline-block; /* Alinear elementos de lista horizontalmente */
+}
+
+
+.footer-social a {
+    color: #fff; /* Color de los enlaces */
+    text-decoration: none; /* Remover subrayado de enlaces */
+    font-size: 0.9em; /* Tamaño de la fuente para enlaces */
+    transition: color 0.3s ease; /* Transición suave para el cambio de color */
+}
+
+.footer-social i {
+    margin-left: 5px; /* Espaciado entre el texto y el icono */
+}
+
+.footer-social a:hover {
+    color: #7FBFFF; /* Cambiar color al pasar el mouse sobre el enlace */
+}
+
+/* Ajustes específicos para los iconos de FontAwesome */
+.fab {
+    font-size: 1.2em; /* Tamaño del icono */
+}
+footer img.accesibilidad {
+    max-width: 100px; /* Establece un ancho máximo para la imagen */
+    height: auto; /* Asegura que la altura sea automática para mantener la proporción */
+    display: block; /* Hace que la imagen se muestre como bloque */
+    margin: 0 auto; /* Centra la imagen horizontalmente */
+}
+
+/* Media query para ajustes responsivos */
+@media screen and (max-width: 768px) {
+    footer img.accesibilidad {
+        max-width: 50px; /* Reduce el tamaño de la imagen en pantallas más pequeñas */
+    }
+}
+/* Media query para ajustes responsivos en pantallas más pequeñas */
+@media screen and (max-width: 500px) {
+    .footer-social li {
+        display: block; /* Los elementos de la lista se muestran uno debajo del otro */
+        margin: 5px 0; /* Espaciado vertical entre elementos */
+    }
+}
 @media screen and (max-width: 768px) {
     #userForm {
         width: 95%;
