@@ -120,6 +120,28 @@ footer img.accesibilidad {
     display: block; /* Hace que la imagen se muestre como bloque */
     margin: 0 auto; /* Centra la imagen horizontalmente */
 }
+.orden-indicador {
+    margin-left: 5px;
+    display: inline-block;
+    width: 0;
+    height: 0;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+}
+
+.orden-indicador.ascendente {
+    border-bottom: 5px solid black; /* Triángulo apuntando hacia arriba */
+}
+
+.orden-indicador.descendente {
+    border-top: 5px solid black; /* Triángulo apuntando hacia abajo */
+}
+
+.leyenda-aulas {
+    margin-bottom: 10px; /* Espacio por debajo de la leyenda */
+    font-size: 14px; /* Tamaño de la fuente */
+    color: #333; /* Color del texto */
+}
 
 /* Media query para ajustes responsivos */
 @media screen and (max-width: 768px) {

@@ -118,40 +118,101 @@ document
         }
     });
 
-function mostrarTablaAulas(datos) {
-    const tabla = document.createElement("table");
-    tabla.className = "table table-bordered";
-
-    // Añadir cabecera
-    const thead = tabla.createTHead();
-    const rowHead = thead.insertRow();
-    const headers = ["Aula", "Horas Semanales", "Curso", "Turno"];
-    headers.forEach((header) => {
-        let th = document.createElement("th");
-        let text = document.createTextNode(header);
-        th.appendChild(text);
-        rowHead.appendChild(th);
-    });
-
-    // Añadir datos
-    const tbody = document.createElement("tbody");
-    datos.forEach((item) => {
-        let row = tbody.insertRow();
-        console.log(item, "Entro");
-        row.className =
-            parseInt(item.horas_semanales) <= 30
-                ? "table-success"
-                : "table-danger";
-
-        Object.values(item).forEach((text) => {
-            let cell = row.insertCell();
-            let textNode = document.createTextNode(text);
-            cell.appendChild(textNode);
+    function mostrarTablaAulas(datos) {
+        const container = document.getElementById("tablaAulasContainer");
+        container.innerHTML = ""; // Limpiar contenedor
+    
+          // Crear leyenda
+          const leyenda = document.createElement("div");
+          leyenda.innerHTML = "<p><strong>** Se pueden ordenar los datos pulsando en el nombre de la columna. **</strong></p>" +
+                              "<p><strong>** Si algún aula tiene más de 30 horas, se mostrará en rojo. **</strong></p>";
+          leyenda.className = "leyenda-aulas"; // Puedes asignar una clase para estilos
+    
+        // Crear tabla
+        const tabla = document.createElement("table");
+        tabla.id = "tablaAulas"; // Asegúrate de dar un ID a la tabla
+        tabla.className = "table table-bordered";
+    
+        // Añadir cabecera
+        const thead = tabla.createTHead();
+        const rowHead = thead.insertRow();
+        const headers = ["Aula", "Horas Semanales", "Curso", "Turno"];
+        headers.forEach((header, index) => {
+            let th = document.createElement("th");
+            let text = document.createTextNode(header);
+            th.appendChild(text);
+            let span = document.createElement("span"); // Elemento para el indicador
+            span.className = "orden-indicador";
+            th.appendChild(span);
+    
+            // Añadir Event Listener a cada encabezado
+            th.addEventListener("click", function() {
+                ordenarTablaPorColumna(tabla.id, index, true); // true indica que se alterna el orden
+            });
+            rowHead.appendChild(th);
         });
-    });
+    
+        // Añadir datos
+        const tbody = document.createElement("tbody");
+        datos.forEach((item) => {
+            let row = tbody.insertRow();
+            row.className = parseInt(item.horas_semanales) <= 30 ? "table-success" : "table-danger";
+    
+            Object.values(item).forEach((text) => {
+                let cell = row.insertCell();
+                let textNode = document.createTextNode(text);
+                cell.appendChild(textNode);
+            });
+        });
+    
+        tabla.appendChild(tbody);
+    
+        // Añadir leyenda y tabla al contenedor
+        container.appendChild(tabla);
+        container.appendChild(leyenda);
+      
+    }
+    
+function ordenarTablaPorColumna(idTabla, n, alternar) {
+    let tabla, filas, cambiando, i, x, y, xValue, yValue, debeCambiar;
+    let ordenDescendente = false;
+    tabla = document.getElementById(idTabla);
+    let encabezadoActual = tabla.rows[0].getElementsByTagName("TH")[n];
+    let indicador = encabezadoActual.getElementsByClassName("orden-indicador")[0];
 
-    tabla.appendChild(tbody);
-    const container = document.getElementById("tablaAulasContainer");
-    container.innerHTML = ""; // Limpiar contenedor
-    container.appendChild(tabla); // Añadir tabla al contenedor
+    // Alternar la dirección de ordenamiento si es necesario
+    if (alternar) {
+        ordenDescendente = indicador.classList.contains("ascendente");
+        // Actualizar todos los indicadores
+        Array.from(tabla.rows[0].getElementsByTagName("TH")).forEach(th => {
+            th.getElementsByClassName("orden-indicador")[0].className = "orden-indicador";
+        });
+        indicador.className = ordenDescendente ? "orden-indicador descendente" : "orden-indicador ascendente";
+    }
+
+    cambiando = true;
+    while (cambiando) {
+        cambiando = false;
+        filas = tabla.rows;
+        for (i = 1; i < (filas.length - 1); i++) {
+            debeCambiar = false;
+            x = filas[i].getElementsByTagName("TD")[n];
+            y = filas[i + 1].getElementsByTagName("TD")[n];
+
+            // Verificar si la columna es numérica o de texto
+            xValue = isNaN(x.innerHTML) ? x.innerHTML.toLowerCase() : parseFloat(x.innerHTML);
+            yValue = isNaN(y.innerHTML) ? y.innerHTML.toLowerCase() : parseFloat(y.innerHTML);
+
+            // Modificar la comparación para soportar orden descendente
+            let comparacion = ordenDescendente ? xValue < yValue : xValue > yValue;
+            if (comparacion) {
+                debeCambiar = true;
+                break;
+            }
+        }
+        if (debeCambiar) {
+            filas[i].parentNode.insertBefore(filas[i + 1], filas[i]);
+            cambiando = true;
+        }
+    }
 }
