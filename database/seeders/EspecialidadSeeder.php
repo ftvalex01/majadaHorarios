@@ -23,6 +23,15 @@ class EspecialidadSeeder extends Seeder
         Especialidad::create([
             'nombre' => 'SISTEMAS Y APLICACIONES INFORMÁTICAS',
         ]);
+        Especialidad::create([
+            'nombre' => 'INGLÉS',
+        ]);
+        Especialidad::create([
+            'nombre' => 'MARKETING Y COMERCIO',
+        ]);
+        Especialidad::create([
+            'nombre' => 'DISEÑO GRÁFICO',
+        ]);
 
         // Puedes agregar más especialidades según sea necesario
     }
