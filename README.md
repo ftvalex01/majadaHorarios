@@ -10,8 +10,8 @@ Este proyecto consiste en el diseño e implementación de una aplicación web fu
 ### Carga automática de datos en el formulario.  :white_check_mark:
 
 ### Restricciones de Horario
-- Se prohíbe tener más de 30 horas semanales en un aula.  :x:
-- Se establecen restricciones específicas como la participación del profesorado tutor, límites de horas semanales, elección de aula/taller, etc.:x:
+- Se prohíbe tener más de 30 horas semanales en un aula.  :white_check_mark:
+- Se establecen restricciones específicas como la participación del profesorado tutor, límites de horas semanales, elección de aula/taller, etc. :white_check_mark:
 
 ### Automatización de Campos
 - El sistema debe autocompletar ciertos campos según la selección del usuario.  :white_check_mark:
@@ -50,11 +50,11 @@ La memoria técnica debe incluir:
 - Portada :white_check_mark:
 - Introducción :white_check_mark:
 - Diseño e implementación :white_check_mark:
-- Problemas encontrados :x:
-- Trabajo futuro y conclusiones :x:
-- Documentación de acceso al proyecto y enlaces al repositorio. :x:
+- Problemas encontrados :white_check_mark:
+- Trabajo futuro y conclusiones :white_check_mark:
+- Documentación de acceso al proyecto y enlaces al repositorio. :white_check_mark:
 
-## Autoevaluación :x:
+## Autoevaluación :white_check_mark:
 Se debe subir una autoevaluación explicando la nota a la que optas y las razones para ello.
 
 ## Notas Finales por Asignatura
