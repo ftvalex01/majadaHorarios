@@ -86,18 +86,14 @@ h1 {
     margin-bottom: 1em;
 }
 
-/* Estilos para el pie de página */
+
 footer {
-    box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     background-color: var(--color-secundario);
     color: white;
-    text-align: center;
     padding: 10px 0;
-    margin-top: auto;
-}
-
-p {
-    font-size: 16px;
+    margin-top: 20px;
+    text-align: center;
 }
 
 .footer-social h3 {
@@ -132,7 +128,19 @@ p {
 .fab {
     font-size: 1.2em; /* Tamaño del icono */
 }
+footer img.accesibilidad {
+    max-width: 100px; /* Establece un ancho máximo para la imagen */
+    height: auto; /* Asegura que la altura sea automática para mantener la proporción */
+    display: block; /* Hace que la imagen se muestre como bloque */
+    margin: 0 auto; /* Centra la imagen horizontalmente */
+}
 
+/* Media query para ajustes responsivos */
+@media screen and (max-width: 768px) {
+    footer img.accesibilidad {
+        max-width: 50px; /* Reduce el tamaño de la imagen en pantallas más pequeñas */
+    }
+}
 /* Media query para ajustes responsivos en pantallas más pequeñas */
 @media screen and (max-width: 500px) {
     .footer-social li {

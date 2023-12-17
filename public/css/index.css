@@ -149,6 +149,7 @@ input[type=submit]:hover {
     top: -13px;
     left: 10px;
     font-size: 0.8em;
+    font-weight: 700;
     color: var(--color-primario);
 }
 
@@ -196,7 +197,19 @@ footer {
 .fab {
     font-size: 1.2em; /* Tamaño del icono */
 }
+footer img.accesibilidad {
+    max-width: 100px; /* Establece un ancho máximo para la imagen */
+    height: auto; /* Asegura que la altura sea automática para mantener la proporción */
+    display: block; /* Hace que la imagen se muestre como bloque */
+    margin: 0 auto; /* Centra la imagen horizontalmente */
+}
 
+/* Media query para ajustes responsivos */
+@media screen and (max-width: 768px) {
+    footer img.accesibilidad {
+        max-width: 50px; /* Reduce el tamaño de la imagen en pantallas más pequeñas */
+    }
+}
 /* Media query para ajustes responsivos en pantallas más pequeñas */
 @media screen and (max-width: 500px) {
     .footer-social li {
