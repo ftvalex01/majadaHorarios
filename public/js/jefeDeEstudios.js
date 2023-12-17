@@ -2,21 +2,26 @@ let TokenDocente = sessionStorage.getItem("token");
 if (!TokenDocente) {
     window.location.href = "../../index.html"; // Redirige al index si no hay un token
 }
-document.addEventListener("DOMContentLoaded", async function () {
-  
 
+function showSpinner(spinnerId) {
+    document.getElementById(spinnerId).style.display = 'block';
+}
+
+function hideSpinner(spinnerId) {
+    document.getElementById(spinnerId).style.display = 'none';
+}
+
+document.addEventListener("DOMContentLoaded", async function () {
     async function loadDepartamentos() {
+        showSpinner('spinnerDepartamentos'); // Mostrar spinner
         try {
-            const response = await fetch(
-                `https://majadahorarios-app.onrender.com/api/v1/departamentos`,
-                {
-                    method: "GET",
-                    headers: {
-                        "Content-Type": "application/json",
-                        Authorization: `Bearer ${TokenDocente}`,
-                    },
-                }
-            );
+            const response = await fetch(`https://majadahorarios-app.onrender.com/api/v1/departamentos`, {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${TokenDocente}`,
+                },
+            });
 
             if (!response.ok) {
                 throw new Error("No se pudo obtener la lista de departamentos");
@@ -25,17 +30,13 @@ document.addEventListener("DOMContentLoaded", async function () {
             const departamentosData = await response.json();
             console.log(departamentosData);
 
-            const contenedorDepartamentos = document.getElementById(
-                "contenedorDepartamentos"
-            );
+            const contenedorDepartamentos = document.getElementById("contenedorDepartamentos");
+            contenedorDepartamentos.innerHTML = ''; // Limpiar el contenedor antes de agregar nuevos departamentos
 
             departamentosData.forEach((departamento) => {
                 const cardDepartamento = document.createElement("div");
                 cardDepartamento.classList.add("col-md-4", "departamento-card");
-                cardDepartamento.setAttribute(
-                    "data-id-departamento",
-                    departamento.id
-                );
+                cardDepartamento.setAttribute("data-id-departamento", departamento.id);
 
                 cardDepartamento.innerHTML = `
                 <div class="card mb-4 box-shadow">
@@ -45,13 +46,14 @@ document.addEventListener("DOMContentLoaded", async function () {
                         </button>
                     </div>
                 </div>
-            `;
+                `;
 
                 contenedorDepartamentos.appendChild(cardDepartamento);
             });
         } catch (error) {
             console.error("Error al obtener la lista de departamentos:", error);
-            // Manejo de errores
+        } finally {
+            hideSpinner('spinnerDepartamentos'); // Ocultar spinner
         }
     }
 
@@ -59,21 +61,15 @@ document.addEventListener("DOMContentLoaded", async function () {
         try {
             window.location.href = `/departamentos/${idDepartamento}/profesores`; // Ruta completa
         } catch (error) {
-            console.error(
-                "Error al redireccionar a la página de profesores del departamento:",
-                error
-            );
-            // Manejo de errores
+            console.error("Error al redireccionar a la página de profesores del departamento:", error);
         }
     }
 
-    async function handleDepartamentoClick(event) {
+    function handleDepartamentoClick(event) {
         const departamentoCard = event.target.closest(".departamento-card");
         if (departamentoCard) {
-            const idDepartamento = departamentoCard.getAttribute(
-                "data-id-departamento"
-            );
-            await loadProfesoresDepartamento(idDepartamento);
+            const idDepartamento = departamentoCard.getAttribute("data-id-departamento");
+            loadProfesoresDepartamento(idDepartamento);
         }
     }
 
@@ -81,40 +77,35 @@ document.addEventListener("DOMContentLoaded", async function () {
     loadDepartamentos();
 
     // Agregar un listener para capturar el clic en un departamento
-    const contenedorDepartamentos = document.getElementById(
-        "contenedorDepartamentos"
-    );
+    const contenedorDepartamentos = document.getElementById("contenedorDepartamentos");
     contenedorDepartamentos.addEventListener("click", handleDepartamentoClick);
-});
 
-document.getElementById("logoutButton").addEventListener("click", function () {
-    sessionStorage.clear();
-    window.location.href = "index.html";
-});
-document
-    .getElementById("generarTablaAulas")
-    .addEventListener("click", async function () {
+    document.getElementById("logoutButton").addEventListener("click", function () {
+        sessionStorage.clear();
+        window.location.href = "index.html";
+    });
+
+    document.getElementById("generarTablaAulas").addEventListener("click", async function () {
+        showSpinner('spinnerTablaAulas'); // Mostrar spinner
         try {
-            const response = await fetch(
-                "https://majadahorarios-app.onrender.com/api/v1/obtener-datos-aulas",
-                {
-                    method: "GET",
-                    headers: {
-                        "Content-Type": "application/json",
-                        Authorization: `Bearer ${TokenDocente}`,
-                    },
-                }
-            );
+            const response = await fetch("https://majadahorarios-app.onrender.com/api/v1/obtener-datos-aulas", {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${TokenDocente}`,
+                },
+            });
 
             if (!response.ok) {
                 throw new Error("Error al obtener los datos de las aulas");
             }
 
             const datosAulas = await response.json();
-
             mostrarTablaAulas(datosAulas);
         } catch (error) {
             console.error("Error:", error);
+        } finally {
+            hideSpinner('spinnerTablaAulas'); // Ocultar spinner
         }
     });
 
@@ -172,7 +163,8 @@ document
         container.appendChild(leyenda);
       
     }
-    
+
+     
 function ordenarTablaPorColumna(idTabla, n, alternar) {
     let tabla, filas, cambiando, i, x, y, xValue, yValue, debeCambiar;
     let ordenDescendente = false;
@@ -216,3 +208,4 @@ function ordenarTablaPorColumna(idTabla, n, alternar) {
         }
     }
 }
+});
