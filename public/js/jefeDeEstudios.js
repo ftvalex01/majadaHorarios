@@ -87,12 +87,13 @@ document.getElementById('generarTablaAulas').addEventListener('click', async fun
                 'Authorization': `Bearer ${TokenDocente}`
             }
         });
-
+      
         if (!response.ok) {
             throw new Error('Error al obtener los datos de las aulas');
         }
 
         const datosAulas = await response.json();
+       
         mostrarTablaAulas(datosAulas);
     } catch (error) {
         console.error('Error:', error);
@@ -118,7 +119,8 @@ function mostrarTablaAulas(datos) {
     const tbody = document.createElement('tbody');
     datos.forEach(item => {
         let row = tbody.insertRow();
-        row.className = parseInt(item.horas_semanales) <= 30 ? 'table-success' : 'table-danger'; // Clase verde si <= 30, rojo si no
+        console.log(item,'Entro')
+        row.className = parseInt(item.horas_semanales) <= 30 ? 'table-success' : 'table-danger'; 
 
         Object.values(item).forEach(text => {
             let cell = row.insertCell();
